@@ -102,7 +102,6 @@
 		14F83CC5113723340096DE57 /* homeSettingsH.png in Resources */ = {isa = PBXBuildFile; fileRef = 14F83C64113723340096DE57 /* homeSettingsH.png */; };
 		14F83CC6113723340096DE57 /* homeUsageA.png in Resources */ = {isa = PBXBuildFile; fileRef = 14F83C65113723340096DE57 /* homeUsageA.png */; };
 		14F83CC7113723340096DE57 /* homeUsageH.png in Resources */ = {isa = PBXBuildFile; fileRef = 14F83C66113723340096DE57 /* homeUsageH.png */; };
-		14F83CC8113723340096DE57 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 14F83C67113723340096DE57 /* icon.png */; };
 		14F83CC9113723340096DE57 /* iconPurchased.png in Resources */ = {isa = PBXBuildFile; fileRef = 14F83C68113723340096DE57 /* iconPurchased.png */; };
 		14F83CCA113723340096DE57 /* introDownload.png in Resources */ = {isa = PBXBuildFile; fileRef = 14F83C69113723340096DE57 /* introDownload.png */; };
 		14F83CCB113723340096DE57 /* introImap.png in Resources */ = {isa = PBXBuildFile; fileRef = 14F83C6A113723340096DE57 /* introImap.png */; };
@@ -337,6 +336,8 @@
 		D6543B4416A0811000D6FDE7 /* topShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = D6543ACA16A0811000D6FDE7 /* topShadow.png */; };
 		D6543B4516A0811000D6FDE7 /* topShadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D6543ACB16A0811000D6FDE7 /* topShadow@2x.png */; };
 		D6543B4916A0833C00D6FDE7 /* NSDateFormatter+Safe.m in Sources */ = {isa = PBXBuildFile; fileRef = D6543B4816A0833C00D6FDE7 /* NSDateFormatter+Safe.m */; };
+		D6543B9A16A09E3800D6FDE7 /* Dell_Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D6543B9916A09E3800D6FDE7 /* Dell_Logo.png */; };
+		D6543B9C16A09EF200D6FDE7 /* DMP_Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D6543B9B16A09EF100D6FDE7 /* DMP_Logo.png */; };
 		F83C988F1566DFB40005B167 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83C988E1566DFB40005B167 /* QuartzCore.framework */; };
 		F83C98911566DFBA0005B167 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83C98901566DFBA0005B167 /* StoreKit.framework */; };
 		F83C98931566DFC10005B167 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83C98921566DFC10005B167 /* CoreLocation.framework */; };
@@ -704,7 +705,6 @@
 		14F83C64113723340096DE57 /* homeSettingsH.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = homeSettingsH.png; path = Resources/Artwork/homeSettingsH.png; sourceTree = "<group>"; };
 		14F83C65113723340096DE57 /* homeUsageA.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = homeUsageA.png; path = Resources/Artwork/homeUsageA.png; sourceTree = "<group>"; };
 		14F83C66113723340096DE57 /* homeUsageH.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = homeUsageH.png; path = Resources/Artwork/homeUsageH.png; sourceTree = "<group>"; };
-		14F83C67113723340096DE57 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = Resources/Artwork/icon.png; sourceTree = "<group>"; };
 		14F83C68113723340096DE57 /* iconPurchased.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iconPurchased.png; path = Resources/Artwork/iconPurchased.png; sourceTree = "<group>"; };
 		14F83C69113723340096DE57 /* introDownload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = introDownload.png; path = Resources/Artwork/introDownload.png; sourceTree = "<group>"; };
 		14F83C6A113723340096DE57 /* introImap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = introImap.png; path = Resources/Artwork/introImap.png; sourceTree = "<group>"; };
@@ -995,6 +995,9 @@
 		D6543ACB16A0811000D6FDE7 /* topShadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "topShadow@2x.png"; sourceTree = "<group>"; };
 		D6543B4716A0833C00D6FDE7 /* NSDateFormatter+Safe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+Safe.h"; sourceTree = "<group>"; };
 		D6543B4816A0833C00D6FDE7 /* NSDateFormatter+Safe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+Safe.m"; sourceTree = "<group>"; };
+		D6543B9916A09E3800D6FDE7 /* Dell_Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dell_Logo.png; sourceTree = "<group>"; };
+		D6543B9B16A09EF100D6FDE7 /* DMP_Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DMP_Logo.png; sourceTree = "<group>"; };
+		D6543B9D16A0A03500D6FDE7 /* Dell_Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dell_Logo.png; sourceTree = "<group>"; };
 		F83C988E1566DFB40005B167 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
 		F83C98901566DFBA0005B167 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
 		F83C98921566DFC10005B167 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = DEVELOPER_DIR; };
@@ -1068,6 +1071,9 @@
 		1439C4F11090D928006CE583 /* Artwork */ = {
 			isa = PBXGroup;
 			children = (
+				D6543B9D16A0A03500D6FDE7 /* Dell_Logo.png */,
+				D6543B9B16A09EF100D6FDE7 /* DMP_Logo.png */,
+				D6543B9916A09E3800D6FDE7 /* Dell_Logo.png */,
 				D6543A5116A0811000D6FDE7 /* Metal */,
 				14F8432311372EF30096DE57 /* aboutGabor.jpg */,
 				14F83C28113723340096DE57 /* aboutGoogle.png */,
@@ -1135,7 +1141,6 @@
 				14F83C66113723340096DE57 /* homeUsageH.png */,
 				D6543A2D16A074B200D6FDE7 /* Icon.png */,
 				D6543A2E16A074B200D6FDE7 /* Icon@2x.png */,
-				14F83C67113723340096DE57 /* icon.png */,
 				14F83C68113723340096DE57 /* iconPurchased.png */,
 				14F83C69113723340096DE57 /* introDownload.png */,
 				14F83C6A113723340096DE57 /* introImap.png */,
@@ -1984,7 +1989,6 @@
 				14F83CC5113723340096DE57 /* homeSettingsH.png in Resources */,
 				14F83CC6113723340096DE57 /* homeUsageA.png in Resources */,
 				14F83CC7113723340096DE57 /* homeUsageH.png in Resources */,
-				14F83CC8113723340096DE57 /* icon.png in Resources */,
 				14F83CC9113723340096DE57 /* iconPurchased.png in Resources */,
 				14F83CCA113723340096DE57 /* introDownload.png in Resources */,
 				14F83CCB113723340096DE57 /* introImap.png in Resources */,
@@ -2169,6 +2173,8 @@
 				D6543B4316A0811000D6FDE7 /* toolbarBackgroundLandscape@2x.png in Resources */,
 				D6543B4416A0811000D6FDE7 /* topShadow.png in Resources */,
 				D6543B4516A0811000D6FDE7 /* topShadow@2x.png in Resources */,
+				D6543B9A16A09E3800D6FDE7 /* Dell_Logo.png in Resources */,
+				D6543B9C16A09EF200D6FDE7 /* DMP_Logo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2430,6 +2436,7 @@
 					"\"$(BUILT_PRODUCTS_DIR)/../../three20\"/**",
 				);
 				INFOPLIST_FILE = Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = reMail;
@@ -2456,6 +2463,7 @@
 					"\"$(BUILT_PRODUCTS_DIR)/../../three20\"/**",
 				);
 				INFOPLIST_FILE = Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = reMail;
@@ -2480,6 +2488,7 @@
 					"\"$(BUILT_PRODUCTS_DIR)/../../three20\"/**",
 				);
 				INFOPLIST_FILE = Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = reMail;

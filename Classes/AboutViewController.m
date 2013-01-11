@@ -46,7 +46,7 @@
 
 -(IBAction)moreClick {
 	UIApplication *app = [UIApplication sharedApplication];
-	NSString* urlString = [NSString stringWithFormat:NSLocalizedString(@"http://www.remail.com/a", nil), 
+	NSString* urlString = [NSString stringWithFormat:NSLocalizedString(@"http://www.dell.com", nil), 
 						   (int)[AppSettings reMailEdition]];
 	NSURL* url = [NSURL URLWithString:urlString];
 	if([app canOpenURL:url]) {			
