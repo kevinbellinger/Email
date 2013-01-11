@@ -474,10 +474,11 @@ NSDateFormatter* dateFormatter = nil;
 	// Initialize the toolbar
 	self.navigationController.toolbarHidden = NO;
 
-	UIImageView* titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"remailTextTrans.png"]];
-	self.navigationItem.titleView = titleView;
-	[titleView release];
-	
+//	UIImageView* titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"remailTextTrans.png"]];
+//	self.navigationItem.titleView = titleView;
+//	[titleView release];
+    self.title = NSLocalizedString(@"Dell Email Client", @"Product Name");
+    
 	self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.168 green:0.5 blue:0.741 alpha:1.0];
 	self.navigationController.toolbar.tintColor = [UIColor blackColor]; //[UIColor colorWithRed:0.168 green:0.5 blue:0.741 alpha:1.0];
 	

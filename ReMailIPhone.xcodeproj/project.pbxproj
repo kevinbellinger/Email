@@ -60,7 +60,6 @@
 		14F83C9B113723340096DE57 /* convoPerson9.png in Resources */ = {isa = PBXBuildFile; fileRef = 14F83C3A113723340096DE57 /* convoPerson9.png */; };
 		14F83C9C113723340096DE57 /* copyModeOff.png in Resources */ = {isa = PBXBuildFile; fileRef = 14F83C3B113723340096DE57 /* copyModeOff.png */; };
 		14F83C9D113723340096DE57 /* copyModeOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 14F83C3C113723340096DE57 /* copyModeOn.png */; };
-		14F83C9E113723340096DE57 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 14F83C3D113723340096DE57 /* Default.png */; };
 		14F83C9F113723340096DE57 /* errorBtnBgError.png in Resources */ = {isa = PBXBuildFile; fileRef = 14F83C3E113723340096DE57 /* errorBtnBgError.png */; };
 		14F83CA0113723340096DE57 /* errorDetailLink.png in Resources */ = {isa = PBXBuildFile; fileRef = 14F83C3F113723340096DE57 /* errorDetailLink.png */; };
 		14F83CA1113723340096DE57 /* featureIconRM_IMAP.png in Resources */ = {isa = PBXBuildFile; fileRef = 14F83C40113723340096DE57 /* featureIconRM_IMAP.png */; };
@@ -336,7 +335,6 @@
 		D6543B4416A0811000D6FDE7 /* topShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = D6543ACA16A0811000D6FDE7 /* topShadow.png */; };
 		D6543B4516A0811000D6FDE7 /* topShadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D6543ACB16A0811000D6FDE7 /* topShadow@2x.png */; };
 		D6543B4916A0833C00D6FDE7 /* NSDateFormatter+Safe.m in Sources */ = {isa = PBXBuildFile; fileRef = D6543B4816A0833C00D6FDE7 /* NSDateFormatter+Safe.m */; };
-		D6543B9A16A09E3800D6FDE7 /* Dell_Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D6543B9916A09E3800D6FDE7 /* Dell_Logo.png */; };
 		D6543B9C16A09EF200D6FDE7 /* DMP_Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D6543B9B16A09EF100D6FDE7 /* DMP_Logo.png */; };
 		F83C988F1566DFB40005B167 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83C988E1566DFB40005B167 /* QuartzCore.framework */; };
 		F83C98911566DFBA0005B167 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83C98901566DFBA0005B167 /* StoreKit.framework */; };
@@ -663,7 +661,6 @@
 		14F83C3A113723340096DE57 /* convoPerson9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = convoPerson9.png; path = Resources/Artwork/convoPerson9.png; sourceTree = "<group>"; };
 		14F83C3B113723340096DE57 /* copyModeOff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = copyModeOff.png; path = Resources/Artwork/copyModeOff.png; sourceTree = "<group>"; };
 		14F83C3C113723340096DE57 /* copyModeOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = copyModeOn.png; path = Resources/Artwork/copyModeOn.png; sourceTree = "<group>"; };
-		14F83C3D113723340096DE57 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Resources/Artwork/Default.png; sourceTree = "<group>"; };
 		14F83C3E113723340096DE57 /* errorBtnBgError.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = errorBtnBgError.png; path = Resources/Artwork/errorBtnBgError.png; sourceTree = "<group>"; };
 		14F83C3F113723340096DE57 /* errorDetailLink.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = errorDetailLink.png; path = Resources/Artwork/errorDetailLink.png; sourceTree = "<group>"; };
 		14F83C40113723340096DE57 /* featureIconRM_IMAP.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = featureIconRM_IMAP.png; path = Resources/Artwork/featureIconRM_IMAP.png; sourceTree = "<group>"; };
@@ -995,7 +992,6 @@
 		D6543ACB16A0811000D6FDE7 /* topShadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "topShadow@2x.png"; sourceTree = "<group>"; };
 		D6543B4716A0833C00D6FDE7 /* NSDateFormatter+Safe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+Safe.h"; sourceTree = "<group>"; };
 		D6543B4816A0833C00D6FDE7 /* NSDateFormatter+Safe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+Safe.m"; sourceTree = "<group>"; };
-		D6543B9916A09E3800D6FDE7 /* Dell_Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dell_Logo.png; sourceTree = "<group>"; };
 		D6543B9B16A09EF100D6FDE7 /* DMP_Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DMP_Logo.png; sourceTree = "<group>"; };
 		D6543B9D16A0A03500D6FDE7 /* Dell_Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dell_Logo.png; sourceTree = "<group>"; };
 		F83C988E1566DFB40005B167 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
@@ -1073,7 +1069,6 @@
 			children = (
 				D6543B9D16A0A03500D6FDE7 /* Dell_Logo.png */,
 				D6543B9B16A09EF100D6FDE7 /* DMP_Logo.png */,
-				D6543B9916A09E3800D6FDE7 /* Dell_Logo.png */,
 				D6543A5116A0811000D6FDE7 /* Metal */,
 				14F8432311372EF30096DE57 /* aboutGabor.jpg */,
 				14F83C28113723340096DE57 /* aboutGoogle.png */,
@@ -1097,7 +1092,6 @@
 				14F83C3A113723340096DE57 /* convoPerson9.png */,
 				14F83C3B113723340096DE57 /* copyModeOff.png */,
 				14F83C3C113723340096DE57 /* copyModeOn.png */,
-				14F83C3D113723340096DE57 /* Default.png */,
 				14F83C3E113723340096DE57 /* errorBtnBgError.png */,
 				14F83C3F113723340096DE57 /* errorDetailLink.png */,
 				14F83C40113723340096DE57 /* featureIconRM_IMAP.png */,
@@ -1947,7 +1941,6 @@
 				14F83C9B113723340096DE57 /* convoPerson9.png in Resources */,
 				14F83C9C113723340096DE57 /* copyModeOff.png in Resources */,
 				14F83C9D113723340096DE57 /* copyModeOn.png in Resources */,
-				14F83C9E113723340096DE57 /* Default.png in Resources */,
 				14F83C9F113723340096DE57 /* errorBtnBgError.png in Resources */,
 				14F83CA0113723340096DE57 /* errorDetailLink.png in Resources */,
 				14F83CA1113723340096DE57 /* featureIconRM_IMAP.png in Resources */,
@@ -2173,7 +2166,6 @@
 				D6543B4316A0811000D6FDE7 /* toolbarBackgroundLandscape@2x.png in Resources */,
 				D6543B4416A0811000D6FDE7 /* topShadow.png in Resources */,
 				D6543B4516A0811000D6FDE7 /* topShadow@2x.png in Resources */,
-				D6543B9A16A09E3800D6FDE7 /* Dell_Logo.png in Resources */,
 				D6543B9C16A09EF200D6FDE7 /* DMP_Logo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

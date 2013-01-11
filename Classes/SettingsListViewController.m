@@ -31,6 +31,8 @@
 #import "StoreViewController.h"
 
 #define MULTI_ACCOUNT_LIMIT 10
+#define SUPPORT_EMAIL @"2010.longhorn@gmail.com"
+#define PRODUCT_URL @"http://www.dell.com"
 
 @interface ClearSearchHistoryDelegate : NSObject <UIAlertViewDelegate> {}
 @end
@@ -168,7 +170,7 @@
 			cell.imageView.image = [UIImage imageNamed:@"settingsSupport.png"];
 		} else {
 			cell.textLabel.text = NSLocalizedString(@"About reMail", nil);
-			cell.imageView.image = [UIImage imageNamed:@"settingsAboutRemail.png"];
+			cell.imageView.image = [UIImage imageNamed:@"Icon.png"];
 		}
 	}
 	
@@ -245,17 +247,18 @@
 				NSString* body = [NSString stringWithFormat:@"(Your Feedback here)\n\n\nUDID: %@", [AppSettings udid]];
 				
 				//TODO(you): change this to your support email address
-				[mailCtrl setToRecipients:[NSArray arrayWithObject:@"support@yourcompany.com"]];
+				[mailCtrl setToRecipients:[NSArray arrayWithObject:SUPPORT_EMAIL]];
 				[mailCtrl setMessageBody:body isHTML:NO];
-				[mailCtrl setSubject:@"reMail Feedback"];
+				[mailCtrl setSubject:@"Dell eMail Client Feedback"];
 				
 				[self presentModalViewController:mailCtrl animated:YES];
 				[mailCtrl release];
 			} else {
 				WebViewController* vc = [[WebViewController alloc] init];
-				vc.title = NSLocalizedString(@"Love reMail?",nil);
-				vc.serverUrl = [NSString stringWithFormat:NSLocalizedString(@"http://www.remail.com/app_love_remail?lang=en&edition=%i", nil), 
-								(int)[AppSettings reMailEdition]];
+				vc.title = NSLocalizedString(@"Love the product?",nil);
+//				vc.serverUrl = [NSString stringWithFormat:NSLocalizedString(PRODUCT_URL, nil),
+//								(int)[AppSettings reMailEdition]];
+                vc.serverUrl = PRODUCT_URL;
 				vc.toolbarItems = [self.toolbarItems subarrayWithRange:NSMakeRange(0, 2)];
 				[self.navigationController pushViewController:vc animated:YES];
 				[vc release];
@@ -264,7 +267,7 @@
 		} else {
 			AboutViewController* vc = [[AboutViewController alloc] initWithNibName:@"About" bundle:nil];
 			
-			vc.title = NSLocalizedString(@"About reMail", nil);
+			vc.title = NSLocalizedString(@"About Us", nil);
 			vc.toolbarItems = [self.toolbarItems subarrayWithRange:NSMakeRange(0, 2)];
 			[self.navigationController pushViewController:vc animated:YES];
 			[vc release];

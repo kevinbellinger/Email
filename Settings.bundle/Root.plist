@@ -12,13 +12,13 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>Help reMail</string>
+			<string>Help the Prodcut get better</string>
 		</dict>
 		<dict>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>reMail Signature</string>
+			<string>Dell Email Client  iOS</string>
 			<key>Key</key>
 			<string>promo_preference</string>
 			<key>DefaultValue</key>
@@ -64,7 +64,7 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>Reset reMail</string>
+			<string>Reset the client</string>
 		</dict>
 		<dict>
 			<key>Type</key>
