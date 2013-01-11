@@ -336,6 +336,7 @@
 		D6543B4316A0811000D6FDE7 /* toolbarBackgroundLandscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D6543AC916A0811000D6FDE7 /* toolbarBackgroundLandscape@2x.png */; };
 		D6543B4416A0811000D6FDE7 /* topShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = D6543ACA16A0811000D6FDE7 /* topShadow.png */; };
 		D6543B4516A0811000D6FDE7 /* topShadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D6543ACB16A0811000D6FDE7 /* topShadow@2x.png */; };
+		D6543B4916A0833C00D6FDE7 /* NSDateFormatter+Safe.m in Sources */ = {isa = PBXBuildFile; fileRef = D6543B4816A0833C00D6FDE7 /* NSDateFormatter+Safe.m */; };
 		F83C988F1566DFB40005B167 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83C988E1566DFB40005B167 /* QuartzCore.framework */; };
 		F83C98911566DFBA0005B167 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83C98901566DFBA0005B167 /* StoreKit.framework */; };
 		F83C98931566DFC10005B167 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83C98921566DFC10005B167 /* CoreLocation.framework */; };
@@ -992,6 +993,8 @@
 		D6543AC916A0811000D6FDE7 /* toolbarBackgroundLandscape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "toolbarBackgroundLandscape@2x.png"; sourceTree = "<group>"; };
 		D6543ACA16A0811000D6FDE7 /* topShadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topShadow.png; sourceTree = "<group>"; };
 		D6543ACB16A0811000D6FDE7 /* topShadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "topShadow@2x.png"; sourceTree = "<group>"; };
+		D6543B4716A0833C00D6FDE7 /* NSDateFormatter+Safe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+Safe.h"; sourceTree = "<group>"; };
+		D6543B4816A0833C00D6FDE7 /* NSDateFormatter+Safe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+Safe.m"; sourceTree = "<group>"; };
 		F83C988E1566DFB40005B167 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
 		F83C98901566DFBA0005B167 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
 		F83C98921566DFC10005B167 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = DEVELOPER_DIR; };
@@ -1365,6 +1368,7 @@
 		29B97314FDCFA39411CA2CEA /* NextMailIPhone */ = {
 			isa = PBXGroup;
 			children = (
+				D6543B4616A0828C00D6FDE7 /* Helper */,
 				D6543A3116A07DC800D6FDE7 /* Default-568h@2x.png */,
 				D6543A2B16A0732300D6FDE7 /* Default@2x.png */,
 				D6543A2916A0731900D6FDE7 /* Default.png */,
@@ -1664,6 +1668,16 @@
 			);
 			name = Metal;
 			path = Resources/Artwork/Metal;
+			sourceTree = "<group>";
+		};
+		D6543B4616A0828C00D6FDE7 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				D6543B4716A0833C00D6FDE7 /* NSDateFormatter+Safe.h */,
+				D6543B4816A0833C00D6FDE7 /* NSDateFormatter+Safe.m */,
+			);
+			name = Helper;
+			path = Classes/Helper;
 			sourceTree = "<group>";
 		};
 		F8618DC910DAE4A100C41188 /* Products */ = {
@@ -2228,6 +2242,7 @@
 				D6543A4E16A07FCB00D6FDE7 /* SSMetalTheme.m in Sources */,
 				D6543A4F16A07FCB00D6FDE7 /* SSTheme.m in Sources */,
 				D6543A5016A07FCB00D6FDE7 /* SSTintedTheme.m in Sources */,
+				D6543B4916A0833C00D6FDE7 /* NSDateFormatter+Safe.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
