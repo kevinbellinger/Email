@@ -25,14 +25,14 @@
 #import "StringUtil.h"
 
 @implementation UsageViewController
-@synthesize rankHeader;
-@synthesize rank0;
-@synthesize rank1;
-@synthesize rank2;
-@synthesize rank3;
-@synthesize rank4;	
-@synthesize recommendTitle;
-@synthesize recommendSubtitle;
+//@synthesize rankHeader;
+//@synthesize rank0;
+//@synthesize rank1;
+//@synthesize rank2;
+//@synthesize rank3;
+//@synthesize rank4;	
+//@synthesize recommendTitle;
+//@synthesize recommendSubtitle;
 @synthesize contactData;
 @synthesize lastRowClicked;
 @synthesize tableViewCopy;
@@ -47,14 +47,14 @@
 	[super viewDidUnload];
 	
 	self.contactData = nil;
-	self.rankHeader = nil;
-	self.rank0 = nil;
-	self.rank1 = nil;
-	self.rank2 = nil;
-	self.rank3 = nil;
-	self.rank4 = nil;
-	self.recommendTitle = nil;
-	self.recommendSubtitle = nil;
+//	self.rankHeader = nil;
+//	self.rank0 = nil;
+//	self.rank1 = nil;
+//	self.rank2 = nil;
+//	self.rank3 = nil;
+//	self.rank4 = nil;
+//	self.recommendTitle = nil;
+//	self.recommendSubtitle = nil;
 	self.contactData = nil;
 	self.tableViewCopy = nil;
 }
@@ -99,51 +99,54 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 	
-	self.title = @"Usage";
+	self.title = NSLocalizedString(@"Email", @"Email");
 	
-	NSString* rankName;
-	
-	self.rank0.tag = 0;
-	self.rank1.tag = 25;
-	self.rank2.tag = 50;
-	self.rank3.tag = 75;
-	self.rank4.tag = 100;
-	
-	//TODO(gabor): All this repetition repetition ...
-	if([AppSettings searchCount] < 25) {
-		rankName = @"reMail Newbie";
-	} else if ([AppSettings searchCount] < 50) {
-		rankName = @"reMail Explorer";
-		[self.rank1 setBackgroundImage:[UIImage imageNamed:@"ranksTrophy.png"] forState:UIControlStateNormal];
-		[self.rank1 setBackgroundImage:[UIImage imageNamed:@"ranksNoTHighlight.png"] forState:UIControlStateHighlighted];
-	} else if ([AppSettings searchCount] < 75) {
-		rankName = @"reMail Commander";
-		[self.rank1 setBackgroundImage:[UIImage imageNamed:@"ranksTrophy.png"] forState:UIControlStateNormal];
-		[self.rank1 setBackgroundImage:[UIImage imageNamed:@"ranksNoTHighlight.png"] forState:UIControlStateHighlighted];
-		[self.rank2 setBackgroundImage:[UIImage imageNamed:@"ranksTrophy.png"] forState:UIControlStateNormal];
-		[self.rank2 setBackgroundImage:[UIImage imageNamed:@"ranksNoTHighlight.png"] forState:UIControlStateHighlighted];
-	} else if ([AppSettings searchCount] < 100) {
-		rankName = @"reMail Captain";
-		[self.rank1 setBackgroundImage:[UIImage imageNamed:@"ranksTrophy.png"] forState:UIControlStateNormal];
-		[self.rank1 setBackgroundImage:[UIImage imageNamed:@"ranksNoTHighlight.png"] forState:UIControlStateHighlighted];
-		[self.rank2 setBackgroundImage:[UIImage imageNamed:@"ranksTrophy.png"] forState:UIControlStateNormal];
-		[self.rank2 setBackgroundImage:[UIImage imageNamed:@"ranksNoTHighlight.png"] forState:UIControlStateHighlighted];
-		[self.rank3 setBackgroundImage:[UIImage imageNamed:@"ranksTrophy.png"] forState:UIControlStateNormal];
-		[self.rank3 setBackgroundImage:[UIImage imageNamed:@"ranksNoTHighlight.png"] forState:UIControlStateHighlighted];
-	} else {
-		rankName = @"reMail Superstar";
-		[self.rank1 setBackgroundImage:[UIImage imageNamed:@"ranksTrophy.png"] forState:UIControlStateNormal];
-		[self.rank1 setBackgroundImage:[UIImage imageNamed:@"ranksNoTHighlight.png"] forState:UIControlStateHighlighted];
-		[self.rank2 setBackgroundImage:[UIImage imageNamed:@"ranksTrophy.png"] forState:UIControlStateNormal];
-		[self.rank2 setBackgroundImage:[UIImage imageNamed:@"ranksNoTHighlight.png"] forState:UIControlStateHighlighted];
-		[self.rank3 setBackgroundImage:[UIImage imageNamed:@"ranksTrophy.png"] forState:UIControlStateNormal];
-		[self.rank3 setBackgroundImage:[UIImage imageNamed:@"ranksNoTHighlight.png"] forState:UIControlStateHighlighted];
-		[self.rank4 setBackgroundImage:[UIImage imageNamed:@"ranksTrophy.png"] forState:UIControlStateNormal];
-		[self.rank4 setBackgroundImage:[UIImage imageNamed:@"ranksNoTHighlight.png"] forState:UIControlStateHighlighted];
-	}
-	
-	NSString* rankHeaderText = [NSString stringWithFormat:NSLocalizedString(@"You've searched %i times. You're a %@.", nil), [AppSettings searchCount], rankName];
-	self.rankHeader.text = rankHeaderText;
+//	NSString* rankName;
+//	
+//	self.rank0.tag = 0;
+//	self.rank1.tag = 25;
+//	self.rank2.tag = 50;
+//	self.rank3.tag = 75;
+//	self.rank4.tag = 100;
+//	
+//	//TODO(gabor): All this repetition repetition ...
+//	if([AppSettings searchCount] < 25) {
+//		rankName = @"reMail Newbie";
+//	} else if ([AppSettings searchCount] < 50) {
+//		rankName = @"reMail Explorer";
+//		[self.rank1 setBackgroundImage:[UIImage imageNamed:@"ranksTrophy.png"] forState:UIControlStateNormal];
+//		[self.rank1 setBackgroundImage:[UIImage imageNamed:@"ranksNoTHighlight.png"] forState:UIControlStateHighlighted];
+//	} else if ([AppSettings searchCount] < 75) {
+//		rankName = @"reMail Commander";
+//		[self.rank1 setBackgroundImage:[UIImage imageNamed:@"ranksTrophy.png"] forState:UIControlStateNormal];
+//		[self.rank1 setBackgroundImage:[UIImage imageNamed:@"ranksNoTHighlight.png"] forState:UIControlStateHighlighted];
+//		[self.rank2 setBackgroundImage:[UIImage imageNamed:@"ranksTrophy.png"] forState:UIControlStateNormal];
+//		[self.rank2 setBackgroundImage:[UIImage imageNamed:@"ranksNoTHighlight.png"] forState:UIControlStateHighlighted];
+//	} else if ([AppSettings searchCount] < 100) {
+//		rankName = @"reMail Captain";
+//		[self.rank1 setBackgroundImage:[UIImage imageNamed:@"ranksTrophy.png"] forState:UIControlStateNormal];
+//		[self.rank1 setBackgroundImage:[UIImage imageNamed:@"ranksNoTHighlight.png"] forState:UIControlStateHighlighted];
+//		[self.rank2 setBackgroundImage:[UIImage imageNamed:@"ranksTrophy.png"] forState:UIControlStateNormal];
+//		[self.rank2 setBackgroundImage:[UIImage imageNamed:@"ranksNoTHighlight.png"] forState:UIControlStateHighlighted];
+//		[self.rank3 setBackgroundImage:[UIImage imageNamed:@"ranksTrophy.png"] forState:UIControlStateNormal];
+//		[self.rank3 setBackgroundImage:[UIImage imageNamed:@"ranksNoTHighlight.png"] forState:UIControlStateHighlighted];
+//	} else {
+//		rankName = @"reMail Superstar";
+//		[self.rank1 setBackgroundImage:[UIImage imageNamed:@"ranksTrophy.png"] forState:UIControlStateNormal];
+//		[self.rank1 setBackgroundImage:[UIImage imageNamed:@"ranksNoTHighlight.png"] forState:UIControlStateHighlighted];
+//		[self.rank2 setBackgroundImage:[UIImage imageNamed:@"ranksTrophy.png"] forState:UIControlStateNormal];
+//		[self.rank2 setBackgroundImage:[UIImage imageNamed:@"ranksNoTHighlight.png"] forState:UIControlStateHighlighted];
+//		[self.rank3 setBackgroundImage:[UIImage imageNamed:@"ranksTrophy.png"] forState:UIControlStateNormal];
+//		[self.rank3 setBackgroundImage:[UIImage imageNamed:@"ranksNoTHighlight.png"] forState:UIControlStateHighlighted];
+//		[self.rank4 setBackgroundImage:[UIImage imageNamed:@"ranksTrophy.png"] forState:UIControlStateNormal];
+//		[self.rank4 setBackgroundImage:[UIImage imageNamed:@"ranksNoTHighlight.png"] forState:UIControlStateHighlighted];
+//	}
+//	
+//	NSString* rankHeaderText = [NSString stringWithFormat:NSLocalizedString(@"You've searched %i times. You're a %@.", nil), [AppSettings searchCount], rankName];
+//	self.rankHeader.text = rankHeaderText;
+    
+    //we dont' need those
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -375,16 +378,13 @@
 	[nextOp release];
 }
 
-/*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the specified item to be editable.
     return YES;
 }
-*/
 
 
-/*
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -392,11 +392,10 @@
         // Delete the row from the data source
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
     }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+//    else if (editingStyle == UITableViewCellEditingStyleInsert) {
+//        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+//    }   
 }
-*/
 
 
 /*

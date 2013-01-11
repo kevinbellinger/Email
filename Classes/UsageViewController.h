@@ -22,15 +22,15 @@
 #import <MessageUI/MessageUI.h>
 
 @interface UsageViewController : UITableViewController<UIActionSheetDelegate, MFMailComposeViewControllerDelegate> {
-	IBOutlet UILabel* rankHeader;
-	IBOutlet UIButton* rank0;
-	IBOutlet UIButton* rank1;
-	IBOutlet UIButton* rank2;
-	IBOutlet UIButton* rank3;
-	IBOutlet UIButton* rank4;	
-	
-	IBOutlet UILabel* recommendTitle;
-	IBOutlet UILabel* recommendSubtitle;
+//	IBOutlet UILabel* rankHeader;
+//	IBOutlet UIButton* rank0;
+//	IBOutlet UIButton* rank1;
+//	IBOutlet UIButton* rank2;
+//	IBOutlet UIButton* rank3;
+//	IBOutlet UIButton* rank4;	
+//	
+//	IBOutlet UILabel* recommendTitle;
+//	IBOutlet UILabel* recommendSubtitle;
 	
 	IBOutlet UITableView* tableViewCopy;
 	
@@ -38,14 +38,14 @@
 	int lastRowClicked;
 }
 
-@property (nonatomic,retain) UILabel* rankHeader;
-@property (nonatomic,retain) UIButton* rank0;
-@property (nonatomic,retain) UIButton* rank1;
-@property (nonatomic,retain) UIButton* rank2;
-@property (nonatomic,retain) UIButton* rank3;
-@property (nonatomic,retain) UIButton* rank4;	
-@property (nonatomic,retain) UILabel* recommendTitle;
-@property (nonatomic,retain) UILabel* recommendSubtitle;
+//@property (nonatomic,retain) UILabel* rankHeader;
+//@property (nonatomic,retain) UIButton* rank0;
+//@property (nonatomic,retain) UIButton* rank1;
+//@property (nonatomic,retain) UIButton* rank2;
+//@property (nonatomic,retain) UIButton* rank3;
+//@property (nonatomic,retain) UIButton* rank4;	
+//@property (nonatomic,retain) UILabel* recommendTitle;
+//@property (nonatomic,retain) UILabel* recommendSubtitle;
 @property (nonatomic,retain) NSMutableArray* contactData;
 @property (nonatomic,retain) UITableView* tableViewCopy;
 @property (assign) int lastRowClicked;

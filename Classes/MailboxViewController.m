@@ -32,6 +32,7 @@
 #import "DateUtil.h"
 #import "GlobalDBFunctions.h"
 #import "EmailProcessor.h"
+#import "NSDateFormatter+Safe.h"
 
 @interface TextStyleSheetAllMail : TTDefaultStyleSheet
 @end
@@ -209,8 +210,9 @@ UIImage* imgAttachmentAllMail = nil;
 	NSMutableDictionary* dataCopy = [data mutableCopy];
 	
 	[data release];
-	
-	NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init]; 
+
+	// TODO: make it safe
+	NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
 	[dateFormatter setDateFormat: @"yyyy-MM-dd HH:mm:ss.SSSS"];
 	
 	NSString* dateString = [data objectForKey:@"datetime"];

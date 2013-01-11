@@ -30,6 +30,8 @@
 @synthesize accountFolders;
 @synthesize accountFolderNums;
 
+#define PROMOTION_TEXT @"I sent this email with Dell eMail Client (iOS): http://www.dell.com"
+
 - (void)dealloc {
 	// not sure why but these are failing
 	[accountIndices release];
@@ -222,7 +224,7 @@
 	mailCtrl.mailComposeDelegate = self;
 	
 	if([AppSettings promo]) {
-		NSString* promoLine = NSLocalizedString(@"I sent this email with reMail: http://www.remail.com/s", nil);
+		NSString* promoLine = NSLocalizedString(PROMOTION_TEXT, nil);
 		NSString* body = [NSString stringWithFormat:@"\n\n%@", promoLine];
 		[mailCtrl setMessageBody:body isHTML:NO];
 	}

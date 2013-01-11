@@ -250,7 +250,7 @@
 		NSString* server = GMAIL_SERVER;
 		
 		if([self accountExists:username server:server]) {
-			UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Account Exists",nil) message:NSLocalizedString(@"reMail already has an account for this username/server combination", nil) delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+			UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Account Exists",nil) message:NSLocalizedString(@"You already have an account for this username/server combination", nil) delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
 			[alertView show];
 			[alertView release];
 			return;

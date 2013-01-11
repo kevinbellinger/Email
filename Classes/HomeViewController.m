@@ -20,7 +20,7 @@
 
 #import "HomeViewController.h"
 #import "SyncManager.h"
-#import "MailboxViewController.h"
+//#import "MailboxViewController.h"
 #import "SearchEntryViewController.h"
 #import "ProgressView.h"
 #import "StatusViewController.h"
