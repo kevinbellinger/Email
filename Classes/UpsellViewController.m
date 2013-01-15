@@ -49,13 +49,13 @@
 -(void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	
-	[self.recommendButton setTitle:NSLocalizedString(@"Recommend reMail", nil) forState:UIControlStateNormal];
-	[self.recommendButton setTitle:NSLocalizedString(@"Recommend reMail", nil) forState:UIControlStateSelected];
-	[self.recommendButton setTitle:NSLocalizedString(@"Recommend reMail", nil) forState:UIControlStateHighlighted];
+	[self.recommendButton setTitle:NSLocalizedString(@"Recommend KeyStone", nil) forState:UIControlStateNormal];
+	[self.recommendButton setTitle:NSLocalizedString(@"Recommend KeyStone", nil) forState:UIControlStateSelected];
+	[self.recommendButton setTitle:NSLocalizedString(@"Recommend KeyStone", nil) forState:UIControlStateHighlighted];
 	
-	self.descriptionLabel.text = NSLocalizedString(@"This feature lets you connect multiple Gmail accounts to reMail", nil);
+	self.descriptionLabel.text = NSLocalizedString(@"This feature lets you connect multiple Gmail accounts to KeyStone", nil);
 	self.howToActivateLabel.text = NSLocalizedString(@"How to Activate", nil);
-	self.featureFreeLabel.text = [NSString stringWithFormat:NSLocalizedString(@"You can activate this functionality by recommending reMail to %i of your friends.", nil),
+	self.featureFreeLabel.text = [NSString stringWithFormat:NSLocalizedString(@"You can activate this functionality by recommending KeyStone to %i of your friends.", nil),
 								  self.recommendationsToMake];
 }
 

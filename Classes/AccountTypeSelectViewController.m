@@ -102,7 +102,7 @@ BOOL introShown = NO;
 
 -(IBAction)buyClick {
 	StoreViewController* vc = [[StoreViewController alloc] initWithNibName:@"Store" bundle:nil];
-	vc.title = NSLocalizedString(@"reMail Store", nil);
+	vc.title = NSLocalizedString(@"KeyStone Store", nil);
 	[self.navigationController pushViewController:vc animated:YES];
 	[vc release];
 }

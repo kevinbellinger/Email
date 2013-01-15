@@ -18,10 +18,10 @@
    limitations under the License.
  */
 
-"reMail Search" = "reMail Suche";
+"reMail Search" = "KeyStone Suche";
 
 "This version of reMail only supports Gmail accounts. For other account types, you need to purchase a different edition of reMail." =
- "Diese Version von reMail unterstützt nur Google Mail / Gmail Emailkonten. Die Vollversion von reMail unterstützt auch andere Kontotypen.";
+ "Diese Version von KeyStone unterstützt nur Google Mail / Gmail Emailkonten. Die Vollversion von KeyStone unterstützt auch andere Kontotypen.";
 
 "Validating login ..." = "Prüfe Login ...";
 
@@ -46,7 +46,7 @@
 "All Mail folder unavailable" = "Ordner \'Alle Nachrichten\' nicht verfügbar";
 "Folder: %@" = "Ordner: %";
 "Download All Mail?" = "Alle Mails laden?";
-"reMail can either download all mail from your Gmail account or let you select specific labels to download." = "reMail kann alle Emails von Gmail runterladen, oder Ihnen eine Liste ihrer Labels zum auswählen anzeigen.";
+"reMail can either download all mail from your Gmail account or let you select specific labels to download." = "KeyStone kann alle Emails von Gmail runterladen, oder Ihnen eine Liste ihrer Labels zum auswählen anzeigen.";
 "Select Labels" = "Labels"; // This string needs to be extremely short - it's a button label
 "Get All Mail" = "Alle Mails"; // This string needs to be extremely short - it's a button label
 
@@ -82,7 +82,7 @@
 "Scanning messages in %@" = "Scanne Nachrichten in %@";
 //TODO(you): change this to your support email address
 "Email that caused error:\nSubject: %@\nSender: %@\nDate: %@\nUDID: %@\nSeq/Start/End/Total/New:%i/%i/%i/%i/%i.\n\nWays to fix this:\n1. Try syncing again :-)\n2. Hit Skip button below\n3. Delete this email or move it to a location that isn't downloaded by reMail.\n4. Copy and email error to support@yourcompany.com" =
- "Email mit Fehler:\Betreff: %@\nSender: %@\nDatum: %@\nUDID: %@\nSeq/Start/End/Total/New:%i/%i/%i/%i/%i.\n\nLösungsmöglichkeiten:\n1. Versuchen Sie einfach nochmal zu syncen :-)\n2. Email mit dem Button auf dieser Seite überspringen \n3. Betroffene Email löschen in einen Ordner verschieben, den reMail nicht herunterlädt\n4. Schicken Sie diese Fehlermeldung an support@yourcompany.com";
+ "Email mit Fehler:\Betreff: %@\nSender: %@\nDatum: %@\nUDID: %@\nSeq/Start/End/Total/New:%i/%i/%i/%i/%i.\n\nLösungsmöglichkeiten:\n1. Versuchen Sie einfach nochmal zu syncen :-)\n2. Email mit dem Button auf dieser Seite überspringen \n3. Betroffene Email löschen in einen Ordner verschieben, den KeyStone nicht herunterlädt\n4. Schicken Sie diese Fehlermeldung an support@yourcompany.com";
 
 //TODO(you): change this to your support email address
 "Ways to fix this:\n1. Try syncing again\n2. Copy and email these details for support@yourcompany.com:\n|%i|%@|%@|" = 
@@ -101,7 +101,7 @@
 "Account Type" = "Kontoart";
 
 //FolderSelectView
-"Select folders to download." = "Welche Ordner soll reMail downloaden?";
+"Select folders to download." = "Welche Ordner soll KeyStone downloaden?";
 "Folders" = "Ordner";
 
 //dates
@@ -167,8 +167,8 @@
 "Space available:" = "Freier Speicher";
 
 // new install warning
-"Please re-install reMail" = "Bitte installieren Sie reMail neu";
-"reMail's data format has changed." = "Das Datenformat von reMail hat sich geändert";
+"Please re-install reMail" = "Bitte installieren Sie KeyStone neu";
+"reMail's data format has changed." = "Das Datenformat von KeyStone hat sich geändert";
 
 ///////////
 // settings screen
@@ -201,7 +201,7 @@
 "Username" = "Benutzer";
 "Password" = "Passwort";
 "Connect Interval" = "Verbindungsintervall";
-"reMail Signature in Replies" = "reMail Signatur";
+"reMail Signature in Replies" = "KeyStone Signatur";
 "Promote reMail" = "reMail bewerben";   // hört sich unpassend an. Kommt drauf an, wie lang das sein darf.
 
 
@@ -279,17 +279,17 @@
 "Clear Search History" = "Suchverlauf löschen";
 "Clear Attachment Cache" = "Anhänge löschen";
 "Email Accounts" = "Emailkonten";
-"About" = "reMail";
+"About" = "KeyStone";
 
 //"About reMail"
-"About reMail" = "Mehr über reMail";
+"About reMail" = "Mehr über KeyStone";
 
 //Upsell
 "Multi-Account" = "Multi-Konto Feature";
-"This feature lets you connect multiple Gmail accounts to reMail" = "Mit diesem Feature kann man mehrere Accounts zu reMail hinzufügen.";
+"This feature lets you connect multiple Gmail accounts to reMail" = "Mit diesem Feature kann man mehrere Accounts zu KeyStone hinzufügen.";
 "How to Activate" = "Aktivieren";
-"You can activate this functionality by recommending reMail to %i of your friends." = "Du kannst dieses Feature aktivieren, indem du reMail an %i Freunde weiterempfiehlst.";
-"Recommend reMail" = "reMail weiterempfehlen";
+"You can activate this functionality by recommending reMail to %i of your friends." = "Du kannst dieses Feature aktivieren, indem du KeyStone an %i Freunde weiterempfiehlst.";
+"Recommend reMail" = "KeyStone weiterempfehlen";
 
 //Usage
 "Recommend reMail to Your Friends!" = "Empfehle reMail an Deine Freunde!";
@@ -321,7 +321,7 @@
 "featureNameRM_IMAP" = "IMAP";
 
 // In-App purchases
-"Buy reMail Features" = "Kaufe reMail Features";
+"Buy reMail Features" = "Kaufe KeyStone Features";
 
 "In-App Purchases Disabled" = "In-App-Käufe deaktiviert";
 "You need to enable in-app purchases in Home > Settings > General > Restrictions to buy features" = "Sie müssen In-App-Käufe in Einstellungen > Allgemein > Einschränkungen aktivieren";

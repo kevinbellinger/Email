@@ -228,7 +228,7 @@
 			/// Attachment data
 			ClearAttachmentsDelegate* d = [[ClearAttachmentsDelegate alloc] init];
 			UIAlertView* av = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Clear Attachments?",nil)
-														 message:NSLocalizedString(@"This will delete all attachments downloaded to reMail.", nil) 
+														 message:NSLocalizedString(@"This will delete all attachments downloaded to KeyStone.", nil) 
 														delegate:d cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] autorelease];
 			[av show];
 		}		

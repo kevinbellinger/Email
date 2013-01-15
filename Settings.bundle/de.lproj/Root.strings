@@ -6,9 +6,9 @@
 "Username" = "Benutzer";
 "Password" = "Passwort";
 "Connect Interval" = "Verbindungsintervall";
-"Help us Promote reMail" = "reMail-Signatur in Emails";
+"Help us Promote Dell" = "KeyStone-Signatur in Emails";
 "reMail Signature" = "Signatur einfügen";
-"Help us Improve reMail" = "Diagnose-Infos an reMail schicken";
+"Help us Improve reMail" = "Diagnose-Infos an KeyStone schicken";
 "Send Diagnostics" = "Diagnose-Infos";
 "Search History" = "Suchverlauf";
 "Clear Search History" = "Verlauf löschen";
@@ -18,7 +18,7 @@
 "Delete All Data" = "Alles löschen";
 "Attachment Cache" = "Anhänge löschen";
 "Clear Data" = "Daten löschen";
-"Reset reMail" = "Kompletter Reset von reMail";
+"Reset reMail" = "Kompletter Reset von KeyStone";
 "Limit Download to Last Year" = "Nur neue Emails downloaden";
 "Only last 12 months" = "Nur letzte 12 Monate";
 "Debug: Log all calls" = "Debug: Alles loggen";

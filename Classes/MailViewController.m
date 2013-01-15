@@ -232,7 +232,7 @@
 	[dateFormatter release];
 	
 	if([AppSettings promo]) {
-		NSString* promoLine = NSLocalizedString(@"I found your email with reMail: http://www.remail.com/s", nil);
+		NSString* promoLine = NSLocalizedString(@"I found your email with KeyStone: http://www.remail.com/s", nil);
 		return [NSString stringWithFormat:@"\n\n%@\n\n%@\n%@", promoLine, headerString, quotedBody];
 	} else {
 		return [NSString stringWithFormat:@"\n\n%@\n%@", headerString, quotedBody];
