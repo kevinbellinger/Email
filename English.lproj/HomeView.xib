@@ -124,7 +124,7 @@
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">homeFoldersA.png</string>
 						</object>
-						<object class="IBUIFontDescription" key="IBUIFontDescription" id="107120828">
+						<object class="IBUIFontDescription" key="IBUIFontDescription" id="384442771">
 							<string key="name">Helvetica-Bold</string>
 							<string key="family">Helvetica</string>
 							<int key="traits">2</int>
@@ -200,7 +200,7 @@
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">homeSettingsA.png</string>
 						</object>
-						<reference key="IBUIFontDescription" ref="107120828"/>
+						<reference key="IBUIFontDescription" ref="384442771"/>
 						<reference key="IBUIFont" ref="559195739"/>
 					</object>
 					<object class="IBUIButton" id="595666819">
@@ -223,7 +223,7 @@
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">homeUsageA.png</string>
 						</object>
-						<reference key="IBUIFontDescription" ref="107120828"/>
+						<reference key="IBUIFontDescription" ref="384442771"/>
 						<reference key="IBUIFont" ref="559195739"/>
 					</object>
 				</object>

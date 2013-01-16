@@ -126,7 +126,7 @@
 								<nil key="IBUIHighlightedColor"/>
 								<int key="IBUIBaselineAdjustment">1</int>
 								<float key="IBUIMinimumFontSize">10</float>
-								<object class="IBUIFontDescription" key="IBUIFontDescription" id="921185572">
+								<object class="IBUIFontDescription" key="IBUIFontDescription" id="19832407">
 									<string key="name">Helvetica</string>
 									<string key="family">Helvetica</string>
 									<int key="traits">0</int>
@@ -157,7 +157,7 @@
 								<int key="IBUIBaselineAdjustment">1</int>
 								<float key="IBUIMinimumFontSize">10</float>
 								<int key="IBUITextAlignment">2</int>
-								<reference key="IBUIFontDescription" ref="921185572"/>
+								<reference key="IBUIFontDescription" ref="19832407"/>
 								<reference key="IBUIFont" ref="558455090"/>
 							</object>
 							<object class="IBUILabel" id="757449366">
@@ -174,7 +174,7 @@
 								<nil key="IBUIHighlightedColor"/>
 								<int key="IBUIBaselineAdjustment">1</int>
 								<float key="IBUIMinimumFontSize">12</float>
-								<reference key="IBUIFontDescription" ref="921185572"/>
+								<reference key="IBUIFontDescription" ref="19832407"/>
 								<reference key="IBUIFont" ref="558455090"/>
 							</object>
 							<object class="IBUIButton" id="596671517">
@@ -203,13 +203,13 @@
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MAA</bytes>
 								</object>
-								<object class="IBUIFontDescription" key="IBUIFontDescription" id="78515623">
+								<object class="IBUIFontDescription" key="IBUIFontDescription" id="742812293">
 									<string key="name">Helvetica-Bold</string>
 									<string key="family">Helvetica</string>
 									<int key="traits">2</int>
 									<double key="pointSize">12</double>
 								</object>
-								<object class="NSFont" key="IBUIFont" id="662261024">
+								<object class="NSFont" key="IBUIFont" id="371420512">
 									<string key="NSName">Helvetica-Bold</string>
 									<double key="NSSize">12</double>
 									<int key="NSfFlags">16</int>
@@ -235,8 +235,8 @@
 									<bytes key="NSRGB">MC4xOTYwNzg0MyAwLjMwOTgwMzkzIDAuNTIxNTY4NjYAA</bytes>
 								</object>
 								<reference key="IBUINormalTitleShadowColor" ref="256689762"/>
-								<reference key="IBUIFontDescription" ref="78515623"/>
-								<reference key="IBUIFont" ref="662261024"/>
+								<reference key="IBUIFontDescription" ref="742812293"/>
+								<reference key="IBUIFont" ref="371420512"/>
 							</object>
 						</object>
 						<string key="NSFrameSize">{320, 1001}</string>

@@ -21,10 +21,16 @@
 #import "AboutViewController.h"
 #import "AppSettings.h"
 
+#define ABOUT_URL @"http://www.dell.com"
+
+
 @implementation AboutViewController
 
 -(void)viewDidAppear:(BOOL)animated {
+    
 	[super viewDidAppear:animated];
+    
+    self.title = NSLocalizedString(@"About Keystone", @"About Keystone");
 }
 
 - (void)didReceiveMemoryWarning {
@@ -44,9 +50,10 @@
     [super dealloc];
 }
 
+
 -(IBAction)moreClick {
 	UIApplication *app = [UIApplication sharedApplication];
-	NSString* urlString = [NSString stringWithFormat:NSLocalizedString(@"http://www.remail.com/a", nil), 
+	NSString* urlString = [NSString stringWithFormat:NSLocalizedString(ABOUT_URL, nil),
 						   (int)[AppSettings reMailEdition]];
 	NSURL* url = [NSURL URLWithString:urlString];
 	if([app canOpenURL:url]) {			

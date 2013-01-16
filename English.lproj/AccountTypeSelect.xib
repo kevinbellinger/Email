@@ -76,7 +76,7 @@
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">1</int>
 						<float key="IBUIMinimumFontSize">10</float>
-						<object class="IBUIFontDescription" key="IBUIFontDescription" id="1012874723">
+						<object class="IBUIFontDescription" key="IBUIFontDescription" id="914061590">
 							<string key="name">Helvetica-Bold</string>
 							<string key="family">Helvetica</string>
 							<int key="traits">2</int>
@@ -119,7 +119,7 @@
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">accountTypeIconGmail.png</string>
 						</object>
-						<object class="IBUIFontDescription" key="IBUIFontDescription" id="859796408">
+						<object class="IBUIFontDescription" key="IBUIFontDescription" id="375282184">
 							<string key="name">Helvetica-Bold</string>
 							<string key="family">Helvetica</string>
 							<int key="traits">2</int>
@@ -152,7 +152,7 @@
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">accountTypeIconImap.png</string>
 						</object>
-						<reference key="IBUIFontDescription" ref="859796408"/>
+						<reference key="IBUIFontDescription" ref="375282184"/>
 						<reference key="IBUIFont" ref="894753466"/>
 					</object>
 					<object class="IBUIButton" id="52940351">
@@ -181,7 +181,7 @@
 							<string key="NSResourceName">settingsStoreIcon.png</string>
 						</object>
 						<reference key="IBUINormalImage" ref="166145005"/>
-						<reference key="IBUIFontDescription" ref="1012874723"/>
+						<reference key="IBUIFontDescription" ref="914061590"/>
 						<reference key="IBUIFont" ref="104917782"/>
 					</object>
 					<object class="IBUILabel" id="19154777">
@@ -202,7 +202,7 @@
 						<int key="IBUIBaselineAdjustment">1</int>
 						<float key="IBUIMinimumFontSize">10</float>
 						<int key="IBUINumberOfLines">3</int>
-						<object class="IBUIFontDescription" key="IBUIFontDescription" id="174006151">
+						<object class="IBUIFontDescription" key="IBUIFontDescription" id="477745656">
 							<string key="name">Helvetica</string>
 							<string key="family">Helvetica</string>
 							<int key="traits">0</int>
@@ -230,7 +230,7 @@
 						<int key="IBUIBaselineAdjustment">1</int>
 						<float key="IBUIMinimumFontSize">10</float>
 						<int key="IBUINumberOfLines">6</int>
-						<reference key="IBUIFontDescription" ref="174006151"/>
+						<reference key="IBUIFontDescription" ref="477745656"/>
 						<reference key="IBUIFont" ref="53836960"/>
 						<double key="preferredMaxLayoutWidth">263</double>
 					</object>
@@ -256,7 +256,7 @@
 							<string key="NSResourceName">accountTypeIconRackspace.png</string>
 						</object>
 						<reference key="IBUINormalImage" ref="1005459837"/>
-						<reference key="IBUIFontDescription" ref="859796408"/>
+						<reference key="IBUIFontDescription" ref="375282184"/>
 						<reference key="IBUIFont" ref="894753466"/>
 					</object>
 					<object class="IBUILabel" id="836981466">
@@ -274,7 +274,7 @@
 						<int key="IBUIBaselineAdjustment">1</int>
 						<float key="IBUIMinimumFontSize">10</float>
 						<int key="IBUINumberOfLines">6</int>
-						<reference key="IBUIFontDescription" ref="174006151"/>
+						<reference key="IBUIFontDescription" ref="477745656"/>
 						<reference key="IBUIFont" ref="53836960"/>
 						<double key="preferredMaxLayoutWidth">267</double>
 					</object>

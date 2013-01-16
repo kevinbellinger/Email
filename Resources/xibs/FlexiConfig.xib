@@ -86,7 +86,7 @@
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MAA</bytes>
 								</object>
-								<object class="IBUIFontDescription" key="IBUIFontDescription" id="538780406">
+								<object class="IBUIFontDescription" key="IBUIFontDescription" id="196830054">
 									<string key="name">Helvetica</string>
 									<string key="family">Helvetica</string>
 									<int key="traits">0</int>
@@ -169,7 +169,7 @@
 									<bool key="IBUISecureTextEntry">YES</bool>
 									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								</object>
-								<object class="IBUIFontDescription" key="IBUIFontDescription" id="138160810">
+								<object class="IBUIFontDescription" key="IBUIFontDescription" id="1073210278">
 									<string key="name">Helvetica</string>
 									<string key="family">Helvetica</string>
 									<int key="traits">0</int>
@@ -205,7 +205,7 @@
 									<int key="IBUIReturnKeyType">4</int>
 									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								</object>
-								<reference key="IBUIFontDescription" ref="138160810"/>
+								<reference key="IBUIFontDescription" ref="1073210278"/>
 								<reference key="IBUIFont" ref="406141708"/>
 							</object>
 							<object class="IBUILabel" id="277146214">
@@ -225,7 +225,7 @@
 								<nil key="IBUIHighlightedColor"/>
 								<int key="IBUIBaselineAdjustment">1</int>
 								<float key="IBUIMinimumFontSize">10</float>
-								<reference key="IBUIFontDescription" ref="538780406"/>
+								<reference key="IBUIFontDescription" ref="196830054"/>
 								<reference key="IBUIFont" ref="955400997"/>
 							</object>
 							<object class="IBUILabel" id="219287368">
@@ -245,7 +245,7 @@
 								<nil key="IBUIHighlightedColor"/>
 								<int key="IBUIBaselineAdjustment">1</int>
 								<float key="IBUIMinimumFontSize">10</float>
-								<reference key="IBUIFontDescription" ref="538780406"/>
+								<reference key="IBUIFontDescription" ref="196830054"/>
 								<reference key="IBUIFont" ref="955400997"/>
 							</object>
 							<object class="IBUILabel" id="82588011">
@@ -266,7 +266,7 @@
 								<nil key="IBUIHighlightedColor"/>
 								<int key="IBUIBaselineAdjustment">0</int>
 								<float key="IBUIMinimumFontSize">10</float>
-								<reference key="IBUIFontDescription" ref="538780406"/>
+								<reference key="IBUIFontDescription" ref="196830054"/>
 								<reference key="IBUIFont" ref="955400997"/>
 							</object>
 						</object>

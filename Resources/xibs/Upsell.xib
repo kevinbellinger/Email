@@ -74,7 +74,7 @@
 						<int key="IBUIBaselineAdjustment">1</int>
 						<float key="IBUIMinimumFontSize">10</float>
 						<int key="IBUINumberOfLines">4</int>
-						<object class="IBUIFontDescription" key="IBUIFontDescription" id="905707414">
+						<object class="IBUIFontDescription" key="IBUIFontDescription" id="479719272">
 							<string key="name">Helvetica</string>
 							<string key="family">Helvetica</string>
 							<int key="traits">0</int>
@@ -130,7 +130,7 @@
 						<int key="IBUIBaselineAdjustment">1</int>
 						<float key="IBUIMinimumFontSize">10</float>
 						<int key="IBUINumberOfLines">4</int>
-						<reference key="IBUIFontDescription" ref="905707414"/>
+						<reference key="IBUIFontDescription" ref="479719272"/>
 						<reference key="IBUIFont" ref="428936746"/>
 						<double key="preferredMaxLayoutWidth">280</double>
 					</object>
