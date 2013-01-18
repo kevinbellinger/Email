@@ -33,74 +33,74 @@
 #import "FolderListViewController.h"
 #import "UsageViewController.h"
 
-@interface RemailStyleSheet : TTDefaultStyleSheet
-@end
-
-@implementation RemailStyleSheet
-
-- (TTStyle*)blueRoundButton:(UIControlState)state {
-	return
-    [self toolbarButtonForState:state
-						  shape:[TTRoundedRectangleShape shapeWithRadius:TT_ROUNDED]
-					  tintColor:RGBCOLOR(43, 127, 189)
-						   font:nil];
-}
-
-- (TTStyle*)lightRedRoundButton:(UIControlState)state {
-	return
-    [self toolbarButtonForState:state
-						  shape:[TTRoundedRectangleShape shapeWithRadius:TT_ROUNDED]
-					  tintColor:RGBCOLOR(255, 164, 164)
-						   font:nil];
-}
-
-- (TTStyle*)redRoundButton:(UIControlState)state {
-	return
-    [self toolbarButtonForState:state
-						  shape:[TTRoundedRectangleShape shapeWithRadius:TT_ROUNDED]
-					  tintColor:RGBCOLOR(235, 124, 124)
-						   font:nil];
-}
-
-- (TTStyle*)whiteRoundButton:(UIControlState)state {
-	return
-    [self toolbarButtonForState:state
-						  shape:[TTRoundedRectangleShape shapeWithRadius:TT_ROUNDED]
-					  tintColor:RGBCOLOR(200, 200, 200)
-						   font:nil];
-}
-
-- (TTStyle*)greyRoundButton:(UIControlState)state {
-	return
-    [self toolbarButtonForState:state
-						  shape:[TTRoundedRectangleShape shapeWithRadius:TT_ROUNDED]
-					  tintColor:RGBCOLOR(110, 110, 110)
-						   font:nil];
-}
-
-- (TTStyle*)plain {
-	return [TTContentStyle styleWithNext:nil];
-}
-
-- (TTStyle*)redBox {
-	return 
-    [TTShapeStyle styleWithShape:[TTRectangleShape shape] next:
-	 [TTInsetStyle styleWithInset:UIEdgeInsetsMake(-1, -1, -1, -1) next:
-	  [TTSolidFillStyle styleWithColor:[UIColor colorWithRed:0.95 green:0.5 blue:0.5 alpha:1.0] next:nil]]];
-}
-
-- (TTStyle*)yellowBox {
-	return 
-    [TTShapeStyle styleWithShape:[TTRectangleShape shape] next:
-	 [TTSolidFillStyle styleWithColor:[UIColor colorWithRed:0.933 green:0.949 blue:0.501 alpha:1.0] next:nil]];
-}
-
-- (TTStyle*)greenBox {
-	return 
-    [TTShapeStyle styleWithShape:[TTRectangleShape shape] next:
-	 [TTSolidFillStyle styleWithColor:[UIColor colorWithRed:0.533 green:0.949 blue:0.501 alpha:1.0] next:nil]];
-}
-@end
+//@interface RemailStyleSheet : TTDefaultStyleSheet
+//@end
+//
+//@implementation RemailStyleSheet
+//
+//- (TTStyle*)blueRoundButton:(UIControlState)state {
+//	return
+//    [self toolbarButtonForState:state
+//						  shape:[TTRoundedRectangleShape shapeWithRadius:TT_ROUNDED]
+//					  tintColor:RGBCOLOR(43, 127, 189)
+//						   font:nil];
+//}
+//
+//- (TTStyle*)lightRedRoundButton:(UIControlState)state {
+//	return
+//    [self toolbarButtonForState:state
+//						  shape:[TTRoundedRectangleShape shapeWithRadius:TT_ROUNDED]
+//					  tintColor:RGBCOLOR(255, 164, 164)
+//						   font:nil];
+//}
+//
+//- (TTStyle*)redRoundButton:(UIControlState)state {
+//	return
+//    [self toolbarButtonForState:state
+//						  shape:[TTRoundedRectangleShape shapeWithRadius:TT_ROUNDED]
+//					  tintColor:RGBCOLOR(235, 124, 124)
+//						   font:nil];
+//}
+//
+//- (TTStyle*)whiteRoundButton:(UIControlState)state {
+//	return
+//    [self toolbarButtonForState:state
+//						  shape:[TTRoundedRectangleShape shapeWithRadius:TT_ROUNDED]
+//					  tintColor:RGBCOLOR(200, 200, 200)
+//						   font:nil];
+//}
+//
+//- (TTStyle*)greyRoundButton:(UIControlState)state {
+//	return
+//    [self toolbarButtonForState:state
+//						  shape:[TTRoundedRectangleShape shapeWithRadius:TT_ROUNDED]
+//					  tintColor:RGBCOLOR(110, 110, 110)
+//						   font:nil];
+//}
+//
+//- (TTStyle*)plain {
+//	return [TTContentStyle styleWithNext:nil];
+//}
+//
+//- (TTStyle*)redBox {
+//	return 
+//    [TTShapeStyle styleWithShape:[TTRectangleShape shape] next:
+//	 [TTInsetStyle styleWithInset:UIEdgeInsetsMake(-1, -1, -1, -1) next:
+//	  [TTSolidFillStyle styleWithColor:[UIColor colorWithRed:0.95 green:0.5 blue:0.5 alpha:1.0] next:nil]]];
+//}
+//
+//- (TTStyle*)yellowBox {
+//	return 
+//    [TTShapeStyle styleWithShape:[TTRectangleShape shape] next:
+//	 [TTSolidFillStyle styleWithColor:[UIColor colorWithRed:0.933 green:0.949 blue:0.501 alpha:1.0] next:nil]];
+//}
+//
+//- (TTStyle*)greenBox {
+//	return 
+//    [TTShapeStyle styleWithShape:[TTRectangleShape shape] next:
+//	 [TTSolidFillStyle styleWithColor:[UIColor colorWithRed:0.533 green:0.949 blue:0.501 alpha:1.0] next:nil]];
+//}
+//@end
 
 @implementation HomeViewController
 
@@ -465,7 +465,7 @@ NSDateFormatter* dateFormatter = nil;
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	[TTStyleSheet setGlobalStyleSheet:[[[RemailStyleSheet alloc] init] autorelease]];
+//	[TTStyleSheet setGlobalStyleSheet:[[[RemailStyleSheet alloc] init] autorelease]];
 	
 	TTNavigator* nav = [TTNavigator navigator];
 	nav.window = self.view.window;
@@ -509,6 +509,7 @@ NSDateFormatter* dateFormatter = nil;
 	[clientMessageButton setHidden:YES];
 	clientMessage = nil;
 	
+    //
 	dateFormatter = [[NSDateFormatter alloc] init];
 	[dateFormatter setDateStyle:NSDateFormatterNoStyle];
 	[dateFormatter setTimeStyle:NSDateFormatterShortStyle];

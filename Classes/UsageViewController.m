@@ -67,34 +67,34 @@
     return self;
 }
 
--(IBAction)rankClicked:(UIView*)sender {
-	NSString* rankName = @"";
-	int searched = sender.tag;
-	
-	switch (searched) {
-		case 0:
-			rankName = @"reMail Newbie";
-			break;
-		case 25:
-			rankName = @"reMail Explorer";
-			break;
-		case 50:
-			rankName = @"reMail Commander";
-			break;
-		case 75:
-			rankName = @"reMail Captain";
-			break;
-		case 100:
-			rankName = @"reMail Superstar";
-			break;
-	}
-	
-	NSString* blah = [NSString stringWithFormat:NSLocalizedString(@"You need to search %i times to be a %@", nil), searched, rankName];
-	
-	UIAlertView* as = [[UIAlertView alloc] initWithTitle:rankName message:blah delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-	[as show];
-	[as release];
-}
+//-(IBAction)rankClicked:(UIView*)sender {
+//	NSString* rankName = @"";
+//	int searched = sender.tag;
+//	
+//	switch (searched) {
+//		case 0:
+//			rankName = @"reMail Newbie";
+//			break;
+//		case 25:
+//			rankName = @"reMail Explorer";
+//			break;
+//		case 50:
+//			rankName = @"reMail Commander";
+//			break;
+//		case 75:
+//			rankName = @"reMail Captain";
+//			break;
+//		case 100:
+//			rankName = @"reMail Superstar";
+//			break;
+//	}
+//	
+//	NSString* blah = [NSString stringWithFormat:NSLocalizedString(@"You need to search %i times to be a %@", nil), searched, rankName];
+//	
+//	UIAlertView* as = [[UIAlertView alloc] initWithTitle:rankName message:blah delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//	[as show];
+//	[as release];
+//}
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];

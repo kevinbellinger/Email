@@ -213,6 +213,7 @@
 		D69395BA16A7499600B7CA12 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D69395B916A7499600B7CA12 /* Icon@2x.png */; };
 		D69395BC16A749A100B7CA12 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D69395BB16A749A100B7CA12 /* Default.png */; };
 		D69395BE16A749C000B7CA12 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D69395BD16A749C000B7CA12 /* Default@2x.png */; };
+		D6A08F3116A9D8C90074B7C5 /* HomeView_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6A08F3016A9D8C90074B7C5 /* HomeView_iPad.xib */; };
 		F83C988F1566DFB40005B167 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83C988E1566DFB40005B167 /* QuartzCore.framework */; };
 		F83C98911566DFBA0005B167 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83C98901566DFBA0005B167 /* StoreKit.framework */; };
 		F83C98931566DFC10005B167 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83C98921566DFC10005B167 /* CoreLocation.framework */; };
@@ -742,6 +743,7 @@
 		D69395B916A7499600B7CA12 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		D69395BB16A749A100B7CA12 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		D69395BD16A749C000B7CA12 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		D6A08F3016A9D8C90074B7C5 /* HomeView_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HomeView_iPad.xib; path = Resources/xibs/HomeView_iPad.xib; sourceTree = "<group>"; };
 		F83C988E1566DFB40005B167 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
 		F83C98901566DFBA0005B167 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
 		F83C98921566DFC10005B167 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = DEVELOPER_DIR; };
@@ -947,6 +949,7 @@
 				14CEB03E1010994D00025F41 /* AccountTypeSelect.xib */,
 				14CEB0431010997400025F41 /* GmailConfig.xib */,
 				14CEB0461010998400025F41 /* HomeView.xib */,
+				D6A08F3016A9D8C90074B7C5 /* HomeView_iPad.xib */,
 				14CEB0491010999200025F41 /* ImapConfig.xib */,
 				14CEB04C101099A200025F41 /* Intro.xib */,
 				14CEB04F101099AE00025F41 /* SearchEntryView.xib */,
@@ -1650,6 +1653,7 @@
 				D69395BA16A7499600B7CA12 /* Icon@2x.png in Resources */,
 				D69395BC16A749A100B7CA12 /* Default.png in Resources */,
 				D69395BE16A749C000B7CA12 /* Default@2x.png in Resources */,
+				D6A08F3116A9D8C90074B7C5 /* HomeView_iPad.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

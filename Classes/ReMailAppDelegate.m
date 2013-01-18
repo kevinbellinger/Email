@@ -60,52 +60,52 @@
 	[AppSettings setFeaturePurchased:@"RM_RACKSPACE"];
 }
 
--(void)pingHomeThread {
-	// ping home to www.remail.com - this is for user # tracking only and does not send any
-	// personally identifiable or usage information
-	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-	
-	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];      
-	
-	NSString* model = [[AppSettings model] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-	model = [model stringByReplacingOccurrencesOfString:@"?" withString:@"%3F"];
-	model = [model stringByReplacingOccurrencesOfString:@"&" withString:@"%26"];
-	
-	int edition = (int)[AppSettings reMailEdition];
-		
-	NSString *encodedPostString = [NSString stringWithFormat:@"umd=%@&m=%@&v=%@&sv=%@&e=%i", md5([AppSettings udid]), model, [AppSettings version], [AppSettings systemVersion], edition];
-	
-	NSLog(@"pingRemail: %@", encodedPostString);
-	
-	NSData *postData = [encodedPostString dataUsingEncoding:NSUTF8StringEncoding];
-	
-	[request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.remail.com/ping"]]];
-	[request setHTTPMethod:@"POST"];
-	
-	[request setValue:@"application/x-www-form-urlencoded;charset=UTF-8" forHTTPHeaderField:@"content-type"];
-	[request setHTTPBody:postData];	
-	
-	// Execute HTTP call
-	NSHTTPURLResponse *response;
-	NSError *error;
-	NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-	
-	if((!error) && ([(NSHTTPURLResponse *)response statusCode] == 200) && ([responseData length] > 0)) {
-		[AppSettings setPinged];
-	} else {
-		NSLog(@"Invalid ping response %i", [(NSHTTPURLResponse *)response statusCode]);
-	}
-	
-	[request release];
-	
-	[pool release];	
-}
-
--(void)pingHome {
-	NSThread *driverThread = [[NSThread alloc] initWithTarget:self selector:@selector(pingHomeThread) object:nil];
-	[driverThread start];
-	[driverThread release];
-}
+//-(void)pingHomeThread {
+//	// ping home to www.remail.com - this is for user # tracking only and does not send any
+//	// personally identifiable or usage information
+//	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+//	
+//	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];      
+//	
+//	NSString* model = [[AppSettings model] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//	model = [model stringByReplacingOccurrencesOfString:@"?" withString:@"%3F"];
+//	model = [model stringByReplacingOccurrencesOfString:@"&" withString:@"%26"];
+//	
+//	int edition = (int)[AppSettings reMailEdition];
+//		
+//	NSString *encodedPostString = [NSString stringWithFormat:@"umd=%@&m=%@&v=%@&sv=%@&e=%i", md5([AppSettings udid]), model, [AppSettings version], [AppSettings systemVersion], edition];
+//	
+//	NSLog(@"pingRemail: %@", encodedPostString);
+//	
+//	NSData *postData = [encodedPostString dataUsingEncoding:NSUTF8StringEncoding];
+//	
+//	[request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.remail.com/ping"]]];
+//	[request setHTTPMethod:@"POST"];
+//	
+//	[request setValue:@"application/x-www-form-urlencoded;charset=UTF-8" forHTTPHeaderField:@"content-type"];
+//	[request setHTTPBody:postData];	
+//	
+//	// Execute HTTP call
+//	NSHTTPURLResponse *response;
+//	NSError *error;
+//	NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+//	
+//	if((!error) && ([(NSHTTPURLResponse *)response statusCode] == 200) && ([responseData length] > 0)) {
+//		[AppSettings setPinged];
+//	} else {
+//		NSLog(@"Invalid ping response %i", [(NSHTTPURLResponse *)response statusCode]);
+//	}
+//	
+//	[request release];
+//	
+//	[pool release];	
+//}
+//
+//-(void)pingHome {
+//	NSThread *driverThread = [[NSThread alloc] initWithTarget:self selector:@selector(pingHomeThread) object:nil];
+//	[driverThread start];
+//	[driverThread release];
+//}
 
 -(void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
 	NSLog(@"Failed push registration with error: %@", error);
@@ -182,6 +182,8 @@
 		
 		//Need to set up first account
 		AccountTypeSelectViewController* accountTypeVC;
+        
+        //TODO: Handle iPad
 		accountTypeVC = [[AccountTypeSelectViewController alloc] initWithNibName:@"AccountTypeSelect" bundle:nil];
 		
 		accountTypeVC.firstSetup = YES;
@@ -193,6 +195,7 @@
 		[accountTypeVC release];
 	} else {
 		// already set up - let's go to the home screen
+        //TODO : Handle iPad
 		HomeViewController *homeController = [[HomeViewController alloc] initWithNibName:@"HomeView" bundle:nil];
 		UINavigationController* navController = [[UINavigationController alloc] initWithRootViewController:homeController];
 		navController.navigationBarHidden = NO;
