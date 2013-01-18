@@ -23,12 +23,14 @@
 #import "DateUtil.h"
 #import "SyncManager.h"
 #import "SearchRunner.h"
-#import "NSString+SBJSON.h"
+//#import "NSString+SBJSON.h"
 #import "AppSettings.h"
 #import "AttachmentViewController.h"
 #import "AttachmentDownloader.h"
 #import "BuchheitTimer.h"
 #import "EmailProcessor.h"
+
+#define PROMO_STR @"I found your email with Keystone: http://www.dell.com"
 
 @interface MailViewController (Private)
 
@@ -232,7 +234,7 @@
 	[dateFormatter release];
 	
 	if([AppSettings promo]) {
-		NSString* promoLine = NSLocalizedString(@"I found your email with reMail: http://www.remail.com/s", nil);
+		NSString* promoLine = NSLocalizedString(PROMO_STR, nil);
 		return [NSString stringWithFormat:@"\n\n%@\n\n%@\n%@", promoLine, headerString, quotedBody];
 	} else {
 		return [NSString stringWithFormat:@"\n\n%@\n%@", headerString, quotedBody];

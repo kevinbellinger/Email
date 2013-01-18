@@ -31,34 +31,36 @@
 @synthesize newAccount;
 @synthesize accountNum;
 @synthesize firstSetup;
-
-@synthesize rackspaceLabel;
-@synthesize rackspaceButton;
 @synthesize imapLabel;
 @synthesize imapButton;
-@synthesize buyButton;
+
+//@synthesize rackspaceLabel;
+//@synthesize rackspaceButton;
+//@synthesize buyButton;
 
 BOOL introShown = NO;
 
 - (void)dealloc {
     [super dealloc];
 	
-	[rackspaceLabel release];
-	[rackspaceButton release];
-	[imapLabel release];
+    [imapLabel release];
 	[imapButton release];
 	
-	[buyButton release];
+//	[rackspaceLabel release];
+//	[rackspaceButton release];
+//	
+//	[buyButton release];
 }
 
 
 - (void)viewDidUnload {
 	[super viewDidUnload];
-	self.rackspaceLabel = nil;
-	self.rackspaceButton = nil;
 	self.imapLabel = nil;
 	self.imapButton = nil;
-	self.buyButton = nil;
+    
+//    self.rackspaceLabel = nil;
+//	self.rackspaceButton = nil;
+//	self.buyButton = nil;
 }
 
 
@@ -72,22 +74,22 @@ BOOL introShown = NO;
 	[vc release];
 }
 
--(IBAction)rackspaceClicked {
-	FlexiConfigViewController* vc = [[FlexiConfigViewController alloc] initWithNibName:@"FlexiConfig" bundle:nil];
-	vc.firstSetup = self.firstSetup;
-	vc.accountNum = self.accountNum;
-	vc.newAccount = YES;
-	vc.title = NSLocalizedString(@"Rackspace", nil);
-	vc.usernamePromptText = NSLocalizedString(@"Rackspace email address:", nil);
-	
-	vc.server = @"secure.emailsrvr.com";
-	vc.port = 993;
-	vc.authType = IMAP_AUTH_TYPE_PLAIN;
-	vc.encryption = CONNECTION_TYPE_TLS;
-	
-	[self.navigationController pushViewController:vc animated:YES];
-	[vc release];
-}
+//-(IBAction)rackspaceClicked {
+//	FlexiConfigViewController* vc = [[FlexiConfigViewController alloc] initWithNibName:@"FlexiConfig" bundle:nil];
+//	vc.firstSetup = self.firstSetup;
+//	vc.accountNum = self.accountNum;
+//	vc.newAccount = YES;
+//	vc.title = NSLocalizedString(@"Rackspace", nil);
+//	vc.usernamePromptText = NSLocalizedString(@"Rackspace email address:", nil);
+//	
+//	vc.server = @"secure.emailsrvr.com";
+//	vc.port = 993;
+//	vc.authType = IMAP_AUTH_TYPE_PLAIN;
+//	vc.encryption = CONNECTION_TYPE_TLS;
+//	
+//	[self.navigationController pushViewController:vc animated:YES];
+//	[vc release];
+//}
 
 -(IBAction)imapClicked {
 	ImapConfigViewController* vc = [[ImapConfigViewController alloc] initWithNibName:@"ImapConfig" bundle:nil];
@@ -100,12 +102,12 @@ BOOL introShown = NO;
 	
 }
 
--(IBAction)buyClick {
-	StoreViewController* vc = [[StoreViewController alloc] initWithNibName:@"Store" bundle:nil];
-	vc.title = NSLocalizedString(@"reMail Store", nil);
-	[self.navigationController pushViewController:vc animated:YES];
-	[vc release];
-}
+//-(IBAction)buyClick {
+//	StoreViewController* vc = [[StoreViewController alloc] initWithNibName:@"Store" bundle:nil];
+//	vc.title = NSLocalizedString(@"reMail Store", nil);
+//	[self.navigationController pushViewController:vc animated:YES];
+//	[vc release];
+//}
 
 -(void)dismissIntro {
 	[self dismissModalViewControllerAnimated:YES];
@@ -130,13 +132,13 @@ BOOL introShown = NO;
 	[super viewWillAppear:animated];
 	
 	// This is what pay us not to do :-)
-	if(![AppSettings featurePurchased:@"RM_RACKSPACE"]) {
-		[self.rackspaceLabel setHidden:YES];
-		[self.rackspaceButton setHidden:YES];
-	} else {
-		[self.rackspaceLabel setHidden:NO];
-		[self.rackspaceButton setHidden:NO];
-	}
+//	if(![AppSettings featurePurchased:@"RM_RACKSPACE"]) {
+//		[self.rackspaceLabel setHidden:YES];
+//		[self.rackspaceButton setHidden:YES];
+//	} else {
+//		[self.rackspaceLabel setHidden:NO];
+//		[self.rackspaceButton setHidden:NO];
+//	}
 
 	if(![AppSettings featurePurchased:@"RM_IMAP"]) {
 		[self.imapLabel setHidden:YES];
@@ -145,7 +147,7 @@ BOOL introShown = NO;
 		[self.imapLabel setHidden:NO];
 		[self.imapButton setHidden:NO];
 		
-		[self.buyButton setHidden:YES];
+//		[self.buyButton setHidden:YES];
 	}
 	
 	[self.navigationController setToolbarHidden:YES animated:animated];

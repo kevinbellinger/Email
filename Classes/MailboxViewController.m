@@ -33,6 +33,8 @@
 #import "GlobalDBFunctions.h"
 #import "EmailProcessor.h"
 
+#define SIGNATURE_STR @"I sent this email with KeyStone: http://www.dell.com/DMP"
+
 @interface TextStyleSheetAllMail : TTDefaultStyleSheet
 @end
 
@@ -210,6 +212,7 @@ UIImage* imgAttachmentAllMail = nil;
 	
 	[data release];
 	
+    //TODO : make this safe
 	NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init]; 
 	[dateFormatter setDateFormat: @"yyyy-MM-dd HH:mm:ss.SSSS"];
 	
@@ -297,7 +300,7 @@ UIImage* imgAttachmentAllMail = nil;
 	mailCtrl.mailComposeDelegate = self;
 	
 	if([AppSettings promo]) {
-		NSString* promoLine = NSLocalizedString(@"I sent this email with reMail: http://www.remail.com/s", nil);
+		NSString* promoLine = NSLocalizedString(SIGNATURE_STR, nil);
 		NSString* body = [NSString stringWithFormat:@"\n\n%@", promoLine];
 		[mailCtrl setMessageBody:body isHTML:NO];
 	}
