@@ -25,7 +25,8 @@
 @interface MailCell : UITableViewCell {
 	IBOutlet UILabel* dateLabel;
 	IBOutlet UIImageView* attachmentIndicator;
-	TTStyledTextLabel *peopleLabel;
+    UILabel *peopleLabel;
+//	TTStyledTextLabel *peopleLabel;
 	TTStyledTextLabel *subjectLabel;
 	TTStyledTextLabel *bodyLabel;
 }
@@ -37,5 +38,6 @@
 @property (nonatomic,retain) UIImageView* attachmentIndicator;
 @property (nonatomic,retain) TTStyledTextLabel* bodyLabel;
 @property (nonatomic,retain) TTStyledTextLabel* subjectLabel;
-@property (nonatomic,retain) TTStyledTextLabel* peopleLabel;
+//@property (nonatomic,retain) TTStyledTextLabel* peopleLabel;
+@property (nonatomic,retain) UILabel* peopleLabel;
 @end
