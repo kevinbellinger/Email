@@ -34,8 +34,8 @@
 #import	"SearchEmailDBAccessor.h"
 #import "ContactDBAccessor.h"
 #import "UidDBAccessor.h"
-#import "StoreObserver.h"
-#import <StoreKit/StoreKit.h>
+//#import "StoreObserver.h"
+//#import <StoreKit/StoreKit.h>
 
 @implementation ReMailAppDelegate
 

@@ -29,7 +29,7 @@
 	id pushSetupScreen;
 }
 
--(void)pingHome;
+//-(void)pingHome;
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) id pushSetupScreen;
