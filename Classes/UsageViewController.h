@@ -50,5 +50,5 @@
 @property (nonatomic,retain) UITableView* tableViewCopy;
 @property (assign) int lastRowClicked;
 
--(IBAction)rankClicked:(UIView*)sender;
+//-(IBAction)rankClicked:(UIView*)sender;
 @end

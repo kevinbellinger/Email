@@ -41,12 +41,16 @@
 
 -(void)setupText {
 	self.peopleLabel = [[TTStyledTextLabel alloc] initWithFrame:CGRectMake(26, 2, 205, 19)];
+//    self.peopleLabel = [[UILabel alloc] initWithFrame:CGRectMake(26, 2, 205, 19)];
 	self.peopleLabel.font = [UIFont boldSystemFontOfSize:16];
 
-	self.subjectLabel = [[TTStyledTextLabel alloc] initWithFrame:CGRectMake(26, 24, 282, 17)];
+//	self.subjectLabel = [[TTStyledTextLabel alloc] initWithFrame:CGRectMake(26, 24, 282, 17)];
+    self.subjectLabel = [[UILabel alloc] initWithFrame:CGRectMake(26, 24, 282, 17)];
 	self.subjectLabel.font = [UIFont systemFontOfSize:14];
 	
-	self.bodyLabel = [[TTStyledTextLabel alloc] initWithFrame:CGRectMake(26, 43, 282, 48)];
+//	self.bodyLabel = [[TTStyledTextLabel alloc] initWithFrame:CGRectMake(26, 43, 282, 48)];
+    self.bodyLabel = [[UILabel alloc] initWithFrame:CGRectMake(26, 43, 282, 48)];
+    
 	self.bodyLabel.font = [UIFont systemFontOfSize:13];
  
 	[self.contentView addSubview:self.peopleLabel];
@@ -58,13 +62,20 @@
 	CGFloat contentWidth = self.contentView.size.width;
 
 	self.peopleLabel.text = [TTStyledText textFromXHTML:people lineBreaks:NO URLs:NO];
-	self.peopleLabel.frame = CGRectMake(26, 2, contentWidth-180, 19);
 	
-	self.subjectLabel.text = [TTStyledText textFromXHTML:subject lineBreaks:NO URLs:NO];
+//    self.peopleLabel.text = people;
+	
+    self.peopleLabel.frame = CGRectMake(26, 2, contentWidth-180, 19);
+	
+//	self.subjectLabel.text = [TTStyledText textFromXHTML:subject lineBreaks:NO URLs:NO];
+    
+    self.subjectLabel.text = subject;
+    
 	self.subjectLabel.frame = CGRectMake(26, 24, contentWidth-40, 17);
 	self.subjectLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 	
-	self.bodyLabel.text = [TTStyledText textFromXHTML:body lineBreaks:NO URLs:NO];
+//	self.bodyLabel.text = [TTStyledText textFromXHTML:body lineBreaks:NO URLs:NO];
+    self.bodyLabel.text = body;
 	self.bodyLabel.frame = CGRectMake(26, 43, contentWidth-40, 48);
 	self.bodyLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 }

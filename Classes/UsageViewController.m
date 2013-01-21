@@ -166,8 +166,10 @@
 
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	@synchronized(self) {
-		return [self.contactData count] + 1;
+	//TODO : WHY NEEDED @synchoronized?
+    @synchronized(self) {
+//		return [self.contactData count] + 1;
+        return [self.contactData count];
 	}
 	return 1;
 }
@@ -298,13 +300,13 @@
 	MFMailComposeViewController *mailCtrl = [[MFMailComposeViewController alloc] init];
 	mailCtrl.mailComposeDelegate = self;
 	
-	NSString* body = NSLocalizedString(@"Hi!\n\nYou should try reMail.\n\nIt's an iPhone app that downloads all your email to your iPhone for fast full-text search.\n\nWebsite: http://www.remail.com/r", nil);
+//	NSString* body = NSLocalizedString(@"Hi!\n\nYou should try reMail.\n\nIt's an iPhone app that downloads all your email to your iPhone for fast full-text search.\n\nWebsite: http://www.remail.com/r", nil);
 	
 	if(emailAddress != nil) {
 		[mailCtrl setToRecipients:[NSArray arrayWithObject:emailAddress]];
 	}
-	[mailCtrl setMessageBody:body isHTML:NO];
-	[mailCtrl setSubject:NSLocalizedString(@"You should try reMail", nil)];
+//	[mailCtrl setMessageBody:body isHTML:NO];
+//	[mailCtrl setSubject:NSLocalizedString(@"You should try reMail", nil)];
 	
 	[self presentModalViewController:mailCtrl animated:YES];
 	[mailCtrl release];
@@ -323,46 +325,50 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[self.tableViewCopy deselectRowAtIndexPath:indexPath animated:NO];
 	
-	self.lastRowClicked = indexPath.row;
+//	self.lastRowClicked = indexPath.row;
 	
 	// show selection actionsheet?
 	NSString* emailAddresses;
-	NSString* name;
-	BOOL freeformAddress = NO;
-	if(indexPath.row >= [self.contactData count]) {
-		freeformAddress = YES;
-		emailAddresses = @"";
-		name = @"";
-	} else {
-		NSDictionary* contact = [self.contactData objectAtIndex:indexPath.row];
-		emailAddresses = [contact objectForKey:@"emailAddresses"];
-		name = [contact objectForKey:@"name"];
-	}
-	
-	BOOL showActionSheet = [StringUtil stringContains:emailAddresses subString:@"', '"];
-	
-	if(freeformAddress) {
-		[self composeEmailTo:nil];
-	} else if(showActionSheet) {
-		NSString* stripped = [[emailAddresses substringToIndex:[emailAddresses length]-1] substringFromIndex:1];
-		NSArray* addresses = [StringUtil split:stripped atString:@"', '"];
-		
-		// only the first 4
-		NSArray* addressesCut = [addresses subarrayWithRange:NSMakeRange(0, MIN(4,[addresses count]))];
-		UIActionSheet* as = [[UIActionSheet alloc] initWithTitle:name delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-		
-		for(NSString* address in addressesCut) {
-			[as addButtonWithTitle:address];
-		}
-		[as addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-		as.cancelButtonIndex = [addressesCut count];
-		
-		[as showInView:[self.view window]];
-		[as release];
-	} else {
+    
+    //TODO: The following is doing the prompotional of the Email which
+    // We don't need it
+//	NSString* name;
+//	BOOL freeformAddress = NO;
+//	if(indexPath.row >= [self.contactData count]) {
+//		freeformAddress = YES;
+//		emailAddresses = @"";
+//		name = @"";
+//	} else {
+//		NSDictionary* contact = [self.contactData objectAtIndex:indexPath.row];
+//		emailAddresses = [contact objectForKey:@"emailAddresses"];
+//		name = [contact objectForKey:@"name"];
+//	}
+//	
+//	BOOL showActionSheet = [StringUtil stringContains:emailAddresses subString:@"', '"];
+//	
+//    //TODO: WHAT THIS IS DOING?
+//	if(freeformAddress) {
+//		[self composeEmailTo:nil];
+//	} else if(showActionSheet) {
+//		NSString* stripped = [[emailAddresses substringToIndex:[emailAddresses length]-1] substringFromIndex:1];
+//		NSArray* addresses = [StringUtil split:stripped atString:@"', '"];
+//		
+//		// only the first 4
+//		NSArray* addressesCut = [addresses subarrayWithRange:NSMakeRange(0, MIN(4,[addresses count]))];
+//		UIActionSheet* as = [[UIActionSheet alloc] initWithTitle:name delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+//		
+//		for(NSString* address in addressesCut) {
+//			[as addButtonWithTitle:address];
+//		}
+//		[as addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+//		as.cancelButtonIndex = [addressesCut count];
+//		
+//		[as showInView:[self.view window]];
+//		[as release];
+//	} else {
 		NSString* emailAddress = [emailAddresses stringByReplacingOccurrencesOfString:@"'" withString:@""];
 		[self composeEmailTo:emailAddress];
-	}	
+//	}	
 }
 
 
