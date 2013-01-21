@@ -325,25 +325,25 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[self.tableViewCopy deselectRowAtIndexPath:indexPath animated:NO];
 	
-//	self.lastRowClicked = indexPath.row;
+	self.lastRowClicked = indexPath.row;
 	
 	// show selection actionsheet?
 	NSString* emailAddresses;
     
     //TODO: The following is doing the prompotional of the Email which
     // We don't need it
-//	NSString* name;
+	NSString* name;
 //	BOOL freeformAddress = NO;
 //	if(indexPath.row >= [self.contactData count]) {
 //		freeformAddress = YES;
 //		emailAddresses = @"";
 //		name = @"";
 //	} else {
-//		NSDictionary* contact = [self.contactData objectAtIndex:indexPath.row];
-//		emailAddresses = [contact objectForKey:@"emailAddresses"];
-//		name = [contact objectForKey:@"name"];
+		NSDictionary* contact = [self.contactData objectAtIndex:indexPath.row];
+		emailAddresses = [contact objectForKey:@"emailAddresses"];
+		name = [contact objectForKey:@"name"];
 //	}
-//	
+	
 //	BOOL showActionSheet = [StringUtil stringContains:emailAddresses subString:@"', '"];
 //	
 //    //TODO: WHAT THIS IS DOING?
