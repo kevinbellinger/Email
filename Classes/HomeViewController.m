@@ -467,9 +467,9 @@ NSDateFormatter* dateFormatter = nil;
 	
 //	[TTStyleSheet setGlobalStyleSheet:[[[RemailStyleSheet alloc] init] autorelease]];
 	
-	TTNavigator* nav = [TTNavigator navigator];
-	nav.window = self.view.window;
-	nav.supportsShakeToReload = NO;
+//	TTNavigator* nav = [TTNavigator navigator];
+//	nav.window = self.view.window;
+//	nav.supportsShakeToReload = NO;
 	
 	// Initialize the toolbar
 	self.navigationController.toolbarHidden = NO;
