@@ -19,14 +19,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Three20/Three20.h"
-#import "Three20/Three20+Additions.h"
+//#import "Three20/Three20.h"
+//#import "Three20/Three20+Additions.h"
 
 @interface MailCell : UITableViewCell {
 	IBOutlet UILabel* dateLabel;
 	IBOutlet UIImageView* attachmentIndicator;
-//    UILabel *peopleLabel;
-	TTStyledTextLabel *peopleLabel;
+    UILabel *peopleLabel;
+//	TTStyledTextLabel *peopleLabel;
     UILabel *subjectLabel;
     UILabel *bodyLabel;
 //	TTStyledTextLabel *subjectLabel;
@@ -40,9 +40,9 @@
 @property (nonatomic,retain) UIImageView* attachmentIndicator;
 @property (nonatomic,retain) UILabel* bodyLabel;
 @property (nonatomic,retain) UILabel* subjectLabel;
+@property (nonatomic,retain) UILabel* peopleLabel;
 
 //@property (nonatomic,retain) TTStyledTextLabel* bodyLabel;
 //@property (nonatomic,retain) TTStyledTextLabel* subjectLabel;
-@property (nonatomic,retain) TTStyledTextLabel* peopleLabel;
-//@property (nonatomic,retain) UILabel* peopleLabel;
+//@property (nonatomic,retain) TTStyledTextLabel* peopleLabel;
 @end

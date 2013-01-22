@@ -20,6 +20,7 @@
 
 #import "MailCell.h"
 #import "StringUtil.h"
+#import "NSString+StrippingHTML.h"
 
 @implementation MailCell
 
@@ -40,8 +41,8 @@
 }
 
 -(void)setupText {
-	self.peopleLabel = [[TTStyledTextLabel alloc] initWithFrame:CGRectMake(26, 2, 205, 19)];
-//    self.peopleLabel = [[UILabel alloc] initWithFrame:CGRectMake(26, 2, 205, 19)];
+//	self.peopleLabel = [[TTStyledTextLabel alloc] initWithFrame:CGRectMake(26, 2, 205, 19)];
+    self.peopleLabel = [[UILabel alloc] initWithFrame:CGRectMake(26, 2, 205, 19)];
 	self.peopleLabel.font = [UIFont boldSystemFontOfSize:16];
 
 //	self.subjectLabel = [[TTStyledTextLabel alloc] initWithFrame:CGRectMake(26, 24, 282, 17)];
@@ -59,23 +60,25 @@
 }
 
 -(void)setTextWithPeople:(NSString*)people withSubject:(NSString*)subject withBody:(NSString*)body {
-	CGFloat contentWidth = self.contentView.size.width;
+    
 
-	self.peopleLabel.text = [TTStyledText textFromXHTML:people lineBreaks:NO URLs:NO];
+	CGFloat contentWidth = self.contentView.frame.size.width;
+
+//	self.peopleLabel.text = [TTStyledText textFromXHTML:people lineBreaks:NO URLs:NO];
 	
-//    self.peopleLabel.text = people;
+    self.peopleLabel.text = [people stringByStrippingHTML];
 	
     self.peopleLabel.frame = CGRectMake(26, 2, contentWidth-180, 19);
 	
 //	self.subjectLabel.text = [TTStyledText textFromXHTML:subject lineBreaks:NO URLs:NO];
     
-    self.subjectLabel.text = subject;
+    self.subjectLabel.text = [subject stringByStrippingHTML];
     
 	self.subjectLabel.frame = CGRectMake(26, 24, contentWidth-40, 17);
 	self.subjectLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 	
 //	self.bodyLabel.text = [TTStyledText textFromXHTML:body lineBreaks:NO URLs:NO];
-    self.bodyLabel.text = body;
+    self.bodyLabel.text = [body stringByStrippingHTML];
 	self.bodyLabel.frame = CGRectMake(26, 43, contentWidth-40, 48);
 	self.bodyLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 }

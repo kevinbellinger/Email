@@ -22,11 +22,11 @@
 #import "Three20/Three20.h"
 
 @interface AutocompleteCell : UITableViewCell {
-	TTStyledTextLabel *nameLabel;
-	TTStyledTextLabel *historyLabel;
-    //TODO: 
-//    UILabel *nameLabel;
-//	UILabel *historyLabel;
+//	TTStyledTextLabel *nameLabel;
+//	TTStyledTextLabel *historyLabel;
+    //TODO:
+    UILabel *nameLabel;
+	UILabel *historyLabel;
     
 	UILabel* addressLabel;
 }
@@ -34,10 +34,10 @@
 -(void)setupText;
 -(void)setName:(NSString*)name withAddresses:(NSString*)addresses;
 
-@property (nonatomic,retain) TTStyledTextLabel *nameLabel;
-@property (nonatomic,retain) TTStyledTextLabel *historyLabel;
+//@property (nonatomic,retain) TTStyledTextLabel *nameLabel;
+//@property (nonatomic,retain) TTStyledTextLabel *historyLabel;
 
-//@property (nonatomic,retain) UILabel *nameLabel;
-//@property (nonatomic,retain) UILabel *historyLabel;
+@property (nonatomic,retain) UILabel *nameLabel;
+@property (nonatomic,retain) UILabel *historyLabel;
 @property (nonatomic,retain) UILabel* addressLabel;
 @end

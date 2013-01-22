@@ -19,6 +19,7 @@
 //
 
 #import "MailItemCell.h"
+#import "NSString+StrippingHTML.h"
 
 @implementation MailItemCell
 
@@ -46,13 +47,17 @@
 }
 
 -(void)setupText {
-	self.newBodyLabel = [[TTStyledTextLabel alloc] initWithFrame:CGRectMake(6, 41, 312, 1941)];
-	self.newBodyLabel.font = [UIFont systemFontOfSize:14];
+//	self.newBodyLabel = [[TTStyledTextLabel alloc] initWithFrame:CGRectMake(6, 41, 312, 1941)];
+	self.newBodyLabel = [[UILabel alloc] initWithFrame:CGRectMake(6, 41, 312, 1941)];
+    self.newBodyLabel.font = [UIFont systemFontOfSize:14];
 	[self.contentView addSubview:self.newBodyLabel];	
 }
 
 -(void)setText:(NSString*)text {
-	self.newBodyLabel.text = [TTStyledText textFromXHTML:text lineBreaks:YES URLs:YES];
+//	self.newBodyLabel.text = [TTStyledText textFromXHTML:text lineBreaks:YES URLs:YES];
+    
+    self.newBodyLabel.text = [text stringByStrippingHTML];
+    
 	[self.newBodyLabel sizeToFit];
 }
 

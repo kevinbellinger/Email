@@ -30,7 +30,8 @@
 	id showDetailsDelegate;
 	IBOutlet UIImageView* senderBubbleImage;
 	NSNumber* convoIndex;
-	TTStyledTextLabel *newBodyLabel;
+//	TTStyledTextLabel *newBodyLabel;
+    UILabel *newBodyLabel;
 }
 
 -(void)setupText;
@@ -45,5 +46,7 @@
 @property (nonatomic,retain) UIImageView* senderBubbleImage;
 @property (nonatomic,retain) NSNumber* convoIndex;
 @property (nonatomic,assign) id showDetailsDelegate; // don't retain or the ConvoViewController will be retained forever!
-@property (nonatomic,assign) TTStyledTextLabel *newBodyLabel;
+//@property (nonatomic,assign) TTStyledTextLabel *newBodyLabel;
+@property (nonatomic,retain) UILabel *newBodyLabel;
+
 @end
