@@ -29,6 +29,7 @@
 #import "AttachmentDownloader.h"
 #import "BuchheitTimer.h"
 #import "EmailProcessor.h"
+#import "NSString+StrippingHTML.h"
 
 #define PROMO_STR @"I found your email with Keystone: http://www.dell.com"
 
@@ -101,8 +102,8 @@
 @synthesize subjectLabel;
 @synthesize dateLabel;
 @synthesize deleteDelegate;
-@synthesize copyModeButton;
-@synthesize copyModeLabel;
+@synthesize theCopyModeButton;
+@synthesize theCopyModeLabel;
 
 @synthesize subjectTTLabel;
 @synthesize bodyTTLabel;
@@ -119,8 +120,8 @@
 	[scrollView release];
 	[replyButton release];
 	
-	[copyModeButton release];
-	[copyModeLabel release];
+	[theCopyModeButton release];
+	[theCopyModeLabel release];
 	
 	[subjectLabel release];
 	[dateLabel release];
@@ -146,8 +147,8 @@
 	self.scrollView = nil;
 	self.replyButton = nil;
 	
-	self.copyModeButton = nil;
-	self.copyModeLabel = nil;
+	self.theCopyModeButton = nil;
+	self.theCopyModeLabel = nil;
 	
 	self.subjectLabel = nil;
 	self.dateLabel = nil;
@@ -566,7 +567,7 @@
 		
 		[self.subjectUIView setHidden:YES];
 		[self.bodyUIView setHidden:YES];
-		[self.copyModeLabel setHidden:YES];
+		[self.theCopyModeLabel setHidden:YES];
 	} else {
 		copyIcon = [UIImage imageNamed:@"copyModeOn.png"];
 		self.copyMode = YES;
@@ -576,7 +577,7 @@
 		
 		[self.subjectUIView setHidden:NO];
 		[self.bodyUIView setHidden:NO];
-		[self.copyModeLabel setHidden:NO];
+		[self.theCopyModeLabel setHidden:NO];
 	}
 
 	[button setImage:copyIcon forState:UIControlStateNormal];
@@ -594,10 +595,14 @@
 	top += 1;
 	
 	if(showTTView) {
-		self.subjectTTLabel = [[[TTStyledTextLabel alloc] initWithFrame:CGRectMake(5, top, 320-65-5, 21)] autorelease];
+//		self.subjectTTLabel = [[[TTStyledTextLabel alloc] initWithFrame:CGRectMake(5, top, 320-65-5, 21)] autorelease];
+        self.subjectTTLabel = [[[UILabel alloc] initWithFrame:CGRectMake(5, top, 320-65-5, 21)] autorelease];
+        
 		self.subjectTTLabel.font = [UIFont boldSystemFontOfSize:17];
 		self.subjectTTLabel.textColor = [UIColor blackColor];
-		self.subjectTTLabel.text = [TTStyledText textFromXHTML:subjectMarkedUp lineBreaks:NO URLs:NO];
+//		self.subjectTTLabel.text = [TTStyledText textFromXHTML:subjectMarkedUp lineBreaks:NO URLs:NO];
+        self.subjectTTLabel.text = [subjectMarkedUp stringByStrippingHTML];
+        
 		[addToView addSubview:self.subjectTTLabel];
 	}
 	
@@ -633,22 +638,22 @@
 	[addToView addSubview:line];
 
 	if(showTTView) {
-		self.copyModeLabel = [[[UILabel alloc] initWithFrame:CGRectMake(self.subjectTTLabel.right-1, top+22, 61, 17)] autorelease];
-		self.copyModeLabel.font = [UIFont systemFontOfSize:12];
-		self.copyModeLabel.textColor = [UIColor blueColor];
-		self.copyModeLabel.text = NSLocalizedString(@"Copy Mode", nil);
-		self.copyModeLabel.adjustsFontSizeToFitWidth = YES;
-		self.copyModeLabel.textAlignment = UITextAlignmentCenter;
-		[addToView addSubview:self.copyModeLabel];
-		[self.copyModeLabel setHidden:YES];
+		self.theCopyModeLabel = [[[UILabel alloc] initWithFrame:CGRectMake(self.subjectTTLabel.right-1, top+22, 61, 17)] autorelease];
+		self.theCopyModeLabel.font = [UIFont systemFontOfSize:12];
+		self.theCopyModeLabel.textColor = [UIColor blueColor];
+		self.theCopyModeLabel.text = NSLocalizedString(@"Copy Mode", nil);
+		self.theCopyModeLabel.adjustsFontSizeToFitWidth = YES;
+		self.theCopyModeLabel.textAlignment = NSTextAlignmentCenter;
+		[addToView addSubview:self.theCopyModeLabel];
+		[self.theCopyModeLabel setHidden:YES];
 		
 		UIImage* copyIcon = [UIImage imageNamed:@"copyModeOff.png"];
-		self.copyModeButton = [[[UIButton alloc] initWithFrame:CGRectMake(self.subjectTTLabel.right-1,top,62,21)] autorelease];
-		[self.copyModeButton setImage:copyIcon forState:UIControlStateNormal];
-		[self.copyModeButton setImage:copyIcon forState:UIControlStateHighlighted];
-		[self.copyModeButton setImage:copyIcon forState:UIControlStateSelected];
-		[self.copyModeButton addTarget:self action:@selector(toggleCopyMode:) forControlEvents:UIControlEventTouchUpInside];
-		[addToView addSubview:self.copyModeButton];
+		self.theCopyModeButton = [[[UIButton alloc] initWithFrame:CGRectMake(self.subjectTTLabel.right-1,top,62,21)] autorelease];
+		[self.theCopyModeButton setImage:copyIcon forState:UIControlStateNormal];
+		[self.theCopyModeButton setImage:copyIcon forState:UIControlStateHighlighted];
+		[self.theCopyModeButton setImage:copyIcon forState:UIControlStateSelected];
+		[self.theCopyModeButton addTarget:self action:@selector(toggleCopyMode:) forControlEvents:UIControlEventTouchUpInside];
+		[addToView addSubview:self.theCopyModeButton];
 	}
 	
 	[dateFormatter release];
@@ -660,7 +665,9 @@
 -(int)bodyBlock:(NSString*)body markedUp:(NSString*)bodyMarkedUp top:(int)top addToView:(UIView*)addToView showTTView:(BOOL)showTTView {
 	// not showing the TT view is an optimization for when we don't have any markup to show
 	if(showTTView) {
-		self.bodyTTLabel = [[[TTStyledTextLabel alloc] initWithFrame:CGRectMake(5, top+8, 310, 100)] autorelease];
+//		self.bodyTTLabel = [[[TTStyledTextLabel alloc] initWithFrame:CGRectMake(5, top+8, 310, 100)] autorelease];
+        self.bodyTTLabel = [[[UILabel alloc] initWithFrame:CGRectMake(5, top+8, 310, 100)] autorelease];
+        
 		self.bodyTTLabel.font = [UIFont systemFontOfSize:14];
 		self.bodyTTLabel.textColor = [UIColor blackColor];
 	}
@@ -678,7 +685,10 @@
 	[addToView addSubview:self.bodyUIView];
 	
 	if(showTTView) {
-		self.bodyTTLabel.text = [TTStyledText textFromXHTML:bodyMarkedUp lineBreaks:YES URLs:YES];
+//		self.bodyTTLabel.text = [TTStyledText textFromXHTML:bodyMarkedUp lineBreaks:YES URLs:YES];
+        //TODO : HANDLE LINEBREAK
+//        self.bodyTTLabel.text = [UILabel textFromXHTML:bodyMarkedUp lineBreaks:YES URLs:YES];
+        self.bodyTTLabel.text = [bodyMarkedUp stringByStrippingHTML];
 		[self.bodyTTLabel sizeToFit];
 	}
 	
@@ -689,7 +699,7 @@
 		bottom = self.bodyTTLabel.bottom;
 		[addToView addSubview:self.bodyTTLabel];
 	} else {
-		CGSize size = [body sizeWithFont:self.bodyUIView.font constrainedToSize:CGSizeMake(300.0f,100000000.0f) lineBreakMode: UILineBreakModeWordWrap];
+		CGSize size = [body sizeWithFont:self.bodyUIView.font constrainedToSize:CGSizeMake(300.0f,100000000.0f) lineBreakMode: NSLineBreakByWordWrapping];
 		self.bodyUIView.frame = CGRectMake(-3, top, contentWidth, size.height+24);
 		bottom = self.bodyUIView.bottom;
 	}

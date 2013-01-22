@@ -45,13 +45,17 @@
 	IBOutlet UIImageView* unreadIndicator;
 	IBOutlet UIScrollView* scrollView;
 	
-	UIButton* copyModeButton;
-	UILabel* copyModeLabel;
+	UIButton* theCopyModeButton;
+	UILabel* theCopyModeLabel;
 	
 	NSArray* attachmentMetadata;
 	
-	TTStyledTextLabel* subjectTTLabel;
-	TTStyledTextLabel* bodyTTLabel;
+//	TTStyledTextLabel* subjectTTLabel;
+//	TTStyledTextLabel* bodyTTLabel;
+    
+    UILabel* subjectTTLabel;
+	UILabel* bodyTTLabel;
+    
 	UITextView* subjectUIView;
 	UITextView* bodyUIView;
 }
@@ -84,11 +88,15 @@
 @property (nonatomic, retain) UIImageView* unreadIndicator;
 @property (nonatomic, retain) UIScrollView* scrollView;
 
-@property (nonatomic, retain) UIButton* copyModeButton;
-@property (nonatomic, retain) UILabel* copyModeLabel;
+@property (nonatomic, retain) UIButton* theCopyModeButton;
+@property (nonatomic, retain) UILabel* theCopyModeLabel;
 
-@property (nonatomic, retain) TTStyledTextLabel* subjectTTLabel;
-@property (nonatomic, retain) TTStyledTextLabel* bodyTTLabel;
+//@property (nonatomic, retain) TTStyledTextLabel* subjectTTLabel;
+//@property (nonatomic, retain) TTStyledTextLabel* bodyTTLabel;
+
+@property (nonatomic, retain) UILabel* subjectTTLabel;
+@property (nonatomic, retain) UILabel* bodyTTLabel;
+
 @property (nonatomic, retain) UITextView* subjectUIView;
 @property (nonatomic, retain) UITextView* bodyUIView;
 @end
