@@ -35,15 +35,15 @@
 
 #define SIGNATURE_STR @"I sent this email with KeyStone: http://www.dell.com/DMP"
 
-@interface TextStyleSheetAllMail : TTDefaultStyleSheet
-@end
-
-@implementation TextStyleSheetAllMail
-
-- (TTStyle*)plain {
-	return [TTContentStyle styleWithNext:nil];
-}
-@end
+//@interface TextStyleSheetAllMail : TTDefaultStyleSheet
+//@end
+//
+//@implementation TextStyleSheetAllMail
+//
+//- (TTStyle*)plain {
+//	return [TTContentStyle styleWithNext:nil];
+//}
+//@end
 
 @implementation MailboxViewController
 @synthesize emailData;
@@ -305,12 +305,14 @@ UIImage* imgAttachmentAllMail = nil;
 		[mailCtrl setMessageBody:body isHTML:NO];
 	}
 	
-	[self presentModalViewController:mailCtrl animated:YES];
+    [self presentViewController:mailCtrl animated:YES completion:nil];
+//	[self presentModalViewController:mailCtrl animated:YES];
 	[mailCtrl release];
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
-	[self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
+//	[self dismissModalViewControllerAnimated:YES];
 	return;
 }
 

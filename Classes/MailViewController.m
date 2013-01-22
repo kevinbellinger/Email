@@ -30,6 +30,7 @@
 #import "BuchheitTimer.h"
 #import "EmailProcessor.h"
 #import "NSString+StrippingHTML.h"
+#import "NSDateFormatter+Safe.h"
 
 #define PROMO_STR @"I found your email with Keystone: http://www.dell.com"
 
@@ -43,7 +44,7 @@
 @implementation MailViewController (Private)
 
 -(UIImageView*)createLine: (CGFloat) y {
-	CGFloat contentWidth = self.scrollView.size.width;
+	CGFloat contentWidth = self.scrollView.frame.size.width;
 	UIImageView* line = [[[UIImageView alloc] init] autorelease];
 	line.backgroundColor = [UIColor darkGrayColor];
 	line.frame = CGRectMake(0,y,contentWidth,1);
@@ -162,7 +163,8 @@
 	self.attachmentMetadata = nil;
 }
 
--(void)personButtonClicked:(TTButton*)target {
+//-(void)personButtonClicked:(TTButton*)target {
+-(void)personButtonClicked:(UIButton*)target {
 	NSString *name = [target titleForState:UIControlStateNormal];
 	NSString *address = [target titleForState:UIControlStateDisabled];
 	
@@ -213,8 +215,9 @@
 	
 	NSDate* date = [DateUtil datetimeInLocal:self.email.datetime];
 	
-	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-
+//	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSDateFormatter *dateFormatter = [NSDateFormatter dateWritter];
+    
 	[dateFormatter setDateStyle:NSDateFormatterMediumStyle];
 	[dateFormatter setTimeStyle:NSDateFormatterNoStyle];
 	NSString* dateString = [dateFormatter stringFromDate:date];
@@ -307,7 +310,8 @@
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
-	[self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
+//	[self dismissModalViewControllerAnimated:YES];
 	return;
 }
 
@@ -371,11 +375,13 @@
 		[self addAttachments:mailCtrl];
 	}
 	
-	[self presentModalViewController:mailCtrl animated:YES];
+    [self presentViewController:mailCtrl animated:YES completion:nil];
+//	[self presentModalViewController:mailCtrl animated:YES];
 	[mailCtrl release];
 }
 
--(void)attachmentButtonClicked:(TTButton*)target {
+-(void)attachmentButtonClicked:(UIButton*)target {
+//-(void)attachmentButtonClicked:(TTButton*)target {
 	NSArray* attachmentList = [email.attachments JSONValue];
 	NSString* contentType = [[attachmentList objectAtIndex:target.tag] objectForKey:@"t"];
 	NSString* filename = [[attachmentList objectAtIndex:target.tag] objectForKey:@"n"];
@@ -416,7 +422,8 @@
 	toView.frame = CGRectMake(0,top,320,100);
 	UILabel* labelTo = [[[UILabel alloc] init] autorelease];
 	labelTo.font = [UIFont systemFontOfSize:14];
-	labelTo.textColor = [UIColor darkGrayColor];	
+    labelTo.textColor = [UIColor blackColor];
+//	labelTo.textColor = [UIColor darkGrayColor];	
 	labelTo.text = title;
 	CGSize size = [title sizeWithFont:labelTo.font];
 	labelTo.frame = CGRectMake(0, 0, size.width+2, 30);
@@ -437,13 +444,22 @@
 			highlightMatch = (name != nil && [self matchText:name withQuery:query]) || (address != nil && [self matchText:address withQuery:query]);
 		}
 		
-		TTButton* button;
+//		TTButton* button;
+        UIButton* button = nil;
 		if(highlightAll || highlightMatch) {
-			button = [TTButton buttonWithStyle:@"redRoundButton:" title:display];
+//			button = [TTButton buttonWithStyle:@"redRoundButton:" title:display];
+            button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+            [button setTitle:display forState:UIControlStateNormal];
 		} else {
-			button = [TTButton buttonWithStyle:@"blueRoundButton:" title:display];
+            button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+            [button setTitle:display forState:UIControlStateNormal];
+//			button = [TTButton buttonWithStyle:@"blueRoundButton:" title:display];
 		}
-		button.font = [UIFont boldSystemFontOfSize:12];
+        [button.titleLabel setFont:[UIFont boldSystemFontOfSize:12]];
+        button.titleLabel.textColor = [UIColor blueColor];
+        CGRect buttonFrame = CGRectMake(labelTo.frame.size.width + 5, 0, 320.0, 40.0);
+        [button setFrame:buttonFrame];
+//		button.font = [UIFont boldSystemFontOfSize:12];
 		[button setTitle:address forState:UIControlStateDisabled]; // using disabled state to store the email address
 		[button sizeToFit];
 		[toView addSubview:button];
@@ -453,18 +469,22 @@
 
 	[self.scrollView addSubview:toView];
 
-	TTFlowLayout* flowLayout = [[[TTFlowLayout alloc] init] autorelease];
-	flowLayout.padding = 5;
-	flowLayout.spacing = 2;
-	CGSize toSize = [flowLayout layoutSubviews:toView.subviews forView:toView];
-
-	toView.frame = CGRectMake(0, top, toSize.width, toSize.height);	
+//	TTFlowLayout* flowLayout = [[[TTFlowLayout alloc] init] autorelease];
+//	flowLayout.padding = 5;
+//	flowLayout.spacing = 2;
+	//TODO: FIGURE OUT THE SIZE
+//    CGSize toSize = [flowLayout layoutSubviews:toView.subviews forView:toView];
+//    NSLog(@"the flowlayout height: %.0f",toSize.height);
+    CGSize toSize = CGSizeMake(self.view.frame.size.width, 40);
+	toView.frame = CGRectMake(0, top, toSize.width, toSize.height);
 	[addToView addSubview:toView];
 	
-	UIImageView* line = [self createLine:toView.bottom];
+//	 UIImageView* line = [self createLine:toView.bottom];
+    UIImageView* line = [self createLine:(toView.frame.origin.y + toView.frame.size.height) ];
 	[addToView addSubview:line];
 	
-	return line.bottom;
+//	return line.bottom;
+    return line.frame.origin.y + line.frame.size.height;
 }
 
 -(int)attachmentList:(NSString*)title addToView:(UIView*)addToView attachmentList:(NSArray*)attachmentList top:(int)top highlightQuery:(NSString*)highlightQuery {
@@ -503,18 +523,27 @@
 		if(filename != nil && [filename length] > 0) {
 			
 			if([sm isAttachmentViewSupported:contentType filename:filename]) {
-				TTButton* button;
+//				TTButton* button;
+                UIButton* button;
 				if(highlightMatch && fileExists) {
-					button = [TTButton buttonWithStyle:@"redRoundButton:" title:filename];
+//					button = [TTButton buttonWithStyle:@"redRoundButton:" title:filename];
+                    button = [UIButton buttonWithType:UIButtonTypeCustom];
+                    [button setTitle:filename forState:UIControlStateNormal];
 				} else if(highlightMatch) {
-					button = [TTButton buttonWithStyle:@"lightRedRoundButton:" title:filename];
+                    button = [UIButton buttonWithType:UIButtonTypeCustom];
+                    [button setTitle:filename forState:UIControlStateNormal];
+//					button = [TTButton buttonWithStyle:@"lightRedRoundButton:" title:filename];
 				} else if (fileExists) {
-					button = [TTButton buttonWithStyle:@"greyRoundButton:" title:filename];
+//					button = [TTButton buttonWithStyle:@"greyRoundButton:" title:filename];
+                    button = [UIButton buttonWithType:UIButtonTypeCustom];
+                    [button setTitle:filename forState:UIControlStateNormal];
 				} else {
-					button = [TTButton buttonWithStyle:@"whiteRoundButton:" title:filename];
-				}
-				button.font = [UIFont boldSystemFontOfSize:12];
-				button.tag = i;
+//					button = [TTButton buttonWithStyle:@"whiteRoundButton:" title:filename];
+                    button = [UIButton buttonWithType:UIButtonTypeCustom];
+                    [button setTitle:filename forState:UIControlStateNormal];				}
+//				button.font = [UIFont boldSystemFontOfSize:12];
+				[button.titleLabel setFont:[UIFont boldSystemFontOfSize:12]];
+                button.tag = i;
 				[button sizeToFit];
 				[toView addSubview:button];
 				
@@ -540,18 +569,22 @@
 	
 	[self.scrollView addSubview:toView];
 	
-	TTFlowLayout* flowLayout = [[[TTFlowLayout alloc] init] autorelease];
-	flowLayout.padding = 5;
-	flowLayout.spacing = 2;
-	CGSize toSize = [flowLayout layoutSubviews:toView.subviews forView:toView];
+//	TTFlowLayout* flowLayout = [[[TTFlowLayout alloc] init] autorelease];
+//	flowLayout.padding = 5;
+//	flowLayout.spacing = 2;
+//	CGSize toSize = [flowLayout layoutSubviews:toView.subviews forView:toView];
+    
+    CGSize toSize = CGSizeMake(self.view.frame.size.width, 40.0);
 	
 	toView.frame = CGRectMake(0, top, toSize.width, toSize.height);	
 	[addToView addSubview:toView];
 	
-	UIImageView* line = [self createLine:toView.bottom];
+//	UIImageView* line = [self createLine:toView.bottom];
+    UIImageView* line = [self createLine:(toView.frame.origin.y + toView.frame.size.height)];
 	[addToView addSubview:line];
 	
-	return line.bottom;
+//	return line.bottom;
+    return line.frame.origin.y + line.frame.size.height;
 }
 
 -(void)toggleCopyMode:(UIButton*)button {
@@ -633,12 +666,17 @@
 	labelDate.text = [dateFormatter stringFromDate:date];
 	[addToView addSubview:labelDate];
 
-	UIImageView* line = [self createLine: labelDate.bottom+1] ;
+//	UIImageView* line = [self createLine: labelDate.bottom+1] ;
+    UIImageView* line = [self createLine: (labelDate.frame.origin.y + labelDate.frame.size.height + 1)] ;
 		
 	[addToView addSubview:line];
 
 	if(showTTView) {
-		self.theCopyModeLabel = [[[UILabel alloc] initWithFrame:CGRectMake(self.subjectTTLabel.right-1, top+22, 61, 17)] autorelease];
+//		self.theCopyModeLabel = [[[UILabel alloc] initWithFrame:CGRectMake(self.subjectTTLabel.right-1, top+22, 61, 17)] autorelease];
+        
+        self.theCopyModeLabel = [[[UILabel alloc] initWithFrame:CGRectMake(self.subjectTTLabel.frame.origin.x + self.subjectLabel.frame.size.width-1, top+22, 61, 17)] autorelease];
+        
+        
 		self.theCopyModeLabel.font = [UIFont systemFontOfSize:12];
 		self.theCopyModeLabel.textColor = [UIColor blueColor];
 		self.theCopyModeLabel.text = NSLocalizedString(@"Copy Mode", nil);
@@ -648,7 +686,10 @@
 		[self.theCopyModeLabel setHidden:YES];
 		
 		UIImage* copyIcon = [UIImage imageNamed:@"copyModeOff.png"];
-		self.theCopyModeButton = [[[UIButton alloc] initWithFrame:CGRectMake(self.subjectTTLabel.right-1,top,62,21)] autorelease];
+//		self.theCopyModeButton = [[[UIButton alloc] initWithFrame:CGRectMake(self.subjectTTLabel.right-1,top,62,21)] autorelease];
+        CGRect buttonRect = CGRectMake(self.subjectLabel.frame.origin.x + self.subjectLabel.frame.size.width - 1, top, 62, 21);
+        self.theCopyModeButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [self.theCopyModeButton setFrame:buttonRect];
 		[self.theCopyModeButton setImage:copyIcon forState:UIControlStateNormal];
 		[self.theCopyModeButton setImage:copyIcon forState:UIControlStateHighlighted];
 		[self.theCopyModeButton setImage:copyIcon forState:UIControlStateSelected];
@@ -658,7 +699,8 @@
 	
 	[dateFormatter release];
 	
-	return line.bottom;
+//	return line.bottom;
+    return line.frame.origin.y + line.frame.size.height;
 }
 
 
@@ -672,7 +714,7 @@
 		self.bodyTTLabel.textColor = [UIColor blackColor];
 	}
 	
-	CGFloat contentWidth = self.scrollView.size.width;
+	CGFloat contentWidth = self.scrollView.frame.size.width;
 	
 	self.bodyUIView = [[[UITextView alloc] initWithFrame:CGRectMake(-3, top, 382, 100)] autorelease];
 	self.bodyUIView.font = [UIFont systemFontOfSize:14];
@@ -694,14 +736,17 @@
 	
 	int bottom = 0;
 	if(showTTView) {
-		self.bodyUIView.frame = CGRectMake(-3, top, contentWidth, self.bodyTTLabel.bottom-top);
+        CGFloat bodyLabelBottom = self.bodyTTLabel.frame.origin.y + self.bodyTTLabel.frame.size.height;
+//		self.bodyUIView.frame = CGRectMake(-3, top, contentWidth, self.bodyTTLabel.bottom-top);
+        self.bodyUIView.frame = CGRectMake(-3, top, contentWidth, bodyLabelBottom-top);
 		[self.bodyUIView setHidden:YES];
-		bottom = self.bodyTTLabel.bottom;
+		bottom = bodyLabelBottom;
 		[addToView addSubview:self.bodyTTLabel];
 	} else {
 		CGSize size = [body sizeWithFont:self.bodyUIView.font constrainedToSize:CGSizeMake(300.0f,100000000.0f) lineBreakMode: NSLineBreakByWordWrapping];
 		self.bodyUIView.frame = CGRectMake(-3, top, contentWidth, size.height+24);
-		bottom = self.bodyUIView.bottom;
+//		bottom = self.bodyUIView.bottom;
+        bottom = self.bodyUIView.frame.origin.y + self.bodyUIView.frame.size.height;
 	}
 	
 	return bottom;

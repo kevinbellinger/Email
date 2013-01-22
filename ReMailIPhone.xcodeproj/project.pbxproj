@@ -218,6 +218,7 @@
 		D6A08F3316A9E0410074B7C5 /* Intro_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6A08F3216A9E0410074B7C5 /* Intro_iPad.xib */; };
 		D6A08F3516A9E3900074B7C5 /* AccountTypeSelect_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6A08F3416A9E38F0074B7C5 /* AccountTypeSelect_iPad.xib */; };
 		D6A08F3916A9E6B60074B7C5 /* Attachment_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6A08F3816A9E6B50074B7C5 /* Attachment_iPad.xib */; };
+		D6EE661416AF3CE40098152E /* NSDateFormatter+Safe.m in Sources */ = {isa = PBXBuildFile; fileRef = D6EE661216AF3CE40098152E /* NSDateFormatter+Safe.m */; };
 		F83C988F1566DFB40005B167 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83C988E1566DFB40005B167 /* QuartzCore.framework */; };
 		F83C98911566DFBA0005B167 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83C98901566DFBA0005B167 /* StoreKit.framework */; };
 		F83C98931566DFC10005B167 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83C98921566DFC10005B167 /* CoreLocation.framework */; };
@@ -753,6 +754,8 @@
 		D6A08F3216A9E0410074B7C5 /* Intro_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Intro_iPad.xib; path = Resources/xibs/Intro_iPad.xib; sourceTree = "<group>"; };
 		D6A08F3416A9E38F0074B7C5 /* AccountTypeSelect_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AccountTypeSelect_iPad.xib; path = Resources/xibs/AccountTypeSelect_iPad.xib; sourceTree = "<group>"; };
 		D6A08F3816A9E6B50074B7C5 /* Attachment_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Attachment_iPad.xib; path = Resources/xibs/Attachment_iPad.xib; sourceTree = "<group>"; };
+		D6EE661216AF3CE40098152E /* NSDateFormatter+Safe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+Safe.m"; sourceTree = "<group>"; };
+		D6EE661316AF3CE40098152E /* NSDateFormatter+Safe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+Safe.h"; sourceTree = "<group>"; };
 		F83C988E1566DFB40005B167 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
 		F83C98901566DFBA0005B167 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
 		F83C98921566DFC10005B167 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = DEVELOPER_DIR; };
@@ -973,6 +976,8 @@
 		147BBF240F38DAE500345343 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				D6EE661216AF3CE40098152E /* NSDateFormatter+Safe.m */,
+				D6EE661316AF3CE40098152E /* NSDateFormatter+Safe.h */,
 				14F83D43113726E60096DE57 /* main.m */,
 				14F83D44113726E60096DE57 /* StringUtil.h */,
 				14F83D45113726E60096DE57 /* StringUtil.m */,
@@ -1741,6 +1746,7 @@
 				14F8431C11372CE00096DE57 /* NSString+SBJSON.m in Sources */,
 				14F8431D11372CE00096DE57 /* SBJSON.m in Sources */,
 				D664FB3916AEEB0700C7C4DE /* NSString+StrippingHTML.m in Sources */,
+				D6EE661416AF3CE40098152E /* NSDateFormatter+Safe.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
