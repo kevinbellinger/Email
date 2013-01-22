@@ -40,6 +40,8 @@
 
 -(void)setupText {
 	self.nameLabel = [[TTStyledTextLabel alloc] initWithFrame:CGRectMake(36, 2, 282, 21)];
+    
+//    self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(36, 2, 282, 21)];
 	self.nameLabel.font = [UIFont boldSystemFontOfSize:18];
 	
 	self.addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(36, 22, 282, 18)];
@@ -55,6 +57,7 @@
 
 -(void)setName:(NSString*)name withAddresses:(NSString*)addresses {
 	self.nameLabel.text = [TTStyledText textFromXHTML:name lineBreaks:NO URLs:NO];
+//    self.nameLabel.text = name;
 	self.nameLabel.frame = CGRectMake(36, 2, 282, 21);
 	
 	self.addressLabel.text = addresses;
