@@ -110,7 +110,7 @@ BOOL introShown = NO;
 //}
 
 -(void)dismissIntro {
-	[self dismissModalViewControllerAnimated:YES];
+	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -121,7 +121,7 @@ BOOL introShown = NO;
 		IntroViewController *introVC = [[IntroViewController alloc] initWithNibName:@"Intro" bundle:nil];
 		introVC.dismissDelegate = self;
 		
-		[self presentModalViewController:introVC animated:NO];
+		[self presentViewController:introVC animated:NO completion:nil];
 		[introVC release];
 	}
 	

@@ -168,7 +168,7 @@ NSInteger intSortReverse(id num1, id num2, void *context){
 		
 		if (fileAttributes != nil) {
 			NSNumber *fileSize;
-			if (fileSize = [fileAttributes objectForKey:NSFileSize]) {
+			if (fileSize == [fileAttributes objectForKey:NSFileSize]) {
 				total += [fileSize unsignedLongValue];
 			}
 		}

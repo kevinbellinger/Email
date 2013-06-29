@@ -76,7 +76,7 @@
 
 +(void)clearAll {
 	char* errorMsg;	
-	int res = sqlite3_exec([[ContactDBAccessor sharedManager] database],[[NSString stringWithString:@"DELETE FROM past_query"] UTF8String] , NULL, NULL, &errorMsg);
+	int res = sqlite3_exec([[ContactDBAccessor sharedManager] database],[@"DELETE FROM past_query" UTF8String] , NULL, NULL, &errorMsg);
 	if (res != SQLITE_OK) {
 		NSString *errorMessage = [NSString stringWithFormat:@"Failed to create past_query table '%s'.", errorMsg];
 		NSLog(@"errorMessage = '%@, original ERROR CODE = %i'",errorMessage,res);
@@ -133,8 +133,8 @@
 +(void)tableCheck {
 	// create tables as appropriate
 	char* errorMsg;	
-	int res = sqlite3_exec([[ContactDBAccessor sharedManager] database],[[NSString stringWithString:@"CREATE TABLE IF NOT EXISTS past_query "
-																			   "(pk INTEGER PRIMARY KEY, datetime REAL, text VARCHAR(50) UNIQUE, search_type INTEGER)"] UTF8String] , NULL, NULL, &errorMsg);
+	int res = sqlite3_exec([[ContactDBAccessor sharedManager] database],[@"CREATE TABLE IF NOT EXISTS past_query "
+																			   "(pk INTEGER PRIMARY KEY, datetime REAL, text VARCHAR(50) UNIQUE, search_type INTEGER)" UTF8String] , NULL, NULL, &errorMsg);
 	if (res != SQLITE_OK) {
 		NSString *errorMessage = [NSString stringWithFormat:@"Failed to create past_query table '%s'.", errorMsg];
 		NSLog(@"errorMessage = '%@, original ERROR CODE = %i'",errorMessage,res);
