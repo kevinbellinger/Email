@@ -308,7 +308,7 @@
 //	[mailCtrl setMessageBody:body isHTML:NO];
 //	[mailCtrl setSubject:NSLocalizedString(@"You should try reMail", nil)];
 	
-	[self presentModalViewController:mailCtrl animated:YES];
+	[self presentViewController:mailCtrl animated:YES completion:nil];
 	[mailCtrl release];
 }
 

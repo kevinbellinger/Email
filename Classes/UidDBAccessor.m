@@ -114,10 +114,10 @@ static UidDBAccessor *sharedSQLiteManager = nil;
 {
 	return UINT_MAX;  //denotes an object that cannot be released
 }
-- (void)release
-{
-	// never release
-}
+//- (void)release
+//{
+//	// never release
+//}
 - (id)autorelease
 {
 	return self;

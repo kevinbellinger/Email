@@ -93,14 +93,14 @@ static StoreObserver *storeSingleton = nil;
 	// ignore this: Just tells us transaction has been removed from the queue
 }
 
-- (void)paymentQueue:(SKPaymentQueue *)queuerestoreCompletedTransactionsFailedWithError:(NSError *)error {
-	NSLog(@"Restore failed: %@", error);
-	
-	// display error to the user	
-	if(self.delegate != nil && [self.delegate respondsToSelector:@selector(showError:)]) {
-		[self.delegate performSelectorOnMainThread:@selector(showError:) withObject:error waitUntilDone:NO];
-	}
-}
+//- (void)paymentQueue:(SKPaymentQueue *)queuerestoreCompletedTransactionsFailedWithError:(NSError *)error {
+//	NSLog(@"Restore failed: %@", error);
+//	
+//	// display error to the user	
+//	if(self.delegate != nil && [self.delegate respondsToSelector:@selector(showError:)]) {
+//		[self.delegate performSelectorOnMainThread:@selector(showError:) withObject:error waitUntilDone:NO];
+//	}
+//}
 
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions {
 	for (SKPaymentTransaction *transaction in transactions) {

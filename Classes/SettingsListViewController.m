@@ -249,7 +249,7 @@
 				[mailCtrl setMessageBody:body isHTML:NO];
 				[mailCtrl setSubject:@"reMail Feedback"];
 				
-				[self presentModalViewController:mailCtrl animated:YES];
+				[self presentViewController:mailCtrl animated:YES completion:nil];
 				[mailCtrl release];
 			} else {
 				WebViewController* vc = [[WebViewController alloc] init];
@@ -314,7 +314,7 @@
 
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
-	[self dismissModalViewControllerAnimated:YES];
+	[self dismissViewControllerAnimated:YES completion:nil];
 	
 	return;
 }

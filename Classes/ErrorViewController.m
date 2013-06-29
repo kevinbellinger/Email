@@ -88,7 +88,7 @@
 	//TODO(you): change this to your support email address
 	[mailCtrl setToRecipients:[NSArray arrayWithObject:@"support@yourcompany.com"]];
 	
-	[self presentModalViewController:mailCtrl animated:YES];
+	[self presentViewController:mailCtrl animated:YES completion:nil];
 	[mailCtrl release];
 }
 

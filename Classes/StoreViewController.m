@@ -213,10 +213,10 @@
 	
 	if(indexPath.section == 1) {
 		// Use iTunes Connect restoreTransaction
-		NSLog(@"Restore transactions ...");
-		UIApplication* app = [UIApplication sharedApplication];
-		ReMailAppDelegate* appDelegate = app.delegate;
-		[appDelegate pingHome];
+//		NSLog(@"Restore transactions ...");
+//		UIApplication* app = [UIApplication sharedApplication];
+//		ReMailAppDelegate* appDelegate = app.delegate;
+//		[appDelegate pingHome];
 		
 		[[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
 	} else {

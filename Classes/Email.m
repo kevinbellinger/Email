@@ -1,21 +1,7 @@
 //
 //  Email.m
 //  MyMail
-//
-//  Created by Gabor Cselle on 1/16/09.
-//  Copyright 2010 Google Inc.
-//  
-//  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
-//  
-//   http://www.apache.org/licenses/LICENSE-2.0
-//  
-//  Unless required by applicable law or agreed to in writing, software
-//  distributed under the License is distributed on an "AS IS" BASIS,
-//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//  See the License for the specific language governing permissions and
-//  limitations under the License.
+
 //
 
 #import "Email.h"
@@ -82,35 +68,35 @@ static sqlite3_stmt *inboxStmt = nil;
 +(void)tableCheck {
 	// create tables as appropriate
 	char* errorMsg;	
-	int res = sqlite3_exec([[AddEmailDBAccessor sharedManager] database],[[NSString stringWithString:@"CREATE TABLE IF NOT EXISTS email "
+	int res = sqlite3_exec([[AddEmailDBAccessor sharedManager] database],[@"CREATE TABLE IF NOT EXISTS email "
 																			  "(pk INTEGER PRIMARY KEY, datetime REAL, sender_name VARCHAR(50), sender_address VARCHAR(50), "
-																			  "tos TEXT, ccs TEXT, bccs TEXT, attachments TEXT, msg_id VARCHAR(50), uid VARCHAR(20), folder VARCHAR(20), folder_num INTEGER, folder_num_1 INTEGER, folder_num_2 INTEGER, folder_num_3 INTEGER, extra INTEGER);"] UTF8String] , NULL, NULL, &errorMsg);
+																			  "tos TEXT, ccs TEXT, bccs TEXT, attachments TEXT, msg_id VARCHAR(50), uid VARCHAR(20), folder VARCHAR(20), folder_num INTEGER, folder_num_1 INTEGER, folder_num_2 INTEGER, folder_num_3 INTEGER, extra INTEGER);" UTF8String] , NULL, NULL, &errorMsg);
 	if (res != SQLITE_OK) {
 		NSString *errorMessage = [NSString stringWithFormat:@"Failed to create email table '%s'.", errorMsg];
 		NSLog(@"errorMessage = '%@, original ERROR CODE = %i'",errorMessage,res);
 	}
 	
-	res = sqlite3_exec([[AddEmailDBAccessor sharedManager] database],[[NSString stringWithString:@"CREATE INDEX IF NOT EXISTS email_datetime on email (datetime desc);"] UTF8String] , NULL, NULL, &errorMsg);
+	res = sqlite3_exec([[AddEmailDBAccessor sharedManager] database],[@"CREATE INDEX IF NOT EXISTS email_datetime on email (datetime desc);" UTF8String] , NULL, NULL, &errorMsg);
 	if (res != SQLITE_OK) {
 		NSString *errorMessage = [NSString stringWithFormat:@"Failed to create email_datetime table '%s'.", errorMsg];
 		NSLog(@"errorMessage = '%@, original ERROR CODE = %i'",errorMessage,res);
 	}
 	
-	res = sqlite3_exec([[AddEmailDBAccessor sharedManager] database],[[NSString stringWithString:@"CREATE INDEX IF NOT EXISTS email_sender_address on email (sender_address);"] UTF8String] , NULL, NULL, &errorMsg);
+	res = sqlite3_exec([[AddEmailDBAccessor sharedManager] database],[@"CREATE INDEX IF NOT EXISTS email_sender_address on email (sender_address);" UTF8String] , NULL, NULL, &errorMsg);
 	if (res != SQLITE_OK) {
 		NSString *errorMessage = [NSString stringWithFormat:@"Failed to create email_sender_address index '%s'.", errorMsg];
 		NSLog(@"errorMessage = '%@, original ERROR CODE = %i'",errorMessage,res);
 	}
 
-	res = sqlite3_exec([[AddEmailDBAccessor sharedManager] database],[[NSString stringWithString:@"CREATE INDEX IF NOT EXISTS email_folder_num_0 on email (folder_num);"] UTF8String] , NULL, NULL, &errorMsg);
+	res = sqlite3_exec([[AddEmailDBAccessor sharedManager] database],[@"CREATE INDEX IF NOT EXISTS email_folder_num_0 on email (folder_num);" UTF8String] , NULL, NULL, &errorMsg);
 	if (res != SQLITE_OK) {
 		NSString *errorMessage = [NSString stringWithFormat:@"Failed to create folder_num_0 index '%s'.", errorMsg];
 		NSLog(@"errorMessage = '%@, original ERROR CODE = %i'",errorMessage,res);
 	}
 
-	sqlite3_exec([[AddEmailDBAccessor sharedManager] database],[[NSString stringWithString:@"CREATE INDEX IF NOT EXISTS email_folder_num_1 on email (folder_num_1);"] UTF8String] , NULL, NULL, &errorMsg);
-	sqlite3_exec([[AddEmailDBAccessor sharedManager] database],[[NSString stringWithString:@"CREATE INDEX IF NOT EXISTS email_folder_num_2 on email (folder_num_2);"] UTF8String] , NULL, NULL, &errorMsg);
-	sqlite3_exec([[AddEmailDBAccessor sharedManager] database],[[NSString stringWithString:@"CREATE INDEX IF NOT EXISTS email_folder_num_3 on email (folder_num_3);"] UTF8String] , NULL, NULL, &errorMsg);
+	sqlite3_exec([[AddEmailDBAccessor sharedManager] database],[@"CREATE INDEX IF NOT EXISTS email_folder_num_1 on email (folder_num_1);" UTF8String] , NULL, NULL, &errorMsg);
+	sqlite3_exec([[AddEmailDBAccessor sharedManager] database],[@"CREATE INDEX IF NOT EXISTS email_folder_num_2 on email (folder_num_2);" UTF8String] , NULL, NULL, &errorMsg);
+	sqlite3_exec([[AddEmailDBAccessor sharedManager] database],[@"CREATE INDEX IF NOT EXISTS email_folder_num_3 on email (folder_num_3);" UTF8String] , NULL, NULL, &errorMsg);
 	
 	[Email createEmailSearchTable];
 }

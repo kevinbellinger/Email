@@ -216,7 +216,7 @@
 	NSDate* date = [DateUtil datetimeInLocal:self.email.datetime];
 	
 //	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    NSDateFormatter *dateFormatter = [NSDateFormatter dateWritter];
+    NSDateFormatter *dateFormatter = [NSDateFormatter dateWriter];
     
 	[dateFormatter setDateStyle:NSDateFormatterMediumStyle];
 	[dateFormatter setTimeStyle:NSDateFormatterNoStyle];

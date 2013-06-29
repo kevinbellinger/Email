@@ -867,7 +867,7 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 -(NSDictionary*)findContact:(NSString*)name {
 	// find a contact given name
 	if(contactNameFindStmt == nil) {
-		NSString* querySQL = [NSMutableString stringWithFormat:@"SELECT pk, name, email_addresses, occurrences, dbnum_first, dbnum_last FROM contact_name WHERE name = ?;", name];
+		NSString* querySQL = [NSMutableString stringWithFormat:@"SELECT pk, name, email_addresses, occurrences, dbnum_first, dbnum_last FROM contact_name WHERE name = %@;", name];
 		int dbrc = sqlite3_prepare_v2([[ContactDBAccessor sharedManager] database], [querySQL UTF8String], -1, &contactNameFindStmt, nil);	
 		if (dbrc != SQLITE_OK) {
 			return nil;

@@ -406,7 +406,8 @@ UIImage* imgAttachmentAllMail = nil;
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"More"]; 
 		
 		if (cell == nil) { 
-			cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"More"] autorelease]; 
+//			cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"More"] autorelease];
+            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"More"] autorelease];
 		} 
 		
 		if(moreResultsAllMail) {
