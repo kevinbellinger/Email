@@ -45,12 +45,12 @@
 }
 
 -(IBAction)purchase {
-	SKPayment *payment = [SKPayment paymentWithProductIdentifier:self.product.productIdentifier];
-	[[SKPaymentQueue defaultQueue] addPayment:payment];
-	
-	[self.buyButton setHidden:YES];
-	[self.activityIndicator setHidden:NO];
-	[self.activityIndicator startAnimating];
+//	SKPayment *payment = [SKPayment paymentWithProductIdentifier:self.product.productIdentifier];
+//	[[SKPaymentQueue defaultQueue] addPayment:payment];
+//	
+//	[self.buyButton setHidden:YES];
+//	[self.activityIndicator setHidden:NO];
+//	[self.activityIndicator startAnimating];
 }
 
 -(IBAction)recommend {
