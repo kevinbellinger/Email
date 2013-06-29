@@ -18,7 +18,7 @@
    limitations under the License.
  */
 
-"reMail Search" = "reMail Suche";
+"MyMail Search" = "reMail Suche";
 
 "This version of reMail only supports Gmail accounts. For other account types, you need to purchase a different edition of reMail." =
  "Diese Version von reMail unterstützt nur Google Mail / Gmail Emailkonten. Die Vollversion von reMail unterstützt auch andere Kontotypen.";

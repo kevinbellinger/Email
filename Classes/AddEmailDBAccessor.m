@@ -200,6 +200,13 @@ static AddEmailDBAccessor *sharedSQLiteManager = nil;
 		sqlite3_free(errorMsg);
 	}
 }
+- (void)setDatabaseFilepath:(NSString *)databaseFilepath
+{
+    
+    
+    
+}
+
 - (NSString *)databaseFilepath {
 	if (databaseFilepath == nil) {
 		//assert(FALSE); // You should init CacheManager first, then this won't happen.

@@ -415,6 +415,13 @@
 	}
 }
 
+//https://developer.apple.com/library/mac/#samplecode/OverlayView/Listings/DimensionLineDrawing_m.html#//apple_ref/doc/uid/DTS40008906-DimensionLineDrawing_m-DontLinkElementID_4
+#define DIMENSION_LINE_THICKNESS                3.0
+#define DIMENSION_LINE_ARROW_SIDE_LENGTH        8.0
+#define DIMENSION_LINE_STROKE_COLOR             [UIColor redColor]
+#define DIMENSION_LINE_LABEL_TEXT_COLOR         [UIColor redColor]
+#define DIMENSION_LINE_LABEL_BACKGROUND_COLOR   [UIColor yellowColor]
+
 #pragma mark Assemble UI
 -(int)peopleList:(NSString*)title addToView:(UIView*)addToView peopleList:(NSArray*)peopleList top:(int)top highlightAll:(BOOL)highlightAll highlightQuery:(NSString*)highlightQuery {
 	// produces a list of people name buttons
@@ -425,7 +432,9 @@
     labelTo.textColor = [UIColor blackColor];
 //	labelTo.textColor = [UIColor darkGrayColor];	
 	labelTo.text = title;
-	CGSize size = [title sizeWithFont:labelTo.font];
+//	CGSize size = [title sizeWithFont:labelTo.font];
+    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:14.0], NSFontAttributeName, DIMENSION_LINE_LABEL_TEXT_COLOR, NSForegroundColorAttributeName, DIMENSION_LINE_LABEL_BACKGROUND_COLOR, NSBackgroundColorAttributeName, nil];
+    CGSize size = [title sizeWithAttributes:attributes];
     labelTo.frame = CGRectMake(0, 0, size.width+2, 30);
 	[toView addSubview:labelTo];
 
@@ -495,7 +504,10 @@
 	labelTo.font = [UIFont systemFontOfSize:14];
 	labelTo.textColor = [UIColor darkGrayColor];	
 	labelTo.text = title;
-	CGSize size = [title sizeWithFont:labelTo.font];
+//	CGSize size = [title sizeWithFont:labelTo.font];
+    
+    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:14.0], NSFontAttributeName, DIMENSION_LINE_LABEL_TEXT_COLOR, NSForegroundColorAttributeName, DIMENSION_LINE_LABEL_BACKGROUND_COLOR, NSBackgroundColorAttributeName, nil];
+    CGSize size = [title sizeWithAttributes:attributes];
 	labelTo.frame = CGRectMake(0, 0, size.width+2, 30);
 	[toView addSubview:labelTo];
 	
@@ -557,8 +569,9 @@
 				} else {
 					label.textColor = [UIColor darkGrayColor];
 				}
-				
-				CGSize size = [filename sizeWithFont:label.font];
+				NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:14.0], NSFontAttributeName, DIMENSION_LINE_LABEL_TEXT_COLOR, NSForegroundColorAttributeName, DIMENSION_LINE_LABEL_BACKGROUND_COLOR, NSBackgroundColorAttributeName, nil];
+                CGSize size = [title sizeWithAttributes:attributes];
+//				CGSize size = [filename sizeWithFont:label.font];
 				label.frame = CGRectMake(0, 0, size.width+2, 30);
 				[toView addSubview:label];
 				[label release];
@@ -743,7 +756,10 @@
 		bottom = bodyLabelBottom;
 		[addToView addSubview:self.bodyTTLabel];
 	} else {
-		CGSize size = [body sizeWithFont:self.bodyUIView.font constrainedToSize:CGSizeMake(300.0f,100000000.0f) lineBreakMode: NSLineBreakByWordWrapping];
+//		CGSize size = [body sizeWithFont:self.bodyUIView.font constrainedToSize:CGSizeMake(300.0f,100000000.0f) lineBreakMode: NSLineBreakByWordWrapping];
+        
+        NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:14.0], NSFontAttributeName, DIMENSION_LINE_LABEL_TEXT_COLOR, NSForegroundColorAttributeName, DIMENSION_LINE_LABEL_BACKGROUND_COLOR, NSBackgroundColorAttributeName, nil];
+        CGSize size = [body sizeWithAttributes:attributes];
 		self.bodyUIView.frame = CGRectMake(-3, top, contentWidth, size.height+24);
 //		bottom = self.bodyUIView.bottom;
         bottom = self.bodyUIView.frame.origin.y + self.bodyUIView.frame.size.height;

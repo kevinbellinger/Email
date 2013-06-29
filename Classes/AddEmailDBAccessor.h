@@ -54,7 +54,7 @@ typedef enum SQLITE3LockingMode
 	sqlite3 *database;
 }
 
-@property (readwrite,retain) NSString *databaseFilepath;
+@property (nonatomic,retain) NSString *databaseFilepath;
 @property (readwrite,retain) id delegate;
 
 + (id)sharedManager;

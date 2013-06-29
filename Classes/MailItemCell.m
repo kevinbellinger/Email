@@ -31,7 +31,7 @@
 @synthesize showDetailsButton;
 @synthesize showDetailsDelegate;
 @synthesize convoIndex; // index of email in the conversation
-@synthesize newBodyLabel;
+@synthesize theBodyLabel;
 
 - (void)dealloc {
 	[senderLabel release];
@@ -42,23 +42,23 @@
 	[showDetailsButton release];
 	//[showDetailsDelegate release]; - don't do this - it's an assign property!
 	[convoIndex release];
-	[newBodyLabel release];
+	[theBodyLabel release];
     [super dealloc];
 }
 
 -(void)setupText {
-//	self.newBodyLabel = [[TTStyledTextLabel alloc] initWithFrame:CGRectMake(6, 41, 312, 1941)];
-	self.newBodyLabel = [[UILabel alloc] initWithFrame:CGRectMake(6, 41, 312, 1941)];
-    self.newBodyLabel.font = [UIFont systemFontOfSize:14];
-	[self.contentView addSubview:self.newBodyLabel];	
+//	self.theBodyLabel = [[TTStyledTextLabel alloc] initWithFrame:CGRectMake(6, 41, 312, 1941)];
+	self.theBodyLabel = [[UILabel alloc] initWithFrame:CGRectMake(6, 41, 312, 1941)];
+    self.theBodyLabel.font = [UIFont systemFontOfSize:14];
+	[self.contentView addSubview:self.theBodyLabel];	
 }
 
 -(void)setText:(NSString*)text {
-//	self.newBodyLabel.text = [TTStyledText textFromXHTML:text lineBreaks:YES URLs:YES];
+//	self.theBodyLabel.text = [TTStyledText textFromXHTML:text lineBreaks:YES URLs:YES];
     
-    self.newBodyLabel.text = [text stringByStrippingHTML];
+    self.theBodyLabel.text = [text stringByStrippingHTML];
     
-	[self.newBodyLabel sizeToFit];
+	[self.theBodyLabel sizeToFit];
 }
 
 -(IBAction)showDetailsClicked {

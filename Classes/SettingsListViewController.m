@@ -2,20 +2,7 @@
 //  SettingsListViewController.m
 //  MyMail
 //
-//  Created by Gabor Cselle on 9/15/09.
-//  Copyright 2010 Google Inc.
-//  
-//  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
-//  
-//   http://www.apache.org/licenses/LICENSE-2.0
-//  
-//  Unless required by applicable law or agreed to in writing, software
-//  distributed under the License is distributed on an "AS IS" BASIS,
-//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//  See the License for the specific language governing permissions and
-//  limitations under the License.
+
 //
 #import "AppSettings.h"
 #import "AccountTypeSelectViewController.h"
@@ -32,37 +19,20 @@
 
 #define MULTI_ACCOUNT_LIMIT 10
 
-@interface ClearSearchHistoryDelegate : NSObject <UIAlertViewDelegate> {}
-@end
-
-@implementation ClearSearchHistoryDelegate
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-	if(buttonIndex == 1) {
-		// clear history
-		[PastQuery clearAll];
-	}
-}
-@end
-
-@interface ClearAttachmentsDelegate : NSObject <UIAlertViewDelegate> {}
-@end
-
-@implementation ClearAttachmentsDelegate
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-	if(buttonIndex == 1) {
-		// clear all attachments
-		[GlobalDBFunctions deleteAllAttachments];
-	}
-}
-@end
-
-
-
-
 @implementation SettingsListViewController
 @synthesize accountIndices;
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == 90) {
+        if (buttonIndex == 1) {
+            [PastQuery clearAll];
+        }
+    } else {
+        [GlobalDBFunctions deleteAllAttachments];
+    }
+    
+}
 
 - (void)didReceiveMemoryWarning {
 	// Releases the view if it doesn't have a superview.
@@ -217,17 +187,16 @@
 		// Clear Data
 		if(indexPath.row == 0) {
 			// Search History
-			ClearAttachmentsDelegate* d = [[ClearSearchHistoryDelegate alloc] init];
+//			ClearAttachmentsDelegate* d = [[ClearSearchHistoryDelegate alloc] init];
 			UIAlertView* av = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Clear Search History?",nil)
 														 message:NSLocalizedString(@"This will clear all the items in your search history.", nil) 
-														 delegate:d cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] autorelease];
+														 delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] autorelease];
+            av.tag = 90;
 			[av show];
 		} else {
-			/// Attachment data
-			ClearAttachmentsDelegate* d = [[ClearAttachmentsDelegate alloc] init];
 			UIAlertView* av = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Clear Attachments?",nil)
 														 message:NSLocalizedString(@"This will delete all attachments downloaded to reMail.", nil) 
-														delegate:d cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] autorelease];
+														delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] autorelease];
 			[av show];
 		}		
 	} else if (indexPath.section == 3) {
@@ -254,7 +223,7 @@
 			} else {
 				WebViewController* vc = [[WebViewController alloc] init];
 				vc.title = NSLocalizedString(@"Love reMail?",nil);
-				vc.serverUrl = [NSString stringWithFormat:NSLocalizedString(@"http://www.remail.com/app_love_remail?lang=en&edition=%i", nil), 
+				vc.serverUrl = [NSString stringWithFormat:NSLocalizedString(@"http://www.ljapps.com?lang=en&edition=%i", nil), 
 								(int)[AppSettings reMailEdition]];
 				vc.toolbarItems = [self.toolbarItems subarrayWithRange:NSMakeRange(0, 2)];
 				[self.navigationController pushViewController:vc animated:YES];

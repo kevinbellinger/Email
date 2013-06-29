@@ -225,7 +225,7 @@
 	MMAPString *buf = mi->imap_response_buffer;
 	
 	// build a string from a sized buffer
-	return [NSString stringWithFormat:@"%.*s", buf->len, buf->str];
+	return [NSString stringWithFormat:@"%.*lu", buf->len, buf->str];
 }
 
 +(BOOL)isProtocolError:(NSException*)exp {
