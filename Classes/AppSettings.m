@@ -76,7 +76,7 @@
 
 
 +(NSString*)udid {
-	NSString* udid = [UIDevice currentDevice].uniqueIdentifier;
+	NSString* udid = [[UIDevice currentDevice] identifierForVendor].UUIDString;
 	return udid;
 }
 
