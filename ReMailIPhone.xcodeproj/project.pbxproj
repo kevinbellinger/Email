@@ -203,13 +203,13 @@
 		A67025EE1243396D003519CB /* libsasl2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 14019BA010DC26A40000859B /* libsasl2.a */; };
 		A67025EF1243396D003519CB /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 147537361155B73A00E1AA38 /* libcrypto.a */; };
 		D61BD952177F650C00297425 /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = D61BD951177F650C00297425 /* NSString+Additions.m */; };
+		D620E096177F6F0B0046587F /* NSDateFormatter+Safe.m in Sources */ = {isa = PBXBuildFile; fileRef = D620E095177F6F0B0046587F /* NSDateFormatter+Safe.m */; };
 		D664FB3916AEEB0700C7C4DE /* NSString+StrippingHTML.m in Sources */ = {isa = PBXBuildFile; fileRef = D664FB3816AEEB0700C7C4DE /* NSString+StrippingHTML.m */; };
 		D69395B616A7497F00B7CA12 /* settingsStoreIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D69395B516A7497F00B7CA12 /* settingsStoreIcon.png */; };
 		D6A08F3116A9D8C90074B7C5 /* HomeView_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6A08F3016A9D8C90074B7C5 /* HomeView_iPad.xib */; };
 		D6A08F3316A9E0410074B7C5 /* Intro_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6A08F3216A9E0410074B7C5 /* Intro_iPad.xib */; };
 		D6A08F3516A9E3900074B7C5 /* AccountTypeSelect_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6A08F3416A9E38F0074B7C5 /* AccountTypeSelect_iPad.xib */; };
 		D6A08F3916A9E6B60074B7C5 /* Attachment_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6A08F3816A9E6B50074B7C5 /* Attachment_iPad.xib */; };
-		D6EE661416AF3CE40098152E /* NSDateFormatter+Safe.m in Sources */ = {isa = PBXBuildFile; fileRef = D6EE661216AF3CE40098152E /* NSDateFormatter+Safe.m */; };
 		F83C988F1566DFB40005B167 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83C988E1566DFB40005B167 /* QuartzCore.framework */; };
 		F83C98911566DFBA0005B167 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83C98901566DFBA0005B167 /* StoreKit.framework */; };
 		F83C98931566DFC10005B167 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83C98921566DFC10005B167 /* CoreLocation.framework */; };
@@ -570,6 +570,8 @@
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D61BD950177F650C00297425 /* NSString+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Additions.h"; path = "Classes/NSString+Additions.h"; sourceTree = "<group>"; };
 		D61BD951177F650C00297425 /* NSString+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Additions.m"; path = "Classes/NSString+Additions.m"; sourceTree = "<group>"; };
+		D620E094177F6F0B0046587F /* NSDateFormatter+Safe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDateFormatter+Safe.h"; path = "Classes/NSDateFormatter+Safe.h"; sourceTree = "<group>"; };
+		D620E095177F6F0B0046587F /* NSDateFormatter+Safe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDateFormatter+Safe.m"; path = "Classes/NSDateFormatter+Safe.m"; sourceTree = "<group>"; };
 		D664FB3716AEEB0700C7C4DE /* NSString+StrippingHTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+StrippingHTML.h"; path = "Classes/NSString+StrippingHTML.h"; sourceTree = "<group>"; };
 		D664FB3816AEEB0700C7C4DE /* NSString+StrippingHTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+StrippingHTML.m"; path = "Classes/NSString+StrippingHTML.m"; sourceTree = "<group>"; };
 		D69395A716A747F500B7CA12 /* Dell_Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dell_Logo.png; sourceTree = "<group>"; };
@@ -581,8 +583,6 @@
 		D6A08F3216A9E0410074B7C5 /* Intro_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Intro_iPad.xib; path = Resources/xibs/Intro_iPad.xib; sourceTree = "<group>"; };
 		D6A08F3416A9E38F0074B7C5 /* AccountTypeSelect_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AccountTypeSelect_iPad.xib; path = Resources/xibs/AccountTypeSelect_iPad.xib; sourceTree = "<group>"; };
 		D6A08F3816A9E6B50074B7C5 /* Attachment_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Attachment_iPad.xib; path = Resources/xibs/Attachment_iPad.xib; sourceTree = "<group>"; };
-		D6EE661216AF3CE40098152E /* NSDateFormatter+Safe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+Safe.m"; sourceTree = "<group>"; };
-		D6EE661316AF3CE40098152E /* NSDateFormatter+Safe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+Safe.h"; sourceTree = "<group>"; };
 		F83C988E1566DFB40005B167 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
 		F83C98901566DFBA0005B167 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
 		F83C98921566DFC10005B167 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = DEVELOPER_DIR; };
@@ -796,8 +796,8 @@
 		147BBF240F38DAE500345343 /* Other */ = {
 			isa = PBXGroup;
 			children = (
-				D6EE661216AF3CE40098152E /* NSDateFormatter+Safe.m */,
-				D6EE661316AF3CE40098152E /* NSDateFormatter+Safe.h */,
+				D620E094177F6F0B0046587F /* NSDateFormatter+Safe.h */,
+				D620E095177F6F0B0046587F /* NSDateFormatter+Safe.m */,
 				14F83D43113726E60096DE57 /* main.m */,
 				14F83D44113726E60096DE57 /* StringUtil.h */,
 				14F83D45113726E60096DE57 /* StringUtil.m */,
@@ -955,15 +955,6 @@
 		29B97314FDCFA39411CA2CEA /* NextMailIPhone */ = {
 			isa = PBXGroup;
 			children = (
-				F86BECBA157689050080308C /* CFNetwork.framework */,
-				F83C989C1566E0040005B167 /* libiconv.dylib */,
-				F83C989A1566DFDA0005B167 /* Foundation.framework */,
-				F83C98981566DFD40005B167 /* CoreGraphics.framework */,
-				F83C98961566DFCF0005B167 /* MessageUI.framework */,
-				F83C98941566DFC80005B167 /* UIKit.framework */,
-				F83C98921566DFC10005B167 /* CoreLocation.framework */,
-				F83C98901566DFBA0005B167 /* StoreKit.framework */,
-				F83C988E1566DFB40005B167 /* QuartzCore.framework */,
 				F8618DC810DAE4A100C41188 /* MailCore.xcodeproj */,
 				207A09F50F53269D0092E457 /* Sync */,
 				148937030FF987B700AFAD05 /* Search */,
@@ -1018,6 +1009,15 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F86BECBA157689050080308C /* CFNetwork.framework */,
+				F83C989C1566E0040005B167 /* libiconv.dylib */,
+				F83C989A1566DFDA0005B167 /* Foundation.framework */,
+				F83C98981566DFD40005B167 /* CoreGraphics.framework */,
+				F83C98961566DFCF0005B167 /* MessageUI.framework */,
+				F83C98941566DFC80005B167 /* UIKit.framework */,
+				F83C98921566DFC10005B167 /* CoreLocation.framework */,
+				F83C98901566DFBA0005B167 /* StoreKit.framework */,
+				F83C988E1566DFB40005B167 /* QuartzCore.framework */,
 				2A4358C011C0D8A9009A6A60 /* QuartzCore.framework */,
 				14E64FE00FEC51B4000A0962 /* UIKit.framework */,
 				14E64FD50FEC5139000A0962 /* MessageUI.framework */,
@@ -1088,6 +1088,8 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "ReMailIPhone" */;
 			compatibilityVersion = "Xcode 3.1";
 			developmentRegion = English;
@@ -1307,6 +1309,7 @@
 				14D96BF30FF4362C008F3BCC /* CTCoreMessage+ReMail.m in Sources */,
 				14D96E120FF5B0B4008F3BCC /* IntroViewController.m in Sources */,
 				14D96EED0FF6E990008F3BCC /* StatusViewController.m in Sources */,
+				D620E096177F6F0B0046587F /* NSDateFormatter+Safe.m in Sources */,
 				148938560FF9A9AA00AFAD05 /* UidEntry.m in Sources */,
 				14E95474104484C8006ABA93 /* WebViewController.m in Sources */,
 				14F83D02113725450096DE57 /* sqlite3.c in Sources */,
@@ -1350,7 +1353,6 @@
 				14F8431C11372CE00096DE57 /* NSString+SBJSON.m in Sources */,
 				14F8431D11372CE00096DE57 /* SBJSON.m in Sources */,
 				D664FB3916AEEB0700C7C4DE /* NSString+StrippingHTML.m in Sources */,
-				D6EE661416AF3CE40098152E /* NSDateFormatter+Safe.m in Sources */,
 				D61BD952177F650C00297425 /* NSString+Additions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
