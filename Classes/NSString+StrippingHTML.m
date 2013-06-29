@@ -1,6 +1,6 @@
 //
 //  NSString+StrippingHTML.m
-//  ReMailIPhone
+//  MyMail
 //
 //  Created by LIANGJUN JIANG on 1/22/13.
 //

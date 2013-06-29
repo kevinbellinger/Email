@@ -1,9 +1,9 @@
 //
 //  GlobalDBFunctions.h
-//  ReMailIPhone
+//  MyMail
 //
 //  Created by Gabor Cselle on 6/29/09.
-//  Copyright 2009 NextMail Corporation. All rights reserved.
+//  Copyright 2013 LJApps Inc. All rights reserved.
 //
 
 // Functions that go beyond a single database

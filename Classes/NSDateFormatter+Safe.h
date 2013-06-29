@@ -1,6 +1,6 @@
 //
 //  NSDateFormatter+Safe.h
-//  ReMailIPhone
+//  MyMail
 //
 //  Created by LIANGJUN JIANG on 1/11/13.
 //

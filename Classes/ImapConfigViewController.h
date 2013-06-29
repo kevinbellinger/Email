@@ -1,6 +1,6 @@
 //
 //  ImapConfigViewController.h
-//  ReMailIPhone
+//  MyMail
 //
 //  Created by Gabor Cselle on 7/15/09.
 //  Copyright 2010 Google Inc.

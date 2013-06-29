@@ -1,6 +1,6 @@
 //
 //  ActivityIndicator.h
-//  ReMailIPhone
+//  MyMail
 //
 //  Created by Gabor Cselle on 2/13/09.
 //  Copyright 2010 Google Inc.

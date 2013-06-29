@@ -1,6 +1,6 @@
 //
 //  UsageViewController.h
-//  ReMailIPhone
+//  MyMail
 //
 //  Created by Gabor Cselle on 10/8/09.
 //  Copyright 2010 Google Inc.

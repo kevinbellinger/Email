@@ -1,6 +1,6 @@
 //
 //  AppSettings.m
-//  ReMailIPhone
+//  MyMail
 //
 //  Created by Gabor Cselle on 2/3/09.
 //  Copyright 2010 Google Inc.

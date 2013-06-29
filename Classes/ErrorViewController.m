@@ -1,6 +1,6 @@
 //
 //  ErrorViewController.m
-//  ReMailIPhone
+//  MyMail
 //
 //  Created by Gabor Cselle on 9/1/09.
 //  Copyright 2010 Google Inc.

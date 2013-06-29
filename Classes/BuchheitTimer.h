@@ -1,6 +1,6 @@
 //
 //  BucheitTimer.h
-//  ReMailIPhone
+//  MyMail
 //
 //  Created by Gabor Cselle on 2/16/09.
 //  Copyright 2010 Google Inc.

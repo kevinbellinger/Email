@@ -1,6 +1,6 @@
 //
 //  ProgressView.h
-//  ReMailIPhone
+//  MyMail
 //
 //  Created by Gabor Cselle on 3/16/09.
 //  Copyright 2010 Google Inc.

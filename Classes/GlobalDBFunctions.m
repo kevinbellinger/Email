@@ -1,9 +1,9 @@
 //
 //  GlobalDBFunctions.m
-//  ReMailIPhone
+//  MyMail
 //
 //  Created by Gabor Cselle on 6/29/09.
-//  Copyright 2009 NextMail Corporation. All rights reserved.
+//  Copyright 2013 LJApps Inc. All rights reserved.
 //
 
 #import "GlobalDBFunctions.h"
@@ -188,7 +188,7 @@ NSInteger intSortReverse(id num1, id num2, void *context){
 		NSDictionary *fileAttributes = [fileManager attributesOfItemAtPath:dbPath error:nil];
 		if (fileAttributes != nil) {
 			NSNumber *fileSize;
-			if (fileSize = [fileAttributes objectForKey:NSFileSize]) {
+			if ((fileSize = [fileAttributes objectForKey:NSFileSize])) {
 				total += [fileSize unsignedLongValue];
 			}
 		}
@@ -200,7 +200,7 @@ NSInteger intSortReverse(id num1, id num2, void *context){
 		NSDictionary *fileAttributes = [fileManager attributesOfItemAtPath:dbPath error:nil];
 		if (fileAttributes != nil) {
 			NSNumber *fileSize;
-			if (fileSize = [fileAttributes objectForKey:NSFileSize]) {
+			if ((fileSize = [fileAttributes objectForKey:NSFileSize])) {
 				total += [fileSize unsignedLongValue];
 			}
 		}
@@ -217,7 +217,7 @@ NSInteger intSortReverse(id num1, id num2, void *context){
 		
 		if (fileAttributes != nil) {
 			NSNumber *fileSize;
-			if (fileSize = [fileAttributes objectForKey:NSFileSize]) {
+			if ((fileSize = [fileAttributes objectForKey:NSFileSize])) {
 				total += [fileSize unsignedLongValue];
 			}
 		}
