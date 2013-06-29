@@ -167,7 +167,7 @@
 			cell.textLabel.text = NSLocalizedString(@"Support / Feedback", nil);
 			cell.imageView.image = [UIImage imageNamed:@"settingsSupport.png"];
 		} else {
-			cell.textLabel.text = NSLocalizedString(@"About Keystone", nil);
+			cell.textLabel.text = NSLocalizedString(@"About MyMail", nil);
 			cell.imageView.image = [UIImage imageNamed:@"Icon.png"];
 		}
 	}

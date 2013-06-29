@@ -30,7 +30,7 @@
     
 	[super viewDidAppear:animated];
     
-    self.title = NSLocalizedString(@"About Keystone", @"About Keystone");
+    self.title = NSLocalizedString(@"About MyMail", @"About MyMail");
 }
 
 - (void)didReceiveMemoryWarning {

@@ -133,7 +133,7 @@ int syncedAtStart;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 	
-	self.navigationItem.title = @"Keystone Status";
+	self.navigationItem.title = @"MyMail Status";
 	
 	self.versionLabel.text = [NSString stringWithFormat:@"V%@ S%i", [AppSettings version], [AppSettings searchCount]];
 	

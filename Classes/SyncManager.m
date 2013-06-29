@@ -39,7 +39,7 @@ static SyncManager *singleton = nil;
 @synthesize progressNumbersDelegate;
 @synthesize clientMessageDelegate;
 @synthesize clientMessageWasError;
-@synthesize newEmailDelegate;
+@synthesize myEmailDelegate;
 @synthesize syncStates;
 @synthesize syncInProgress;
 
@@ -499,12 +499,12 @@ static SyncManager *singleton = nil;
 #pragma mark New Email notifications
 - (void)registerForNewEmail:(id)delegate {
 	assert([delegate respondsToSelector:@selector(didSyncNewEmail)]);
-	self.newEmailDelegate = delegate;
+	self.myEmailDelegate = delegate;
 }
 
 -(void)triggerNewEmail {
-	if(self.newEmailDelegate != nil && [self.newEmailDelegate respondsToSelector:@selector(didSyncNewEmail:)]) {
-		[self.newEmailDelegate performSelectorOnMainThread:@selector(didSyncNewEmail:) withObject:nil waitUntilDone:NO];
+	if(self.myEmailDelegate != nil && [self.myEmailDelegate respondsToSelector:@selector(didSyncNewEmail:)]) {
+		[self.myEmailDelegate performSelectorOnMainThread:@selector(didSyncNewEmail:) withObject:nil waitUntilDone:NO];
 	}
 }
 

@@ -12,7 +12,7 @@
 
 
 + (NSDateFormatter *)dateReader;
-+ (NSDateFormatter *)dateWritter;
++ (NSDateFormatter *)dateWriter;
 
 
 @end

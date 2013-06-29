@@ -202,10 +202,9 @@
 		A67025ED1243396D003519CB /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 14B0AC8B115484D000944873 /* libssl.a */; };
 		A67025EE1243396D003519CB /* libsasl2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 14019BA010DC26A40000859B /* libsasl2.a */; };
 		A67025EF1243396D003519CB /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 147537361155B73A00E1AA38 /* libcrypto.a */; };
-		D61BD952177F650C00297425 /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = D61BD951177F650C00297425 /* NSString+Additions.m */; };
 		D620E096177F6F0B0046587F /* NSDateFormatter+Safe.m in Sources */ = {isa = PBXBuildFile; fileRef = D620E095177F6F0B0046587F /* NSDateFormatter+Safe.m */; };
+		D620E09A177F72170046587F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D620E099177F72170046587F /* Default-568h@2x.png */; };
 		D664FB3916AEEB0700C7C4DE /* NSString+StrippingHTML.m in Sources */ = {isa = PBXBuildFile; fileRef = D664FB3816AEEB0700C7C4DE /* NSString+StrippingHTML.m */; };
-		D69395B616A7497F00B7CA12 /* settingsStoreIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D69395B516A7497F00B7CA12 /* settingsStoreIcon.png */; };
 		D6A08F3116A9D8C90074B7C5 /* HomeView_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6A08F3016A9D8C90074B7C5 /* HomeView_iPad.xib */; };
 		D6A08F3316A9E0410074B7C5 /* Intro_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6A08F3216A9E0410074B7C5 /* Intro_iPad.xib */; };
 		D6A08F3516A9E3900074B7C5 /* AccountTypeSelect_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6A08F3416A9E38F0074B7C5 /* AccountTypeSelect_iPad.xib */; };
@@ -289,7 +288,6 @@
 		140382810F296B8D00531DB7 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HomeViewController.h; path = Classes/HomeViewController.h; sourceTree = "<group>"; };
 		14073E4E106DAB97007E1DE5 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/GmailConfig.xib; sourceTree = "<group>"; };
 		14073E4F106DABA4007E1DE5 /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/GmailConfig.xib; sourceTree = "<group>"; };
-		140909BF1014133A000D9121 /* notice.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = notice.txt; sourceTree = "<group>"; };
 		141E29670FE7520F007D6EB4 /* PastQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PastQuery.h; sourceTree = "<group>"; };
 		141E29680FE7520F007D6EB4 /* PastQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PastQuery.m; sourceTree = "<group>"; };
 		142A6C270FF2C8D800BEF19F /* libiconv.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.2.dylib; path = usr/lib/libiconv.2.dylib; sourceTree = SDKROOT; };
@@ -568,17 +566,11 @@
 		288765070DF74369002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		2A4358C011C0D8A9009A6A60 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D61BD950177F650C00297425 /* NSString+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Additions.h"; path = "Classes/NSString+Additions.h"; sourceTree = "<group>"; };
-		D61BD951177F650C00297425 /* NSString+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Additions.m"; path = "Classes/NSString+Additions.m"; sourceTree = "<group>"; };
 		D620E094177F6F0B0046587F /* NSDateFormatter+Safe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDateFormatter+Safe.h"; path = "Classes/NSDateFormatter+Safe.h"; sourceTree = "<group>"; };
 		D620E095177F6F0B0046587F /* NSDateFormatter+Safe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDateFormatter+Safe.m"; path = "Classes/NSDateFormatter+Safe.m"; sourceTree = "<group>"; };
+		D620E099177F72170046587F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		D664FB3716AEEB0700C7C4DE /* NSString+StrippingHTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+StrippingHTML.h"; path = "Classes/NSString+StrippingHTML.h"; sourceTree = "<group>"; };
 		D664FB3816AEEB0700C7C4DE /* NSString+StrippingHTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+StrippingHTML.m"; path = "Classes/NSString+StrippingHTML.m"; sourceTree = "<group>"; };
-		D69395A716A747F500B7CA12 /* Dell_Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dell_Logo.png; sourceTree = "<group>"; };
-		D69395A816A747F500B7CA12 /* DMP_Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DMP_Logo.png; sourceTree = "<group>"; };
-		D69395AA16A747F500B7CA12 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
-		D69395AB16A747F500B7CA12 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
-		D69395B516A7497F00B7CA12 /* settingsStoreIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settingsStoreIcon.png; sourceTree = "<group>"; };
 		D6A08F3016A9D8C90074B7C5 /* HomeView_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HomeView_iPad.xib; path = Resources/xibs/HomeView_iPad.xib; sourceTree = "<group>"; };
 		D6A08F3216A9E0410074B7C5 /* Intro_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Intro_iPad.xib; path = Resources/xibs/Intro_iPad.xib; sourceTree = "<group>"; };
 		D6A08F3416A9E38F0074B7C5 /* AccountTypeSelect_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AccountTypeSelect_iPad.xib; path = Resources/xibs/AccountTypeSelect_iPad.xib; sourceTree = "<group>"; };
@@ -649,7 +641,7 @@
 		1439C4F11090D928006CE583 /* Artwork */ = {
 			isa = PBXGroup;
 			children = (
-				D69395A216A747F500B7CA12 /* Dell */,
+				D620E099177F72170046587F /* Default-568h@2x.png */,
 				14F8432311372EF30096DE57 /* aboutGabor.jpg */,
 				14F83C28113723340096DE57 /* aboutGoogle.png */,
 				14F83C29113723340096DE57 /* accountsConfigIcon.png */,
@@ -813,8 +805,6 @@
 				146D1B200F4568BE005439E5 /* ActivityIndicator.m */,
 				D664FB3716AEEB0700C7C4DE /* NSString+StrippingHTML.h */,
 				D664FB3816AEEB0700C7C4DE /* NSString+StrippingHTML.m */,
-				D61BD950177F650C00297425 /* NSString+Additions.h */,
-				D61BD951177F650C00297425 /* NSString+Additions.m */,
 			);
 			name = Other;
 			sourceTree = "<group>";
@@ -1001,7 +991,6 @@
 				1439C4F21090D936006CE583 /* Xibs */,
 				1439C4F11090D928006CE583 /* Artwork */,
 				8D1107310486CEB800E47090 /* Info.plist */,
-				140909BF1014133A000D9121 /* notice.txt */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1034,19 +1023,6 @@
 				147537361155B73A00E1AA38 /* libcrypto.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		D69395A216A747F500B7CA12 /* Dell */ = {
-			isa = PBXGroup;
-			children = (
-				D69395B516A7497F00B7CA12 /* settingsStoreIcon.png */,
-				D69395A716A747F500B7CA12 /* Dell_Logo.png */,
-				D69395A816A747F500B7CA12 /* DMP_Logo.png */,
-				D69395AA16A747F500B7CA12 /* Icon.png */,
-				D69395AB16A747F500B7CA12 /* Icon@2x.png */,
-			);
-			name = Dell;
-			path = Resources/Artwork/Dell;
 			sourceTree = "<group>";
 		};
 		F8618DC910DAE4A100C41188 /* Products */ = {
@@ -1199,6 +1175,7 @@
 				14F83CAB113723340096DE57 /* homeBgA.png in Resources */,
 				14F83CAC113723340096DE57 /* homeBgNoLogo.png in Resources */,
 				14F83CAD113723340096DE57 /* homeBtnFolders.png in Resources */,
+				D620E09A177F72170046587F /* Default-568h@2x.png in Resources */,
 				14F83CAE113723340096DE57 /* homeBtnInbox.png in Resources */,
 				14F83CAF113723340096DE57 /* homeBtnSearch.png in Resources */,
 				14F83CB0113723340096DE57 /* homeBtnSettings.png in Resources */,
@@ -1282,7 +1259,6 @@
 				14F83D30113725E50096DE57 /* Usage.xib in Resources */,
 				14F83D31113725E50096DE57 /* WebView.xib in Resources */,
 				14F8432411372EF30096DE57 /* aboutGabor.jpg in Resources */,
-				D69395B616A7497F00B7CA12 /* settingsStoreIcon.png in Resources */,
 				D6A08F3116A9D8C90074B7C5 /* HomeView_iPad.xib in Resources */,
 				D6A08F3316A9E0410074B7C5 /* Intro_iPad.xib in Resources */,
 				D6A08F3516A9E3900074B7C5 /* AccountTypeSelect_iPad.xib in Resources */,
@@ -1358,7 +1334,6 @@
 				14F8431C11372CE00096DE57 /* NSString+SBJSON.m in Sources */,
 				14F8431D11372CE00096DE57 /* SBJSON.m in Sources */,
 				D664FB3916AEEB0700C7C4DE /* NSString+StrippingHTML.m in Sources */,
-				D61BD952177F650C00297425 /* NSString+Additions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

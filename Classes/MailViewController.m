@@ -32,7 +32,7 @@
 #import "NSString+StrippingHTML.h"
 #import "NSDateFormatter+Safe.h"
 
-#define PROMO_STR @"I found your email with Keystone: http://www.dell.com"
+#define PROMO_STR @"I found your email with MyMail: http://www.dell.com"
 
 @interface MailViewController (Private)
 
@@ -426,7 +426,7 @@
 //	labelTo.textColor = [UIColor darkGrayColor];	
 	labelTo.text = title;
 	CGSize size = [title sizeWithFont:labelTo.font];
-	labelTo.frame = CGRectMake(0, 0, size.width+2, 30);
+    labelTo.frame = CGRectMake(0, 0, size.width+2, 30);
 	[toView addSubview:labelTo];
 
 	for (NSDictionary* person in peopleList) {

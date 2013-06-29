@@ -1,21 +1,6 @@
 //
 //  ContactName.m
-//  ReMailIPhone
-//
-//  Created by Gabor Cselle on 1/18/09.
-//  Copyright 2010 Google Inc.
-//  
-//  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
-//  
-//   http://www.apache.org/licenses/LICENSE-2.0
-//  
-//  Unless required by applicable law or agreed to in writing, software
-//  distributed under the License is distributed on an "AS IS" BASIS,
-//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//  See the License for the specific language governing permissions and
-//  limitations under the License.
+
 //
 
 #import "ContactName.h"
@@ -102,7 +87,7 @@
 	if (dbrc != SQLITE_OK) {
 		// create index
 		char* errorMsg;	
-		int res = sqlite3_exec([[ContactDBAccessor sharedManager] database],[[NSString stringWithString:@"CREATE VIRTUAL TABLE search_contact_name USING fts3(name);"] UTF8String] , NULL, NULL, &errorMsg);
+		int res = sqlite3_exec([[ContactDBAccessor sharedManager] database],[@"CREATE VIRTUAL TABLE search_contact_name USING fts3(name);" UTF8String] , NULL, NULL, &errorMsg);
 		if (res != SQLITE_OK) {
 			NSString *errorMessage = [NSString stringWithFormat:@"Failed to execute SQL with message '%s'.", errorMsg];
 			NSLog(@"errorMessage = '%@, original ERROR CODE = %i'",errorMessage,res);
@@ -116,21 +101,21 @@
 +(void)tableCheck {
 	// create tables as appropriate
 	char* errorMsg = nil;	
-	int res = sqlite3_exec([[ContactDBAccessor sharedManager] database],[[NSString stringWithString:@"CREATE TABLE IF NOT EXISTS contact_name "
+	int res = sqlite3_exec([[ContactDBAccessor sharedManager] database],[@"CREATE TABLE IF NOT EXISTS contact_name "
 																			   "(pk INTEGER PRIMARY KEY, name VARCHAR(50) UNIQUE, email_addresses VARCHAR(500), occurrences INTEGER, "
-																			   "sent_invite INTEGER, dbnum_first INTEGER, dbnum_last INTEGER)"] UTF8String] , NULL, NULL, &errorMsg);
+																			   "sent_invite INTEGER, dbnum_first INTEGER, dbnum_last INTEGER)" UTF8String] , NULL, NULL, &errorMsg);
 	if (res != SQLITE_OK) {
 		NSString *errorMessage = [NSString stringWithFormat:@"Failed to create contact_name table '%s'.", errorMsg];
 		NSLog(@"errorMessage = '%@, original ERROR CODE = %i'",errorMessage,res);
 	}
 
 	// create indices
-	res = sqlite3_exec([[ContactDBAccessor sharedManager] database],[[NSString stringWithString:@"CREATE INDEX IF NOT EXISTS contact_name_name on contact_name(name);"] UTF8String] , NULL, NULL, &errorMsg);
+	res = sqlite3_exec([[ContactDBAccessor sharedManager] database],[@"CREATE INDEX IF NOT EXISTS contact_name_name on contact_name(name);" UTF8String] , NULL, NULL, &errorMsg);
 	if (res != SQLITE_OK) {
 		NSString *errorMessage = [NSString stringWithFormat:@"Failed to create contact_name_name index '%s'.", errorMsg];
 		NSLog(@"errorMessage = '%@, original ERROR CODE = %i'",errorMessage,res);
 	}
-	res = sqlite3_exec([[ContactDBAccessor sharedManager] database],[[NSString stringWithString:@"CREATE INDEX IF NOT EXISTS contact_name_occurences on contact_name(occurrences DESC);"] UTF8String] , NULL, NULL, &errorMsg);
+	res = sqlite3_exec([[ContactDBAccessor sharedManager] database],[@"CREATE INDEX IF NOT EXISTS contact_name_occurences on contact_name(occurrences DESC);" UTF8String] , NULL, NULL, &errorMsg);
 	if (res != SQLITE_OK) {
 		NSString *errorMessage = [NSString stringWithFormat:@"Failed to create contact_name_occurences index '%s'.", errorMsg];
 		NSLog(@"errorMessage = '%@, original ERROR CODE = %i'",errorMessage,res);

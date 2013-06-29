@@ -32,7 +32,7 @@
 	id progressDelegate;
 	id progressNumbersDelegate;
 	id clientMessageDelegate;
-	id newEmailDelegate;
+	id myEmailDelegate;
 
 	// sync-related stuff
 	NSMutableArray *syncStates;
@@ -56,7 +56,7 @@
 @property (nonatomic,retain) id progressDelegate;
 @property (nonatomic,retain) id progressNumbersDelegate;
 @property (nonatomic,retain) id clientMessageDelegate;
-@property (nonatomic,retain) id newEmailDelegate;
+@property (nonatomic,retain) id myEmailDelegate;
 
 @property (nonatomic,retain) NSMutableArray *syncStates;
 @property (assign) BOOL syncInProgress;

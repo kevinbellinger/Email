@@ -33,7 +33,7 @@
 #import "GlobalDBFunctions.h"
 #import "EmailProcessor.h"
 
-#define SIGNATURE_STR @"I sent this email with KeyStone: http://www.dell.com/DMP"
+#define SIGNATURE_STR @"I sent this email with MyMail: http://www.dell.com/DMP"
 
 //@interface TextStyleSheetAllMail : TTDefaultStyleSheet
 //@end
