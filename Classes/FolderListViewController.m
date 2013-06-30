@@ -57,7 +57,7 @@
 			continue;
 		}
 		
-		[accountIndicesLocal addObject:[NSNumber numberWithInt:i]];
+		[accountIndicesLocal addObject:@(i)];
 		
 		SyncManager* sm = [SyncManager getSingleton];
 		
@@ -71,8 +71,8 @@
 			}
 			
 			NSMutableDictionary* folderState = [sm retrieveState:j accountNum:i];
-			NSString* folderDisplayName = [folderState objectForKey:@"folderDisplayName"];
-			NSString* folderPath = [folderState objectForKey:@"folderPath"];
+			NSString* folderDisplayName = folderState[@"folderDisplayName"];
+			NSString* folderPath = folderState[@"folderPath"];
                         NSLog( @"folderPath: %@, folderDisplayName: %@", folderPath, folderDisplayName );
 			if([folderPath isEqualToString:@"$$$$All_Mail$$$$"]) {
 				folderDisplayName = NSLocalizedString(@"All Mail", nil);
@@ -81,12 +81,12 @@
 				folderDisplayName = @"<No Name>";
 			}
 			[folderNames addObject:folderDisplayName];
-			[folderNumbers addObject:[NSNumber numberWithInt:j]];
+			[folderNumbers addObject:@(j)];
 		}
 		
-		NSNumber* indexObj = [NSNumber numberWithInt:i];
-		[accountFoldersLocal setObject:folderNames forKey:indexObj];
-		[accountFolderNumsLocal setObject:folderNumbers forKey:indexObj];
+		NSNumber* indexObj = @(i);
+		accountFoldersLocal[indexObj] = folderNames;
+		accountFolderNumsLocal[indexObj] = folderNumbers;
 	}
 	
 	self.accountIndices = accountIndicesLocal;
@@ -123,7 +123,7 @@
 	if(section == 0) {
 		return NSLocalizedString(@"All Mail", nil);
 	} else {
-		int index = [[self.accountIndices objectAtIndex:section-1] intValue];
+		int index = [(self.accountIndices)[section-1] intValue];
 		return [AppSettings username:index];
 	}
 		
@@ -140,9 +140,9 @@
 		return 1;
 	}
 	
-	NSNumber* index = [self.accountIndices objectAtIndex:section-1];
+	NSNumber* index = (self.accountIndices)[section-1];
 	
-	return [[self.accountFolders objectForKey:index] count];
+	return [(self.accountFolders)[index] count];
 }
 
 
@@ -160,11 +160,11 @@
 		cell.textLabel.text = @"All Mail";
 		cell.imageView.image = [UIImage imageNamed:@"foldersAll.png"];
 	} else {
-		NSNumber* index = [self.accountIndices objectAtIndex:indexPath.section-1];
+		NSNumber* index = (self.accountIndices)[indexPath.section-1];
 		
-		NSArray* f = [self.accountFolders objectForKey:index];
+		NSArray* f = (self.accountFolders)[index];
 		
-		cell.textLabel.text = [f objectAtIndex:indexPath.row];
+		cell.textLabel.text = f[indexPath.row];
 		cell.imageView.image = [UIImage imageNamed:@"folderIcon.png"];
 	}
 	
@@ -192,12 +192,12 @@
 		uivc.folderNum = -1;
 		uivc.title = NSLocalizedString(@"All Mail", nil);
 	} else {
-		int accountNum = [[self.accountIndices objectAtIndex:indexPath.section-1] intValue];
-		NSNumber* index = [self.accountIndices objectAtIndex:indexPath.section-1];
-		int folderNum = [[[self.accountFolderNums objectForKey:index] objectAtIndex:indexPath.row] intValue];
+		int accountNum = [(self.accountIndices)[indexPath.section-1] intValue];
+		NSNumber* index = (self.accountIndices)[indexPath.section-1];
+		int folderNum = [(self.accountFolderNums)[index][indexPath.row] intValue];
 
-		NSArray* f = [self.accountFolders objectForKey:index];
-		NSString* folderDisplayName = [f objectAtIndex:indexPath.row];
+		NSArray* f = (self.accountFolders)[index];
+		NSString* folderDisplayName = f[indexPath.row];
 		
 		uivc.folderNum = [EmailProcessor combinedFolderNumFor:folderNum withAccount:accountNum];
 		uivc.title = folderDisplayName;

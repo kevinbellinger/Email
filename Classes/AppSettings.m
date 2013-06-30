@@ -31,11 +31,11 @@
 
 +(NSString*)appID {
 	// returns "com.remail.reMail", "com.remail.reMail2", "com.remail.reMail2G"
-	return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"];
+	return [[NSBundle mainBundle] infoDictionary][@"CFBundleIdentifier"];
 }
 
 +(NSString*)version {
-	return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+	return [[NSBundle mainBundle] infoDictionary][@"CFBundleVersion"];
 }
 
 +(NSString*)dataInitVersion {
@@ -204,7 +204,7 @@
 
 +(void)setPinged {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults]; 
-	[defaults setObject:[NSNumber numberWithBool:YES] forKey:@"pinged"];
+	[defaults setObject:@YES forKey:@"pinged"];
 	[NSUserDefaults resetStandardUserDefaults];
 }
 
@@ -230,13 +230,13 @@
 
 +(void)setFeaturePurchased:(NSString*)productIdentifier {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults]; 
-	[defaults setObject:[NSNumber numberWithBool:YES] forKey:[NSString stringWithFormat:@"feature_%@", productIdentifier]];
+	[defaults setObject:@YES forKey:[NSString stringWithFormat:@"feature_%@", productIdentifier]];
 	[NSUserDefaults resetStandardUserDefaults];
 }
 
 +(void)setFeatureUnpurchased:(NSString*)productIdentifier {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults]; 
-	[defaults setObject:[NSNumber numberWithBool:NO] forKey:[NSString stringWithFormat:@"feature_%@", productIdentifier]];
+	[defaults setObject:@NO forKey:[NSString stringWithFormat:@"feature_%@", productIdentifier]];
 	[NSUserDefaults resetStandardUserDefaults];
 }
 

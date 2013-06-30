@@ -103,19 +103,19 @@ UIImage* imgAttachmentAllMail = nil;
 
 -(void)insertRows:(NSDictionary*)info {
 	@try {
-		NSArray* y = [info objectForKey:@"data"];
+		NSArray* y = info[@"data"];
 		
-		BOOL insertNew = (([y count] == 1) && [[[y objectAtIndex:0] objectForKey:@"syncingNew"] boolValue]);
+		BOOL insertNew = (([y count] == 1) && [y[0][@"syncingNew"] boolValue]);
 		
 		if(insertNew) {
-			[self.emailData insertObject:[y objectAtIndex:0] atIndex:0];
+			[self.emailData insertObject:y[0] atIndex:0];
 		} else {
 			[self.emailData addObjectsFromArray:y];
 		}
-		[self.tableView insertRowsAtIndexPaths:[info objectForKey:@"rows"] withRowAnimation:UITableViewRowAnimationNone];
+		[self.tableView insertRowsAtIndexPaths:info[@"rows"] withRowAnimation:UITableViewRowAnimationNone];
 	} @catch (NSException *exp) {
 		NSLog(@"Exception in insertRows: %@", exp);
-		NSLog(@"%@|%i|%i|%i|r%i", [info objectForKey:@"rows"], [self.emailData count], [info retainCount], [[info objectForKey:@"data"] retainCount], [[info objectForKey:@"rows"] retainCount]);
+		NSLog(@"%@|%i|%i|%i|r%i", info[@"rows"], [self.emailData count], [info retainCount], [info[@"data"] retainCount], [info[@"rows"] retainCount]);
 	}
 	[info release];
 }
@@ -128,25 +128,25 @@ UIImage* imgAttachmentAllMail = nil;
 	@synchronized(self) {
 		for(NSMutableDictionary* searchResult in searchResults) {
 			// set people string to sender name or address
-			NSString* senderName = [searchResult objectForKey:@"senderName"];
+			NSString* senderName = searchResult[@"senderName"];
 			senderName = [self massageDisplayString:senderName];
-			NSString* senderAddress = [searchResult objectForKey:@"senderAddress"];
+			NSString* senderAddress = searchResult[@"senderAddress"];
 			
 			if([senderName length] == 0 && [senderAddress length] == 0){
-				[searchResult setObject:@"[unknown]" forKey:@"people"];
+				searchResult[@"people"] = @"[unknown]";
 			} else if ([senderName length] == 0) {
-				[searchResult setObject:senderAddress forKey:@"people"];
+				searchResult[@"people"] = senderAddress;
 			} else {
-				[searchResult setObject:senderName forKey:@"people"];
+				searchResult[@"people"] = senderName;
 			}
 			
 			// massage display strings	
-			NSString *body = [searchResult objectForKey:@"body"];
-			[searchResult setObject:[self massageDisplayString:body] forKey:@"body"];	
-			NSString *subject = [searchResult objectForKey:@"subject"];
-			[searchResult setObject:[self massageDisplayString:subject] forKey:@"subject"];	
+			NSString *body = searchResult[@"body"];
+			searchResult[@"body"] = [self massageDisplayString:body];	
+			NSString *subject = searchResult[@"subject"];
+			searchResult[@"subject"] = [self massageDisplayString:subject];	
 			
-			NSNumber* newObj = [searchResult objectForKey:@"syncingNew"];
+			NSNumber* newObj = searchResult[@"syncingNew"];
 			
 			if(newObj != nil && [newObj boolValue]) {
 				// adding an entry from syncing new items 
@@ -195,13 +195,13 @@ UIImage* imgAttachmentAllMail = nil;
 -(void)processorUpdate:(NSMutableDictionary*)data {
 	// take whatever comes from from the EmailProcessor, and show it here
 	
-	int itemFolderNum = [[data objectForKey:@"folderNum"] intValue];
+	int itemFolderNum = [data[@"folderNum"] intValue];
 	
 	if(self.folderNum != itemFolderNum) {
 		return;
 	}
 	
-	BOOL new = [[data objectForKey:@"syncingNew"] boolValue];
+	BOOL new = [data[@"syncingNew"] boolValue];
 	
 	if(!new && receivedAdditionalAllMail && moreResultsAllMail) {
 		// we're syncing old stuff and we're not showing the last page yet
@@ -216,9 +216,9 @@ UIImage* imgAttachmentAllMail = nil;
 	NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init]; 
 	[dateFormatter setDateFormat: @"yyyy-MM-dd HH:mm:ss.SSSS"];
 	
-	NSString* dateString = [data objectForKey:@"datetime"];
+	NSString* dateString = data[@"datetime"];
 	NSDate* dateTime = [dateFormatter dateFromString:dateString];
-	[dataCopy setObject:dateTime forKey:@"datetime"];
+	dataCopy[@"datetime"] = dateTime;
 	[dateFormatter release];
 	
 	NSArray* y = [[NSArray alloc] initWithObjects:dataCopy, nil];
@@ -227,31 +227,31 @@ UIImage* imgAttachmentAllMail = nil;
 
 -(void)emailDeleted:(NSNumber*)pk {
 	for(int i = 0; i < [emailData count]; i++) {
-		NSDictionary* email = [emailData objectAtIndex:i];
+		NSDictionary* email = emailData[i];
 		
-		NSNumber* emailPk = [email objectForKey:@"pk"];
+		NSNumber* emailPk = email[@"pk"];
 		
 		if([emailPk isEqualToNumber:pk]) {
 			[emailData removeObjectAtIndex:i];
 			NSIndexPath* indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-			[self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationTop];
+			[self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
 			break;
 		}
 	}
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSDictionary* email = [emailData objectAtIndex:indexPath.row];
+	NSDictionary* email = emailData[indexPath.row];
 	
-	NSNumber* emailPk = [email objectForKey:@"pk"];
+	NSNumber* emailPk = email[@"pk"];
 	NSLog(@"Deleting email with pk: %@ row: %i", emailPk, indexPath.row);
 	
 	SearchRunner* sm = [SearchRunner getSingleton];
-	[sm deleteEmail:[emailPk intValue] dbNum:[[email objectForKey:@"dbNum"] intValue]];
+	[sm deleteEmail:[emailPk intValue] dbNum:[email[@"dbNum"] intValue]];
 	
 	
 	[emailData removeObjectAtIndex:indexPath.row];
-	[self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationTop];	
+	[self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];	
 }
 
 -(LoadingCell*)createConvoLoadingCellFromNib {
@@ -382,7 +382,7 @@ UIImage* imgAttachmentAllMail = nil;
 	NSDictionary* y;
 		
 	if (indexPath.row < [self.emailData count]) {
-		y = [self.emailData objectAtIndex:indexPath.row];
+		y = (self.emailData)[indexPath.row];
 	} else {
 		y = nil; // "More Results" link
 	}
@@ -433,14 +433,14 @@ UIImage* imgAttachmentAllMail = nil;
         cell = [self createMailCellFromNib];
 	}
 	
-	if([[y objectForKey:@"hasAttachment"] intValue] > 0) {
+	if([y[@"hasAttachment"] intValue] > 0) {
 		cell.attachmentIndicator.image = imgAttachmentAllMail;
 		[cell.attachmentIndicator setHidden:NO];
 	} else {
 		[cell.attachmentIndicator setHidden:YES];
 	}
 	
-	NSDate* date = [y objectForKey:@"datetime"];
+	NSDate* date = y[@"datetime"];
 	if (date != nil) {
 		DateUtil *du = [DateUtil getSingleton];
 		cell.dateLabel.text = [du humanDate:date];
@@ -448,7 +448,7 @@ UIImage* imgAttachmentAllMail = nil;
 		cell.dateLabel.text = @"(unknown)";
 	}
 	
-	[cell setTextWithPeople:[y objectForKey:@"people"] withSubject: [y objectForKey:@"subject"] withBody:[y objectForKey:@"body"]];
+	[cell setTextWithPeople:y[@"people"] withSubject: y[@"subject"] withBody:y[@"body"]];
 	
 	return cell;
 }
@@ -475,10 +475,10 @@ UIImage* imgAttachmentAllMail = nil;
 	[sem cancel];
 	
 	MailViewController *mailViewController = [[MailViewController alloc] init];
-	NSDictionary* y = [self.emailData objectAtIndex:indexPath.row-addPrevious];
+	NSDictionary* y = (self.emailData)[indexPath.row-addPrevious];
 	
-	int emailPk = [[y objectForKey:@"pk"] intValue];
-	int dbNum = [[y objectForKey:@"dbNum"] intValue];
+	int emailPk = [y[@"pk"] intValue];
+	int dbNum = [y[@"dbNum"] intValue];
 	mailViewController.emailPk = emailPk;
 	mailViewController.dbNum = dbNum;
 	mailViewController.isSenderSearch = NO;

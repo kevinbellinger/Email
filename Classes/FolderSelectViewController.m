@@ -298,10 +298,10 @@ NSString* imapUTF7Decode(NSString* in)
 			} 
 		 	NSLog( @"generated folder display name: %@ for %@", folderDisplayName, folderPath );
 			NSMutableDictionary* folderState = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-													[NSNumber numberWithInt:0], @"accountNum", 
+													@0, @"accountNum", 
 													folderDisplayName, @"folderDisplayName",
 													folderPath, @"folderPath",
-													[NSNumber numberWithBool:NO], @"deleted", 
+													@NO, @"deleted", 
 													nil];
 			
 			if (i < [EmailProcessor folderCountLimit]-1) { // only add up do 1000 folders!
@@ -323,7 +323,7 @@ NSString* imapUTF7Decode(NSString* in)
 		
 		for(int i = 0; i < [sm folderCount:self.accountNum]; i++) {
 			if(![sm isFolderDeleted:i accountNum:self.accountNum]) {
-				NSString* folderPath = [[sm retrieveState:i accountNum:self.accountNum] objectForKey:@"folderPath"];
+				NSString* folderPath = [sm retrieveState:i accountNum:self.accountNum][@"folderPath"];
 				[syncedFolders addObject:folderPath];
 			}
 		}
@@ -333,7 +333,7 @@ NSString* imapUTF7Decode(NSString* in)
 		
 		for(int i = 0; i < [sm folderCount:self.accountNum]; i++) {
 			if(![sm isFolderDeleted:i accountNum:self.accountNum]) {
-				NSString* folderPath = [[sm retrieveState:i accountNum:self.accountNum] objectForKey:@"folderPath"];
+				NSString* folderPath = [sm retrieveState:i accountNum:self.accountNum][@"folderPath"];
 				if([toDelete containsObject:folderPath]) {
 					[sm markFolderDeleted:i accountNum:self.accountNum];
 				}
@@ -356,10 +356,10 @@ NSString* imapUTF7Decode(NSString* in)
 			}
 			
 			NSMutableDictionary* folderState = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-												[NSNumber numberWithInt:0], @"accountNum", 
+												@0, @"accountNum", 
 												folderDisplayName, @"folderDisplayName",
 												folderPath, @"folderPath",
-												[NSNumber numberWithBool:NO], @"deleted", 
+												@NO, @"deleted", 
 												nil];
 			
 			if ([sm folderCount:self.accountNum] < [EmailProcessor folderCountLimit]-2) {
@@ -383,60 +383,59 @@ NSString* imapUTF7Decode(NSString* in)
 	self.title = NSLocalizedString(@"Folders", nil);
 	self.navigationItem.prompt = NSLocalizedString(@"Select folders to download.", nil);
 	
-	self.utf7Decoder = [NSDictionary dictionaryWithObjectsAndKeys:
-						@"À", @"&AMA-",
-						@"Á", @"&AME-",
-						@"Â", @"&AMI-",
-						@"Ã", @"&AMM-",
-						@"Ä", @"&AMQ-",
-						@"Å", @"&AMU-",
-						@"Æ", @"&AMY-",
-						@"Ç", @"&AMc-",
-						@"È", @"&AMg-",
-						@"É", @"&AMk-",
-						@"Ê", @"&AMo-",
-						@"Ë", @"&AMs-",
-						@"Ì", @"&AMw-",
-						@"Í", @"&AM0-",
-						@"Î", @"&AM4-",
-						@"Ï", @"&AM8-",
-						@"Ñ", @"&ANE-",
-						@"Ò", @"&ANI-",
-						@"Ó", @"&ANM-",
-						@"Ô", @"&ANQ-",
-						@"Õ", @"&ANU-",
-						@"Ö", @"&ANY-",
-						@"Ø", @"&ANg-",
-						@"Ù", @"&ANk-",
-						@"Ú", @"&ANo-",
-						@"Û", @"&ANs-",
-						@"Ü", @"&ANw-",
-						@"ß", @"&AN8-",
-						@"à", @"&AOA-",
-						@"á", @"&AOE-",
-						@"â", @"&AOI-",
-						@"ã", @"&AOM-",
-						@"ä", @"&AOQ-",
-						@"å", @"&AOU-",
-						@"æ", @"&AOY-",
-						@"ç", @"&AOc-",
-						@"è", @"&AOg-",
-						@"é", @"&AOk-",
-						@"ê", @"&AOo-",
-						@"ë", @"&AOs-",
-						@"ì", @"&AOw-",
-						@"í", @"&AO0-",
-						@"î", @"&AO4-",
-						@"ï", @"&AO8-",
-						@"ò", @"&API-",
-						@"ó", @"&APM-",
-						@"ô", @"&APQ-",
-						@"õ", @"&APU-",
-						@"ö", @"&APY-",
-						@"ù", @"&APk-",
-						@"ú", @"&APo-",
-						@"û", @"&APs-",
-						@"ü", @"&APw-", nil];
+	self.utf7Decoder = @{@"&AMA-": @"À",
+						@"&AME-": @"Á",
+						@"&AMI-": @"Â",
+						@"&AMM-": @"Ã",
+						@"&AMQ-": @"Ä",
+						@"&AMU-": @"Å",
+						@"&AMY-": @"Æ",
+						@"&AMc-": @"Ç",
+						@"&AMg-": @"È",
+						@"&AMk-": @"É",
+						@"&AMo-": @"Ê",
+						@"&AMs-": @"Ë",
+						@"&AMw-": @"Ì",
+						@"&AM0-": @"Í",
+						@"&AM4-": @"Î",
+						@"&AM8-": @"Ï",
+						@"&ANE-": @"Ñ",
+						@"&ANI-": @"Ò",
+						@"&ANM-": @"Ó",
+						@"&ANQ-": @"Ô",
+						@"&ANU-": @"Õ",
+						@"&ANY-": @"Ö",
+						@"&ANg-": @"Ø",
+						@"&ANk-": @"Ù",
+						@"&ANo-": @"Ú",
+						@"&ANs-": @"Û",
+						@"&ANw-": @"Ü",
+						@"&AN8-": @"ß",
+						@"&AOA-": @"à",
+						@"&AOE-": @"á",
+						@"&AOI-": @"â",
+						@"&AOM-": @"ã",
+						@"&AOQ-": @"ä",
+						@"&AOU-": @"å",
+						@"&AOY-": @"æ",
+						@"&AOc-": @"ç",
+						@"&AOg-": @"è",
+						@"&AOk-": @"é",
+						@"&AOo-": @"ê",
+						@"&AOs-": @"ë",
+						@"&AOw-": @"ì",
+						@"&AO0-": @"í",
+						@"&AO4-": @"î",
+						@"&AO8-": @"ï",
+						@"&API-": @"ò",
+						@"&APM-": @"ó",
+						@"&APQ-": @"ô",
+						@"&APU-": @"õ",
+						@"&APY-": @"ö",
+						@"&APk-": @"ù",
+						@"&APo-": @"ú",
+						@"&APs-": @"û",
+						@"&APw-": @"ü"};
 	
 	self.folderSelected = [NSMutableSet set];
 	
@@ -447,7 +446,7 @@ NSString* imapUTF7Decode(NSString* in)
 				continue;
 			}
 			
-			NSString* folderPath = [[sm retrieveState:i accountNum:self.accountNum] objectForKey:@"folderPath"];
+			NSString* folderPath = [sm retrieveState:i accountNum:self.accountNum][@"folderPath"];
 			[self.folderSelected addObject:folderPath];
 		}
 	} else {
@@ -513,7 +512,7 @@ NSString* imapUTF7Decode(NSString* in)
 		return cell;
 	}
 	
-	NSString* folderPath = [self.folderPaths objectAtIndex:indexPath.row - 1]; 
+	NSString* folderPath = (self.folderPaths)[indexPath.row - 1]; 
 	
 	BOOL selected = [self.folderSelected containsObject:folderPath];
 	
@@ -561,7 +560,7 @@ NSString* imapUTF7Decode(NSString* in)
 		[self.tableView reloadData];
 	} else {
 		int folderIndex = indexPath.row - 1;
-		NSString* folderPath = [self.folderPaths objectAtIndex:folderIndex];
+		NSString* folderPath = (self.folderPaths)[folderIndex];
 		BOOL selected = [self.folderSelected containsObject:folderPath];
 		
 		if(selected) {

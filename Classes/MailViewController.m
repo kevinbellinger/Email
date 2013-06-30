@@ -74,7 +74,7 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
 	if(buttonIndex == 0) { //Compose Email To
-		[self.mailVC composeViewWithSubject:@"" body:@"" to:[NSArray arrayWithObject:self.address] cc:nil includeAttachments:NO];
+		[self.mailVC composeViewWithSubject:@"" body:@"" to:@[self.address] cc:nil includeAttachments:NO];
 	} else if (buttonIndex == 1) { // Copy Address
 		UIPasteboard* pasteBoard = [UIPasteboard generalPasteboard];
 		pasteBoard.string = self.address;
@@ -200,7 +200,7 @@
 	NSArray* peopleList = [json JSONValue];
 	NSMutableArray* res = [NSMutableArray arrayWithCapacity:[peopleList count]];
 	for (NSDictionary* person in peopleList) {
-		NSString* address = [person objectForKey:@"e"];
+		NSString* address = person[@"e"];
 		if (address != nil && [address length] > 0) {
 			[res addObject: address];
 		}
@@ -283,7 +283,7 @@
 		
 		[self composeViewWithSubject:newSubject
 								body:[self replyString]
-								  to:[NSArray arrayWithObject:self.email.senderAddress]
+								  to:@[self.email.senderAddress]
 								  cc:nil
 				  includeAttachments:NO];
 	} else if (buttonIndex == 2) { // Reply All
@@ -294,7 +294,7 @@
 		
 		[self composeViewWithSubject:newSubject
 								body:[self replyString]
-								  to:[NSArray arrayWithObject:self.email.senderAddress]
+								  to:@[self.email.senderAddress]
 								  cc:[self replyAllRecipients]
 				  includeAttachments:NO]; //TODO(gabor): Look into In-Reply-To header
 	} else if (buttonIndex == 3) { // Forward
@@ -319,9 +319,9 @@
 	NSFileManager *fileManager = [NSFileManager defaultManager];
 	
 	for (int i = 0; i < [self.attachmentMetadata count]; i++) {
-		NSDictionary* attachment = [self.attachmentMetadata objectAtIndex:i];
-		NSString* filename = [attachment objectForKey:@"n"];
-		NSString* contentType = [attachment objectForKey:@"t"];
+		NSDictionary* attachment = (self.attachmentMetadata)[i];
+		NSString* filename = attachment[@"n"];
+		NSString* contentType = attachment[@"t"];
 		
 		if(filename == nil || [filename length] == 0) {
 			continue;
@@ -383,8 +383,8 @@
 -(void)attachmentButtonClicked:(UIButton*)target {
 //-(void)attachmentButtonClicked:(TTButton*)target {
 	NSArray* attachmentList = [email.attachments JSONValue];
-	NSString* contentType = [[attachmentList objectAtIndex:target.tag] objectForKey:@"t"];
-	NSString* filename = [[attachmentList objectAtIndex:target.tag] objectForKey:@"n"];
+	NSString* contentType = attachmentList[target.tag][@"t"];
+	NSString* filename = attachmentList[target.tag][@"n"];
 	
 	SyncManager* sm = [SyncManager getSingleton];
 	
@@ -408,7 +408,7 @@
 		[Email deleteWithPk:self.emailPk];
 		
 		if(self.deleteDelegate != nil && [deleteDelegate respondsToSelector:@selector(emailDeleted:)]) {
-			[deleteDelegate performSelectorOnMainThread:@selector(emailDeleted:) withObject:[NSNumber numberWithInt:self.emailPk] waitUntilDone:NO];
+			[deleteDelegate performSelectorOnMainThread:@selector(emailDeleted:) withObject:@(self.emailPk) waitUntilDone:NO];
 		}
 		
 		[self.navigationController popViewControllerAnimated:YES];
@@ -433,14 +433,14 @@
 //	labelTo.textColor = [UIColor darkGrayColor];	
 	labelTo.text = title;
 //	CGSize size = [title sizeWithFont:labelTo.font];
-    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:14.0], NSFontAttributeName, DIMENSION_LINE_LABEL_TEXT_COLOR, NSForegroundColorAttributeName, DIMENSION_LINE_LABEL_BACKGROUND_COLOR, NSBackgroundColorAttributeName, nil];
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:14.0], NSForegroundColorAttributeName: DIMENSION_LINE_LABEL_TEXT_COLOR, NSBackgroundColorAttributeName: DIMENSION_LINE_LABEL_BACKGROUND_COLOR};
     CGSize size = [title sizeWithAttributes:attributes];
     labelTo.frame = CGRectMake(0, 0, size.width+2, 30);
 	[toView addSubview:labelTo];
 
 	for (NSDictionary* person in peopleList) {
-		NSString* name = [person objectForKey:@"n"];
-		NSString* address = [person objectForKey:@"e"];
+		NSString* name = person[@"n"];
+		NSString* address = person[@"e"];
 		NSString* display = nil;
 		if(name != nil && [name length] > 0) {
 			display = name;
@@ -506,7 +506,7 @@
 	labelTo.text = title;
 //	CGSize size = [title sizeWithFont:labelTo.font];
     
-    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:14.0], NSFontAttributeName, DIMENSION_LINE_LABEL_TEXT_COLOR, NSForegroundColorAttributeName, DIMENSION_LINE_LABEL_BACKGROUND_COLOR, NSBackgroundColorAttributeName, nil];
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:14.0], NSForegroundColorAttributeName: DIMENSION_LINE_LABEL_TEXT_COLOR, NSBackgroundColorAttributeName: DIMENSION_LINE_LABEL_BACKGROUND_COLOR};
     CGSize size = [title sizeWithAttributes:attributes];
 	labelTo.frame = CGRectMake(0, 0, size.width+2, 30);
 	[toView addSubview:labelTo];
@@ -516,8 +516,8 @@
 	
 	int i = 0;
 	for (NSDictionary* attachment in attachmentList) {
-		NSString* filename = [attachment objectForKey:@"n"];
-		NSString* contentType = [attachment objectForKey:@"t"];
+		NSString* filename = attachment[@"n"];
+		NSString* contentType = attachment[@"t"];
 		
 		BOOL highlightMatch = NO;
 		if(highlightQuery != nil) {
@@ -569,7 +569,7 @@
 				} else {
 					label.textColor = [UIColor darkGrayColor];
 				}
-				NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:14.0], NSFontAttributeName, DIMENSION_LINE_LABEL_TEXT_COLOR, NSForegroundColorAttributeName, DIMENSION_LINE_LABEL_BACKGROUND_COLOR, NSBackgroundColorAttributeName, nil];
+				NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:14.0], NSForegroundColorAttributeName: DIMENSION_LINE_LABEL_TEXT_COLOR, NSBackgroundColorAttributeName: DIMENSION_LINE_LABEL_BACKGROUND_COLOR};
                 CGSize size = [title sizeWithAttributes:attributes];
 //				CGSize size = [filename sizeWithFont:label.font];
 				label.frame = CGRectMake(0, 0, size.width+2, 30);
@@ -758,7 +758,7 @@
 	} else {
 //		CGSize size = [body sizeWithFont:self.bodyUIView.font constrainedToSize:CGSizeMake(300.0f,100000000.0f) lineBreakMode: NSLineBreakByWordWrapping];
         
-        NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:14.0], NSFontAttributeName, DIMENSION_LINE_LABEL_TEXT_COLOR, NSForegroundColorAttributeName, DIMENSION_LINE_LABEL_BACKGROUND_COLOR, NSBackgroundColorAttributeName, nil];
+        NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:14.0], NSForegroundColorAttributeName: DIMENSION_LINE_LABEL_TEXT_COLOR, NSBackgroundColorAttributeName: DIMENSION_LINE_LABEL_BACKGROUND_COLOR};
         CGSize size = [body sizeWithAttributes:attributes];
 		self.bodyUIView.frame = CGRectMake(-3, top, contentWidth, size.height+24);
 //		bottom = self.bodyUIView.bottom;
@@ -801,8 +801,8 @@
 		markupBody = NO;
 	}
 	
-	NSDictionary* senderDict = [NSDictionary dictionaryWithObjectsAndKeys:email.senderAddress, @"e", email.senderName, @"n", nil];
-	int bottom = [self peopleList:NSLocalizedString(@"From:",nil) addToView:self.scrollView peopleList:[NSArray arrayWithObject:senderDict] top:0 highlightAll:self.isSenderSearch highlightQuery:highlightQuery];
+	NSDictionary* senderDict = @{@"e": email.senderAddress, @"n": email.senderName};
+	int bottom = [self peopleList:NSLocalizedString(@"From:",nil) addToView:self.scrollView peopleList:@[senderDict] top:0 highlightAll:self.isSenderSearch highlightQuery:highlightQuery];
 	
 	if(email.tos != nil && [email.tos length] > 4) {
 		NSArray* peopleList = [email.tos JSONValue];

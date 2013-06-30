@@ -34,8 +34,8 @@
 
 +(NSArray *)indices {
 	// used for quickly displaying the past query list in the UI
-	NSArray *timeIndex = [NSArray arrayWithObject:@"datetime desc"];
-	return [NSArray arrayWithObjects:timeIndex, nil];
+	NSArray *timeIndex = @[@"datetime desc"];
+	return @[timeIndex];
 }
 
 +(void)recordQuery:(NSString*)queryText withType:(int)searchType {
@@ -90,7 +90,7 @@
 		int dbrc = sqlite3_prepare_v2([[ContactDBAccessor sharedManager] database], [statement UTF8String], -1, &stmt, nil);	
 		if (dbrc != SQLITE_OK) {
 			NSLog(@"Failed step in bindStmt with error %s", sqlite3_errmsg([[ContactDBAccessor sharedManager] database]));
-			return [NSDictionary dictionary];
+			return @{};
 		}
 		
 	}
@@ -107,18 +107,18 @@
 		NSDate *date = [NSDate date]; // default == now!
 		const char * sqlVal = (const char *)sqlite3_column_text(stmt, 0);
 		if(sqlVal != nil) {
-			NSString *dateString = [NSString stringWithUTF8String:sqlVal];
+			NSString *dateString = @(sqlVal);
 			date = [dateFormatter dateFromString:dateString];
 		}
 		
 		sqlVal = (const char *)sqlite3_column_text(stmt, 1);
-		NSString* text = [NSString stringWithUTF8String:sqlVal];
+		NSString* text = @(sqlVal);
 
 		int searchType= sqlite3_column_int(stmt, 2);
 		
 		[datetimes addObject:date];
 		[queries addObject:text];
-		[searchTypes addObject:[NSNumber numberWithInt:searchType]];
+		[searchTypes addObject:@(searchType)];
 	}
 	
 	sqlite3_reset(stmt);
@@ -126,7 +126,7 @@
 	
 	[dateFormatter release];
 	
-	return [NSDictionary dictionaryWithObjectsAndKeys:datetimes, @"datetimes", queries, @"queries", searchTypes, @"searchTypes", nil];
+	return @{@"datetimes": datetimes, @"queries": queries, @"searchTypes": searchTypes};
 }
 
 

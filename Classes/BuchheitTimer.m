@@ -47,8 +47,8 @@
 -(void)recordTimeWithTag:(NSString *)tag
 {
 	NSMutableDictionary *timeRec = [[NSMutableDictionary alloc] init];
-	[timeRec setObject:[NSDate date] forKey:@"time"];
-	[timeRec setObject:tag forKey:@"tag"];
+	timeRec[@"time"] = [NSDate date];
+	timeRec[@"tag"] = tag;
 	[self.insertOrder addObject:timeRec];
 	[timeRec release];
 	
@@ -60,14 +60,14 @@
 	{
 		if(i > 0)
 		{
-			double foo = [[[insertOrder objectAtIndex:(i)] objectForKey:@"time"] timeIntervalSinceDate:[[insertOrder objectAtIndex:(i-1)] objectForKey:@"time"]];
+			double foo = [insertOrder[(i)][@"time"] timeIntervalSinceDate:insertOrder[(i-1)][@"time"]];
 			double houndreds = foo*100;
 			NSMutableString *viz = [NSMutableString stringWithCapacity:foo];
 			for(NSInteger j = 0; j < houndreds; j++)
 			{
 				[viz appendString:@"|"];
 			}
-			NSLog(@"PBTimer: Between '%@' and '%@':\n%@\n took %f s",[[insertOrder objectAtIndex:(i-1)] objectForKey:@"tag"],[[insertOrder objectAtIndex:i] objectForKey:@"tag"],viz,foo);
+			NSLog(@"PBTimer: Between '%@' and '%@':\n%@\n took %f s",insertOrder[(i-1)][@"tag"],insertOrder[i][@"tag"],viz,foo);
 		}
 	}
 	

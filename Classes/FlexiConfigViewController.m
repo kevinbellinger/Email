@@ -115,12 +115,12 @@
 	[self.activityIndicator stopAnimating];
 	
 	[AppSettings setAccountType:AccountTypeImap accountNum:self.accountNum];
-	[AppSettings setUsername:[config objectForKey:@"username"] accountNum:self.accountNum];
-	[AppSettings setPassword:[config objectForKey:@"password"] accountNum:self.accountNum];
-	[AppSettings setServerAuthentication:[[config objectForKey:@"authentication"] intValue] accountNum:self.accountNum];
-	[AppSettings setServer:[config objectForKey:@"server"] accountNum:self.accountNum];
-	[AppSettings setServerPort:[[config objectForKey:@"port"] intValue] accountNum:self.accountNum];
-	[AppSettings setServerEncryption:[[config objectForKey:@"encryption"] intValue] accountNum:self.accountNum];
+	[AppSettings setUsername:config[@"username"] accountNum:self.accountNum];
+	[AppSettings setPassword:config[@"password"] accountNum:self.accountNum];
+	[AppSettings setServerAuthentication:[config[@"authentication"] intValue] accountNum:self.accountNum];
+	[AppSettings setServer:config[@"server"] accountNum:self.accountNum];
+	[AppSettings setServerPort:[config[@"port"] intValue] accountNum:self.accountNum];
+	[AppSettings setServerEncryption:[config[@"encryption"] intValue] accountNum:self.accountNum];
 	
 	[self.navigationController popToRootViewControllerAnimated:YES];
 }
@@ -133,15 +133,15 @@
 	
 	// display home screen
 	FolderSelectViewController *vc = [[FolderSelectViewController alloc] initWithNibName:@"FolderSelect" bundle:nil];
-	vc.folderPaths = [config objectForKey:@"folderNames"];
+	vc.folderPaths = config[@"folderNames"];
 	
-	vc.username = [config objectForKey:@"username"];
-	vc.password = [config objectForKey:@"password"];
-	vc.server = [config objectForKey:@"server"];
+	vc.username = config[@"username"];
+	vc.password = config[@"password"];
+	vc.server = config[@"server"];
 	
-	vc.encryption = [[config objectForKey:@"encryption"] intValue];
-	vc.port = [[config objectForKey:@"port"] intValue];
-	vc.authentication = [[config objectForKey:@"authentication"] intValue];
+	vc.encryption = [config[@"encryption"] intValue];
+	vc.port = [config[@"port"] intValue];
+	vc.authentication = [config[@"authentication"] intValue];
 	
 	vc.newAccount = self.newAccount;
 	vc.firstSetup = self.firstSetup;
@@ -206,13 +206,13 @@
 	}
 	
 	if([response isEqualToString:@"OK"]) { 
-		NSDictionary* localConfig = [NSDictionary dictionaryWithObjectsAndKeys:username, @"username",
-									 password, @"password",
-									 self.server, @"server",
-									 [NSNumber numberWithInt:self.encryption], @"encryption",
-									 [NSNumber numberWithInt:self.port], @"port",
-									 [NSNumber numberWithInt:self.authType], @"authentication",
-									 folderNames, @"folderNames", nil];
+		NSDictionary* localConfig = @{@"username": username,
+									 @"password": password,
+									 @"server": self.server,
+									 @"encryption": @(self.encryption),
+									 @"port": @(self.port),
+									 @"authentication": @(self.authType),
+									 @"folderNames": folderNames};
 		
 		if(self.newAccount || [forceSelectFolders boolValue]) {
 			[self performSelectorOnMainThread:@selector(showFolderSelect:) withObject:localConfig waitUntilDone:NO];
@@ -259,7 +259,7 @@
 	[self.activityIndicator setHidden:NO];	
 	[self.activityIndicator startAnimating];
 	
-	NSThread *driverThread = [[NSThread alloc] initWithTarget:self selector:@selector(doLogin:) object:[NSNumber numberWithBool:NO]];
+	NSThread *driverThread = [[NSThread alloc] initWithTarget:self selector:@selector(doLogin:) object:@NO];
 	[driverThread start];
 	[driverThread release];
 }

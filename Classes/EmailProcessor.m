@@ -244,7 +244,7 @@ BOOL transactionOpen = NO; // caused effect (with firstOne): After we start up, 
 	
 	SyncManager *sm = [SyncManager getSingleton];
 	NSMutableDictionary* syncState = [sm retrieveState:folderNum accountNum:accountNum];
-	[syncState setObject:[NSNumber numberWithUnsignedInt:endSeq] forKey:@"newSyncStart"];
+	syncState[@"newSyncStart"] = [NSNumber numberWithUnsignedInt:endSeq];
 	[sm persistState:syncState forFolderNum:folderNum accountNum:accountNum];
 
 	[self beginTransactions];
@@ -255,7 +255,7 @@ BOOL transactionOpen = NO; // caused effect (with firstOne): After we start up, 
 	
 	SyncManager *sm = [SyncManager getSingleton];
 	NSMutableDictionary* syncState = [sm retrieveState:folderNum accountNum:accountNum];
-	[syncState setObject:[NSNumber numberWithUnsignedInt:startSeq] forKey:@"oldSyncStart"];
+	syncState[@"oldSyncStart"] = [NSNumber numberWithUnsignedInt:startSeq];
 	[sm persistState:syncState forFolderNum:folderNum accountNum:accountNum];
 	
 	[self beginTransactions];
@@ -265,7 +265,7 @@ BOOL transactionOpen = NO; // caused effect (with firstOne): After we start up, 
 #pragma mark Execute DB changes
 -(NSDictionary*)recipientList:(NSSet*)set {
 	if (set == nil || [set count] == 0) {
-		return [NSDictionary dictionaryWithObjectsAndKeys:@"", @"json", @"", @"flat", nil];
+		return @{@"json": @"", @"flat": @""};
 	}
 	
 	NSEnumerator* enumerator = [set objectEnumerator];
@@ -283,7 +283,7 @@ BOOL transactionOpen = NO; // caused effect (with firstOne): After we start up, 
 		NSDictionary* dict;
 		
 		if((email != nil && [email length] > 0) || (name != nil && [name length] > 0)) {
-			dict = [NSDictionary dictionaryWithObjectsAndKeys:email, @"e", name, @"n", nil];
+			dict = @{@"e": email, @"n": name};
 			[jsonList addObject:dict];
 			[flat appendFormat:@" %@ %@", name, email];
 		}
@@ -291,12 +291,12 @@ BOOL transactionOpen = NO; // caused effect (with firstOne): After we start up, 
 	
 	NSString* json = [jsonList JSONRepresentation];
 	NSString* flatString = [StringUtil trim:flat];
-	return [NSDictionary dictionaryWithObjectsAndKeys:json, @"json", flatString, @"flat", nil];
+	return @{@"json": json, @"flat": flatString};
 }
 
 -(NSDictionary*)attachmentList:(NSArray*)set {
 	if (set == nil || [set count] == 0) {
-		return [NSDictionary dictionaryWithObjectsAndKeys:@"", @"json", @"", @"flat", nil];
+		return @{@"json": @"", @"flat": @""};
 	}
 	
 	NSEnumerator* enumerator = [set objectEnumerator];
@@ -313,14 +313,14 @@ BOOL transactionOpen = NO; // caused effect (with firstOne): After we start up, 
 		NSString* contentType = a.contentType;
 		
 		if(filename != nil && [filename length] > 0) {
-			[jsonList addObject:[NSDictionary dictionaryWithObjectsAndKeys:filename, @"n", contentType, @"t", nil]];
+			[jsonList addObject:@{@"n": filename, @"t": contentType}];
 			[flat appendFormat:@" %@", filename];
 		}
 	}
 	
 	NSString* json = [jsonList JSONRepresentation];
 	NSString* flatString = [StringUtil trim:flat];
-	return [NSDictionary dictionaryWithObjectsAndKeys:json, @"json", flatString, @"flat", nil];
+	return @{@"json": json, @"flat": flatString};
 }
 
 +(int)folderCountLimit {
@@ -487,18 +487,18 @@ BOOL transactionOpen = NO; // caused effect (with firstOne): After we start up, 
 }
 
 -(void)addToFolderWrapper:(NSMutableDictionary *)data {
-	NSDate* date = [data objectForKey:@"datetime"];	
+	NSDate* date = data[@"datetime"];	
 	[date retain];
 	NSString *datetime = [self.dbDateFormatter stringFromDate:date];
-	[data setObject:datetime forKey:@"datetime"];
+	data[@"datetime"] = datetime;
 	
 	// we're using folder_num = accountNum * FOLDER_COUNT_LIMIT + folderNumInAccount because that's easier than changing the schema
-	int folderNumInAccount = [[data objectForKey:@"folderNumInAccount"] intValue];
-	int accountNum = [[data objectForKey:@"accountNum"] intValue];
+	int folderNumInAccount = [data[@"folderNumInAccount"] intValue];
+	int accountNum = [data[@"accountNum"] intValue];
 	
 	int newFolderNum = [EmailProcessor combinedFolderNumFor:folderNumInAccount withAccount:accountNum];
 	
-	NSString* md5hash = [data objectForKey:@"md5hash"];
+	NSString* md5hash = data[@"md5hash"];
 	
 	int dbNum = [EmailProcessor dbNumForDate:date];
 	[date release];
@@ -506,8 +506,8 @@ BOOL transactionOpen = NO; // caused effect (with firstOne): After we start up, 
 	if(self.shuttingDown) return;
 	
 	NSDictionary* y = [EmailProcessor readUidEntry:md5hash];
-	NSString* uid = [y objectForKey:@"uid"];
-	int folderNum = [[y objectForKey:@"folderNum"] intValue];
+	NSString* uid = y[@"uid"];
+	int folderNum = [y[@"folderNum"] intValue];
 	
 	[y release];
 	
@@ -526,8 +526,8 @@ BOOL transactionOpen = NO; // caused effect (with firstOne): After we start up, 
 	
 	// strip htmlBody if that's all we found
 	// we do this because we don't want to interrupt imap fetching above
-	NSString* body = [data objectForKey:@"body"];
-	NSString* htmlBody = [data objectForKey:@"htmlBody"];
+	NSString* body = data[@"body"];
+	NSString* htmlBody = data[@"htmlBody"];
 
   // Avoid attempts to insert nil value.
   if (body == nil) {
@@ -545,47 +545,47 @@ BOOL transactionOpen = NO; // caused effect (with firstOne): After we start up, 
 		body = [body substringToIndex:BODY_LENGTH_LIMIT-1];
 	}
 	
-	[data setObject:body forKey:@"body"];
+	data[@"body"] = body;
 	
-	NSDate* date = [data objectForKey:@"datetime"];	
+	NSDate* date = data[@"datetime"];	
 	[date retain];
 	NSString *datetime = [self.dbDateFormatter stringFromDate:date];
-	[data setObject:datetime forKey:@"datetime"];
+	data[@"datetime"] = datetime;
 
 	// we're using folder_num = accountNum * FOLDER_COUNT_LIMIT + folderNumInAccount because that's easier than changing the schema
-	int folderNumInAccount = [[data objectForKey:@"folderNumInAccount"] intValue];
-	int accountNum = [[data objectForKey:@"accountNum"] intValue];
+	int folderNumInAccount = [data[@"folderNumInAccount"] intValue];
+	int accountNum = [data[@"accountNum"] intValue];
 	
 	
 	int folderNum = [EmailProcessor combinedFolderNumFor:folderNumInAccount withAccount:accountNum];
 	
-	[data setObject:[NSNumber numberWithInt:folderNum] forKey:@"folderNum"];
+	data[@"folderNum"] = @(folderNum);
 	
-	NSString *senderName = [data objectForKey:@"senderName"];
-	NSString *senderAddress = [data objectForKey:@"senderAddress"];
+	NSString *senderName = data[@"senderName"];
+	NSString *senderAddress = data[@"senderAddress"];
 	NSString *senderFlat = [NSString stringWithFormat:@"%@ %@", senderName, senderAddress];
 	
-	NSDictionary *toDict = [self recipientList:[data objectForKey:@"toList"]];
-	NSString* toFlat = [toDict objectForKey:@"flat"];
-	NSString* toJson = [toDict objectForKey:@"json"];
+	NSDictionary *toDict = [self recipientList:data[@"toList"]];
+	NSString* toFlat = toDict[@"flat"];
+	NSString* toJson = toDict[@"json"];
 	
 	
-	NSDictionary *ccDict = [self recipientList:[data objectForKey:@"ccList"]];
-	NSString* ccFlat = [ccDict objectForKey:@"flat"];
-	NSString* ccJson = [ccDict objectForKey:@"json"];
+	NSDictionary *ccDict = [self recipientList:data[@"ccList"]];
+	NSString* ccFlat = ccDict[@"flat"];
+	NSString* ccJson = ccDict[@"json"];
 
-	NSDictionary *bccDict = [self recipientList:[data objectForKey:@"bccList"]];
-	NSString* bccFlat = [bccDict objectForKey:@"flat"];
-	NSString* bccJson = [bccDict objectForKey:@"json"];
+	NSDictionary *bccDict = [self recipientList:data[@"bccList"]];
+	NSString* bccFlat = bccDict[@"flat"];
+	NSString* bccJson = bccDict[@"json"];
 	
-	NSDictionary *attachmentDict = [NSDictionary dictionaryWithObjectsAndKeys:@"", @"json", @"", @"flat", nil];
+	NSDictionary *attachmentDict = @{@"json": @"", @"flat": @""};
 	@try {
-		attachmentDict = [self attachmentList:[data objectForKey:@"attachments"]];
+		attachmentDict = [self attachmentList:data[@"attachments"]];
 	} @catch (NSException* exp) {
 		NSLog(@"Flattening attachment list: %@", exp);
 	}
-	NSString *attachmentFlat = [attachmentDict objectForKey:@"flat"];
-	NSString *attachmentJson = [attachmentDict objectForKey:@"json"];
+	NSString *attachmentFlat = attachmentDict[@"flat"];
+	NSString *attachmentJson = attachmentDict[@"json"];
 	
 	// metaString
 	NSMutableString *metaString = [NSMutableString string];	
@@ -597,9 +597,9 @@ BOOL transactionOpen = NO; // caused effect (with firstOne): After we start up, 
 	}
 	
 	// correct senderName if necessary
-	if([SENDERS_FALSE_NAMES objectForKey:senderAddress] != nil) {
-		senderName = [SENDERS_FALSE_NAMES objectForKey:senderAddress];
-		[data setObject:senderName forKey:@"senderName"];
+	if(SENDERS_FALSE_NAMES[senderAddress] != nil) {
+		senderName = SENDERS_FALSE_NAMES[senderAddress];
+		data[@"senderName"] = senderName;
 	}	
 	
 	if(toFlat != nil && [toFlat length] > 0) {
@@ -615,7 +615,7 @@ BOOL transactionOpen = NO; // caused effect (with firstOne): After we start up, 
 		[metaString appendFormat:NSLocalizedString(@" Attached: %@",nil), attachmentFlat];
 	}
 	
-	NSString* folderDisplayName = [data objectForKey:@"folderDisplayName"];
+	NSString* folderDisplayName = data[@"folderDisplayName"];
 	if(folderDisplayName != nil && [folderDisplayName length] > 0) {
 		[metaString appendFormat:NSLocalizedString(@" Folder: %@",nil), folderDisplayName];
 	}
@@ -625,21 +625,21 @@ BOOL transactionOpen = NO; // caused effect (with firstOne): After we start up, 
 		[metaString setString:[metaString substringFromIndex:1]];
 	}
 	
-	[data setObject:metaString forKey:@"metaString"];
+	data[@"metaString"] = metaString;
 	
 	// Assign JSON fields
-	[data setObject:senderFlat forKey:@"senderFlat"];
-	[data setObject:attachmentJson forKey:@"attachments"];
-	[data setObject:toJson forKey:@"tos"];
-	[data setObject:toFlat forKey:@"toFlat"];
-	[data setObject:ccJson forKey:@"ccs"];
-	[data setObject:ccFlat forKey:@"ccFlat"];
-	[data setObject:bccJson forKey:@"bccs"];	
+	data[@"senderFlat"] = senderFlat;
+	data[@"attachments"] = attachmentJson;
+	data[@"tos"] = toJson;
+	data[@"toFlat"] = toFlat;
+	data[@"ccs"] = ccJson;
+	data[@"ccFlat"] = ccFlat;
+	data[@"bccs"] = bccJson;	
 	
 	int dbNum = [EmailProcessor dbNumForDate:date];
 	[date release];
 	
-	[data setObject:[NSNumber numberWithInt:dbNum] forKey:@"dbNum"];
+	data[@"dbNum"] = @(dbNum);
 
 	if(self.shuttingDown) return;
 	
@@ -721,12 +721,12 @@ BOOL transactionOpen = NO; // caused effect (with firstOne): After we start up, 
 		NSString* temp = @"";
 		const char *sqlVal = (const char *)sqlite3_column_text(uidFindStmt, 0);
 		if(sqlVal != nil)
-			temp = [NSString stringWithUTF8String:sqlVal];
-		[res setObject:temp forKey:@"uid"];
+			temp = @(sqlVal);
+		res[@"uid"] = temp;
 		
 		int folderNum = sqlite3_column_int(uidFindStmt, 1);
-		NSNumber *folderNumValue = [NSNumber numberWithInt:folderNum];
-		[res setObject:folderNumValue forKey: @"folderNum"];
+		NSNumber *folderNumValue = @(folderNum);
+		res[@"folderNum"] = folderNumValue;
 		
 		sqlite3_reset(uidFindStmt);
 		return res;
@@ -841,9 +841,9 @@ BOOL transactionOpen = NO; // caused effect (with firstOne): After we start up, 
 		}
 	} else {
 		// update contact with new occurrence count
-		int occurrences = [[contactData objectForKey:@"occurrences"] intValue] + addReOccurrence;
-		int dbMin = [[contactData objectForKey:@"dbMin"] intValue];
-		int dbMax = [[contactData objectForKey:@"dbMax"] intValue];
+		int occurrences = [contactData[@"occurrences"] intValue] + addReOccurrence;
+		int dbMin = [contactData[@"dbMin"] intValue];
+		int dbMax = [contactData[@"dbMax"] intValue];
 		
 		if(dbMax == 0 || dbNum > dbMax) {
 			dbMax = dbNum;
@@ -856,7 +856,7 @@ BOOL transactionOpen = NO; // caused effect (with firstOne): After we start up, 
 		}
 		
 		// does it already have the address we're looking for?
-		NSString* addresses = (NSString*)[contactData objectForKey:@"emailAddresses"];
+		NSString* addresses = (NSString*)contactData[@"emailAddresses"];
 		
 		if(![StringUtil stringContains:addresses subString:address]) {
 			NSString* addressesNew = [NSString stringWithFormat:@"%@, %@", addresses, escapedAddress];
@@ -867,7 +867,7 @@ BOOL transactionOpen = NO; // caused effect (with firstOne): After we start up, 
 			}
 		}
 		
-		[self writeUpdateContactName:[[contactData objectForKey:@"pk"] intValue] withAddresses:addresses withOccurrences:occurrences dbMin:dbMin dbMax:dbMax];
+		[self writeUpdateContactName:[contactData[@"pk"] intValue] withAddresses:addresses withOccurrences:occurrences dbMin:dbMin dbMax:dbMax];
 	}
 }
 
@@ -922,41 +922,41 @@ BOOL transactionOpen = NO; // caused effect (with firstOne): After we start up, 
 		
 	}
 	
-	sqlite3_bind_text(emailStmt, 1, [[data objectForKey:@"senderName"] UTF8String], -1, NULL);
-	sqlite3_bind_text(emailStmt, 2, [[data objectForKey:@"senderAddress"] UTF8String], -1, NULL);
-	sqlite3_bind_text(emailStmt, 3, [[data objectForKey:@"tos"] UTF8String], -1, NULL);
-	sqlite3_bind_text(emailStmt, 4, [[data objectForKey:@"ccs"] UTF8String], -1, NULL);
-	sqlite3_bind_text(emailStmt, 5, [[data objectForKey:@"bccs"] UTF8String], -1, NULL);
-	sqlite3_bind_text(emailStmt, 6, [[data objectForKey:@"datetime"] UTF8String], -1, NULL);
-	sqlite3_bind_text(emailStmt, 7, [[data objectForKey:@"msgId"] UTF8String], -1, NULL);
-	sqlite3_bind_text(emailStmt, 8, [[data objectForKey:@"attachments"] UTF8String], -1, NULL);
-	sqlite3_bind_text(emailStmt, 9, [[data objectForKey:@"folderPath"] UTF8String], -1, NULL);
-	sqlite3_bind_text(emailStmt, 10, [[data objectForKey:@"uid"] UTF8String], -1, NULL);
-	sqlite3_bind_int(emailStmt, 11, [[data objectForKey:@"folderNum"] intValue]);
+	sqlite3_bind_text(emailStmt, 1, [data[@"senderName"] UTF8String], -1, NULL);
+	sqlite3_bind_text(emailStmt, 2, [data[@"senderAddress"] UTF8String], -1, NULL);
+	sqlite3_bind_text(emailStmt, 3, [data[@"tos"] UTF8String], -1, NULL);
+	sqlite3_bind_text(emailStmt, 4, [data[@"ccs"] UTF8String], -1, NULL);
+	sqlite3_bind_text(emailStmt, 5, [data[@"bccs"] UTF8String], -1, NULL);
+	sqlite3_bind_text(emailStmt, 6, [data[@"datetime"] UTF8String], -1, NULL);
+	sqlite3_bind_text(emailStmt, 7, [data[@"msgId"] UTF8String], -1, NULL);
+	sqlite3_bind_text(emailStmt, 8, [data[@"attachments"] UTF8String], -1, NULL);
+	sqlite3_bind_text(emailStmt, 9, [data[@"folderPath"] UTF8String], -1, NULL);
+	sqlite3_bind_text(emailStmt, 10, [data[@"uid"] UTF8String], -1, NULL);
+	sqlite3_bind_int(emailStmt, 11, [data[@"folderNum"] intValue]);
 	
 	if(self.shuttingDown) return;
 	
 	if (sqlite3_step(emailStmt) != SQLITE_DONE)	{
-		NSLog(@"Failed step in emailStmt: '%s', '%i'", sqlite3_errmsg([[AddEmailDBAccessor sharedManager] database]), [[data objectForKey:@"seq"] intValue]);
+		NSLog(@"Failed step in emailStmt: '%s', '%i'", sqlite3_errmsg([[AddEmailDBAccessor sharedManager] database]), [data[@"seq"] intValue]);
 	}
 	sqlite3_reset(emailStmt);
 	
 	int pk = (int)sqlite3_last_insert_rowid([[AddEmailDBAccessor sharedManager] database]);
 	
-	[data setObject:[NSNumber numberWithInt:pk] forKey:@"pk"];
+	data[@"pk"] = @(pk);
 	
 	//TODO(gabor): massage body for insertion into virtual table
 	
-	[self insertIntoSearch:pk withMetaString:[data objectForKey:@"metaString"] withSubject:[data objectForKey:@"subject"] withBody:[data objectForKey:@"body"]
-				  withFrom:[data objectForKey:@"senderFlat"] withTo:[data objectForKey:@"toFlat"] withCc:[data objectForKey:@"ccFlat"] withFolder:[data objectForKey:@"folderDisplayName"]]; //TODO(gabor): Needs improvement
+	[self insertIntoSearch:pk withMetaString:data[@"metaString"] withSubject:data[@"subject"] withBody:data[@"body"]
+				  withFrom:data[@"senderFlat"] withTo:data[@"toFlat"] withCc:data[@"ccFlat"] withFolder:data[@"folderDisplayName"]]; //TODO(gabor): Needs improvement
 	
 	
 	//update the contact table
-	int dbNum = [[data objectForKey:@"dbNum"] intValue];
-	[self updateContactName:[data objectForKey:@"senderName"] withAddress:[data objectForKey:@"senderAddress"] withSubject:[data objectForKey:@"subject"] withDbNum:dbNum];	
+	int dbNum = [data[@"dbNum"] intValue];
+	[self updateContactName:data[@"senderName"] withAddress:data[@"senderAddress"] withSubject:data[@"subject"] withDbNum:dbNum];	
 	
-	NSString* md5hash = [data objectForKey:@"md5hash"];
-	[self writeUidEntry:[data objectForKey:@"uid"] folderNum:[[data objectForKey:@"folderNum"] intValue] md5:md5hash];
+	NSString* md5hash = data[@"md5hash"];
+	[self writeUidEntry:data[@"uid"] folderNum:[data[@"folderNum"] intValue] md5:md5hash];
 	
 }
 @end

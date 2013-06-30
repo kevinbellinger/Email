@@ -241,12 +241,12 @@
 	[sm clearClientMessage];
 	NSMutableDictionary* folderState = [sm retrieveState:folderNum accountNum:self.accountNum];
 	
-	self.folderDisplayName = [folderState objectForKey:@"folderDisplayName"];
+	self.folderDisplayName = folderState[@"folderDisplayName"];
 	if([self.folderDisplayName isEqualToString:@""]) {
 		self.folderDisplayName = @"All Mail";
 	}
 	
-	self.folderPath = [folderState objectForKey:@"folderPath"];
+	self.folderPath = folderState[@"folderPath"];
 	
 	// Get message count for folder
 	int folderCount;
@@ -262,7 +262,7 @@
 		//This used to be a fatal error, testing for Christian at 
 		[sm syncWarning:[NSString stringWithFormat:NSLocalizedString(@"Folder count error: %@ %@", nil), self.folderDisplayName, [ImapFolderWorker decodeError:exp]]];
 		
-		NSNumber* folderCountObj = [folderState objectForKey:@"folderCount"];
+		NSNumber* folderCountObj = folderState[@"folderCount"];
 		
 		if(folderCountObj == nil) {
 			// There hasn't been a previous count of this folder - above
@@ -271,7 +271,7 @@
 			return YES;
 		}
 		
-		folderCount = [[folderState objectForKey:@"folderCount"] intValue];
+		folderCount = [folderState[@"folderCount"] intValue];
 	}
 	
 	// determine which sequence number to sync
@@ -280,10 +280,10 @@
 	int seqDelta = 0; // when syncing new messages, add this number to the seq number (it's equal to the number of deleted messages so far, and avoids us overwriting old messages)
 
 
-	if([folderState objectForKey:@"newSyncStart"] != nil && [folderState objectForKey:@"oldSyncStart"] != nil && [folderState objectForKey:@"seqDelta"] != nil) {
-		newSyncStart = [[folderState objectForKey:@"newSyncStart"] intValue];
-		oldSyncStart = [[folderState objectForKey:@"oldSyncStart"] intValue];
-		seqDelta = [[folderState objectForKey:@"seqDelta"] intValue];
+	if(folderState[@"newSyncStart"] != nil && folderState[@"oldSyncStart"] != nil && folderState[@"seqDelta"] != nil) {
+		newSyncStart = [folderState[@"newSyncStart"] intValue];
+		oldSyncStart = [folderState[@"oldSyncStart"] intValue];
+		seqDelta = [folderState[@"seqDelta"] intValue];
 	}
 	
 	NSLog(@"%@ Mail count: %i, newSyncStart: %i, oldSyncStart: %i seqDelta: %i", self.folderPath, folderCount, newSyncStart, oldSyncStart, seqDelta);
@@ -322,11 +322,11 @@
 		}
 	}
 	
-	[folderState setObject:[NSNumber numberWithInt:newSyncStart] forKey:@"newSyncStart"];
-	[folderState setObject:[NSNumber numberWithInt:oldSyncStart] forKey:@"oldSyncStart"];
-	[folderState setObject:[NSNumber numberWithInt:folderCount] forKey:@"folderCount"];
-	[folderState setObject:[NSNumber numberWithInt:newSyncStart-oldSyncStart] forKey:@"numSynced"];
-	[folderState setObject:[NSNumber numberWithInt:seqDelta] forKey:@"seqDelta"];
+	folderState[@"newSyncStart"] = @(newSyncStart);
+	folderState[@"oldSyncStart"] = @(oldSyncStart);
+	folderState[@"folderCount"] = @(folderCount);
+	folderState[@"numSynced"] = @(newSyncStart-oldSyncStart);
+	folderState[@"seqDelta"] = @(seqDelta);
 	[sm persistState:folderState forFolderNum:self.folderNum accountNum:self.accountNum];
 	
 	EmailProcessor* emailProcessor = [EmailProcessor getSingleton];
@@ -382,7 +382,7 @@
 	for (int i = 0; i < [messages count]; i++) {
 		CTCoreMessage* msg;
 		
-		msg = [messages objectAtIndex:i];
+		msg = messages[i];
 		NSString* senderAddress = [[msg.from anyObject] email];
 		NSString* subject = msg.subject;
 		NSDate* date = [msg sentDateGMT];
@@ -456,7 +456,7 @@
 	NSMutableDictionary* syncState = [sm retrieveState:self.folderNum accountNum:self.accountNum];
 	
 	if(dbNums != nil) { // record which dbNums elements from this folder occur in
-		NSMutableArray* dbNumsArray = [syncState objectForKey:@"dbNums"];
+		NSMutableArray* dbNumsArray = syncState[@"dbNums"];
 		if(dbNumsArray == nil) {
 			dbNumsArray = [NSMutableArray arrayWithCapacity:[dbNums count]];
 		} 
@@ -470,17 +470,17 @@
 			}
 		}
 		
-		[syncState setObject:dbNumsArray forKey:@"dbNums"];
+		syncState[@"dbNums"] = dbNumsArray;
 	}	
 	
 	if(syncingNew) {
-		[syncState setObject:[NSNumber numberWithInt:end] forKey:@"newSyncStart"];
-		int oldSyncStart = [[syncState objectForKey:@"oldSyncStart"] intValue];
-		[syncState setObject:[NSNumber numberWithInt:end-oldSyncStart] forKey:@"numSynced"];
+		syncState[@"newSyncStart"] = @(end);
+		int oldSyncStart = [syncState[@"oldSyncStart"] intValue];
+		syncState[@"numSynced"] = @(end-oldSyncStart);
 	} else {
-		[syncState setObject:[NSNumber numberWithInt:start] forKey:@"oldSyncStart"];
-		int newSyncStart = [[syncState objectForKey:@"newSyncStart"] intValue];
-		[syncState setObject:[NSNumber numberWithInt:newSyncStart-start+1] forKey:@"numSynced"];
+		syncState[@"oldSyncStart"] = @(start);
+		int newSyncStart = [syncState[@"newSyncStart"] intValue];
+		syncState[@"numSynced"] = @(newSyncStart-start+1);
 	}
 	
 	[sm persistState:syncState forFolderNum:self.folderNum accountNum:self.accountNum];
@@ -594,11 +594,11 @@
 			// fetch body
 			@try  {
 				if(syncingNew) {
-					msg = [messages objectAtIndex:i];
+					msg = messages[i];
 					seqNum = startSeq+i;
 				} else {
 					// if syncing old messages, sync in reverse order
-					msg = [messages objectAtIndex:[messages count]-i-1];
+					msg = messages[[messages count]-i-1];
 					seqNum = endSeq-i-1;
 				}
 				
@@ -622,7 +622,7 @@
 				
 				// maintain folder -> db num list
 				int dbNum = [EmailProcessor dbNumForDate:date];
-				[dbNums addObject:[NSNumber numberWithInt:dbNum]];
+				[dbNums addObject:@(dbNum)];
 
 				// check if we already have this email
 				NSString *datetime = [emailProcessor.dbDateFormatter stringFromDate:date];
@@ -630,8 +630,8 @@
 				if([EmailProcessor searchUidEntry:md5hash]) {
 					// already have this email -> add folder info
 					
-					NSNumber* folderNumObj = [NSNumber numberWithInt:self.folderNum];
-					NSNumber* accountNumObj = [NSNumber numberWithInt:self.accountNum]; 
+					NSNumber* folderNumObj = @(self.folderNum);
+					NSNumber* accountNumObj = @(self.accountNum); 
 					// messageData retain count is 1, addToFolderWrapper has to release
 					NSMutableDictionary* messageData = [[NSMutableDictionary alloc] initWithObjectsAndKeys:senderAddress, @"senderAddress", subject, @"subject", 
 														date, @"datetime", subject, @"subject",
@@ -713,12 +713,12 @@
 
 				NSArray* attachments = [msg attachments];
 				
-				NSNumber* syncingNewLocal = [NSNumber numberWithBool:syncingNew];
-				NSNumber* startSeqObj = [NSNumber numberWithUnsignedInt:startSeq];
-				NSNumber* endSeqObj = [NSNumber numberWithUnsignedInt:endSeq];
+				NSNumber* syncingNewLocal = @(syncingNew);
+				NSNumber* startSeqObj = @(startSeq);
+				NSNumber* endSeqObj = @(endSeq);
 				
-				NSNumber* folderNumObj = [NSNumber numberWithInt:self.folderNum];
-				NSNumber* accountNumObj = [NSNumber numberWithInt:self.accountNum]; 
+				NSNumber* folderNumObj = @(self.folderNum);
+				NSNumber* accountNumObj = @(self.accountNum); 
 							
 				// released in EmailProcessor.addEmailWrapper
 				NSMutableDictionary* messageData = [[NSMutableDictionary alloc] initWithObjectsAndKeys:senderAddress, @"senderAddress", senderName, @"senderName", to, @"toList", 

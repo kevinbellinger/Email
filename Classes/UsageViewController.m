@@ -193,9 +193,9 @@
 		return cell;
 	}
 	
-	NSDictionary* contact = [self.contactData objectAtIndex:indexPath.row];
-	NSString* addresses = [[contact objectForKey:@"emailAddresses"] stringByReplacingOccurrencesOfString:@"'" withString:@""];
-	cell.textLabel.text = [contact objectForKey:@"name"];
+	NSDictionary* contact = (self.contactData)[indexPath.row];
+	NSString* addresses = [contact[@"emailAddresses"] stringByReplacingOccurrencesOfString:@"'" withString:@""];
+	cell.textLabel.text = contact[@"name"];
 	cell.detailTextLabel.text = addresses;
 	cell.imageView.image = [UIImage imageNamed:@"convoPerson3.png"];
 	
@@ -216,19 +216,19 @@
 	int count = 0;
 	while(sqlite3_step(loadStmt) == SQLITE_ROW) {
 		int pk = sqlite3_column_int(loadStmt, 0);
-		NSNumber* pkNum = [NSNumber numberWithInt:pk];
+		NSNumber* pkNum = @(pk);
 		
 		NSString *name = @"";
 		const char *sqlVal = (const char *)sqlite3_column_text(loadStmt, 1);
 		if(sqlVal != nil)
-			name = [NSString stringWithUTF8String:sqlVal];
+			name = @(sqlVal);
 		
 		NSString *emailAddresses = @"";
 		sqlVal = (const char *)sqlite3_column_text(loadStmt, 2);
 		if(sqlVal != nil)
-			emailAddresses = [NSString stringWithUTF8String:sqlVal];
+			emailAddresses = @(sqlVal);
 		
-		NSDictionary* res = [NSDictionary dictionaryWithObjectsAndKeys:pkNum, @"pk", name, @"name", emailAddresses, @"emailAddresses", nil];
+		NSDictionary* res = @{@"pk": pkNum, @"name": name, @"emailAddresses": emailAddresses};
 		
 		[y addObject:res];
 		count++;
@@ -272,14 +272,14 @@
 	if(result == MFMailComposeResultSent) {
 		// mark as sent
 		if([self.contactData count] > self.lastRowClicked) {
-			NSDictionary* contact = [self.contactData objectAtIndex:self.lastRowClicked];
-			int pk = [[contact objectForKey:@"pk"] intValue];
+			NSDictionary* contact = (self.contactData)[self.lastRowClicked];
+			int pk = [contact[@"pk"] intValue];
 			[self markContactSent:pk];
 		
 			[self.contactData removeObjectAtIndex:self.lastRowClicked];
 		
 			NSIndexPath* indexPath = [NSIndexPath indexPathForRow:self.lastRowClicked inSection:0];
-			[self.tableViewCopy deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+			[self.tableViewCopy deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 			
 			[self.tableViewCopy reloadData];
 		}
@@ -303,7 +303,7 @@
 //	NSString* body = NSLocalizedString(@"Hi!\n\nYou should try reMail.\n\nIt's an iPhone app that downloads all your email to your iPhone for fast full-text search.\n\nWebsite: http://www.remail.com/r", nil);
 	
 	if(emailAddress != nil) {
-		[mailCtrl setToRecipients:[NSArray arrayWithObject:emailAddress]];
+		[mailCtrl setToRecipients:@[emailAddress]];
 	}
 //	[mailCtrl setMessageBody:body isHTML:NO];
 //	[mailCtrl setSubject:NSLocalizedString(@"You should try reMail", nil)];
@@ -339,9 +339,9 @@
 //		emailAddresses = @"";
 //		name = @"";
 //	} else {
-		NSDictionary* contact = [self.contactData objectAtIndex:indexPath.row];
-		emailAddresses = [contact objectForKey:@"emailAddresses"];
-		name = [contact objectForKey:@"name"];
+		NSDictionary* contact = (self.contactData)[indexPath.row];
+		emailAddresses = contact[@"emailAddresses"];
+		name = contact[@"name"];
 //	}
 	
 //	BOOL showActionSheet = [StringUtil stringContains:emailAddresses subString:@"', '"];

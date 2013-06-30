@@ -243,18 +243,18 @@ static SyncManager *singleton = nil;
 
 #pragma	mark Update and retrieve syncState
 -(int)folderCount:(int)accountNum {
-	NSArray* folderStates = [[self.syncStates objectAtIndex:accountNum] objectForKey:FOLDER_STATES_KEY];
+	NSArray* folderStates = (self.syncStates)[accountNum][FOLDER_STATES_KEY];
 	return [folderStates count];
 }
 
 -(NSMutableDictionary*)retrieveState:(int)folderNum accountNum:(int)accountNum {
-	NSArray* folderStates = [[self.syncStates objectAtIndex:accountNum] objectForKey:FOLDER_STATES_KEY];
+	NSArray* folderStates = (self.syncStates)[accountNum][FOLDER_STATES_KEY];
 	
 	if (folderNum >= [folderStates count]) {
 		return nil;
 	}
 	
-	return [folderStates objectAtIndex:folderNum];
+	return folderStates[folderNum];
 }
 
 -(void)addAccountState {
@@ -264,7 +264,7 @@ static SyncManager *singleton = nil;
 	[self.syncStates addObject:props];
 	
 	NSString* filePath = [StringUtil filePathInDocumentsDirectoryForFileName:[NSString stringWithFormat:SYNC_STATE_FILE_NAME_TEMPLATE, numAccounts+1]];
-	if(![[self.syncStates objectAtIndex:numAccounts] writeToFile:filePath atomically:YES]) {
+	if(![(self.syncStates)[numAccounts] writeToFile:filePath atomically:YES]) {
 		NSLog(@"Unsuccessful in persisting state to file %@", filePath);
 	}
 	
@@ -274,48 +274,48 @@ static SyncManager *singleton = nil;
 
 
 -(void)addFolderState:(NSMutableDictionary *)data accountNum:(int)accountNum {
-	NSMutableArray* folderStates = [[self.syncStates objectAtIndex:accountNum] objectForKey:FOLDER_STATES_KEY];
+	NSMutableArray* folderStates = (self.syncStates)[accountNum][FOLDER_STATES_KEY];
 	
 	[folderStates addObject:data];
 	
 	NSString* filePath = [StringUtil filePathInDocumentsDirectoryForFileName:[NSString stringWithFormat:SYNC_STATE_FILE_NAME_TEMPLATE, accountNum]];
-	if(![[self.syncStates objectAtIndex:accountNum] writeToFile:filePath atomically:YES]) {
+	if(![(self.syncStates)[accountNum] writeToFile:filePath atomically:YES]) {
 		NSLog(@"Unsuccessful in persisting state to file %@", filePath);
 	}
 }
 
 -(BOOL)isFolderDeleted:(int)folderNum accountNum:(int)accountNum {
-	NSArray* folderStates = [[self.syncStates objectAtIndex:accountNum] objectForKey:FOLDER_STATES_KEY];
+	NSArray* folderStates = (self.syncStates)[accountNum][FOLDER_STATES_KEY];
 	
 	if (folderNum >= [folderStates count]) {
 		return YES;
 	}
 	
-	NSNumber* y =  [[folderStates objectAtIndex:folderNum] objectForKey:@"deleted"];
+	NSNumber* y =  folderStates[folderNum][@"deleted"];
 	
 	return (y == nil) || [y boolValue];
 }
 
 
 -(void)markFolderDeleted:(int)folderNum accountNum:(int)accountNum {
-	NSMutableArray* folderStates = [[self.syncStates objectAtIndex:accountNum] objectForKey:FOLDER_STATES_KEY];
+	NSMutableArray* folderStates = (self.syncStates)[accountNum][FOLDER_STATES_KEY];
 	
-	NSMutableDictionary* y = [folderStates objectAtIndex:folderNum];
-	[y setValue:[NSNumber numberWithBool:YES] forKey:@"deleted"];
+	NSMutableDictionary* y = folderStates[folderNum];
+	[y setValue:@YES forKey:@"deleted"];
 	
 	NSString* filePath = [StringUtil filePathInDocumentsDirectoryForFileName:[NSString stringWithFormat:SYNC_STATE_FILE_NAME_TEMPLATE, accountNum]];
-	if(![[self.syncStates objectAtIndex:accountNum] writeToFile:filePath atomically:YES]) {
+	if(![(self.syncStates)[accountNum] writeToFile:filePath atomically:YES]) {
 		NSLog(@"Unsuccessful in persisting state to file %@", filePath);
 	}
 }
 
 -(void)persistState:(NSMutableDictionary *)data forFolderNum:(int)folderNum accountNum:(int)accountNum {
-	NSMutableArray* folderStates = [[self.syncStates objectAtIndex:accountNum] objectForKey:FOLDER_STATES_KEY];
+	NSMutableArray* folderStates = (self.syncStates)[accountNum][FOLDER_STATES_KEY];
 	
-	[folderStates replaceObjectAtIndex:folderNum withObject:data];
+	folderStates[folderNum] = data;
 	
 	NSString* filePath = [StringUtil filePathInDocumentsDirectoryForFileName:[NSString stringWithFormat:SYNC_STATE_FILE_NAME_TEMPLATE, accountNum]];
-	if(![[self.syncStates objectAtIndex:accountNum] writeToFile:filePath atomically:YES]) {
+	if(![(self.syncStates)[accountNum] writeToFile:filePath atomically:YES]) {
 		NSLog(@"Unsuccessful in persisting state to file %@", filePath);
 	}
 }
@@ -327,15 +327,15 @@ static SyncManager *singleton = nil;
 			continue;
 		}
 		
-		NSMutableArray* folderStates = [[self.syncStates objectAtIndex:a] objectForKey:FOLDER_STATES_KEY];
+		NSMutableArray* folderStates = (self.syncStates)[a][FOLDER_STATES_KEY];
 		for(int i = 0; i < [folderStates count]; i++) {
 			if(a == accountNum && i == folderNum) {
 				continue;
 			}
 			
-			NSDictionary* folder = [folderStates objectAtIndex:i];
-			if ([folder objectForKey:@"numSynced"] != nil) {
-				total += [[folder objectForKey:@"numSynced"] intValue];
+			NSDictionary* folder = folderStates[i];
+			if (folder[@"numSynced"] != nil) {
+				total += [folder[@"numSynced"] intValue];
 			}
 		}
 		
@@ -346,14 +346,14 @@ static SyncManager *singleton = nil;
 -(int)emailsOnDevice {
 	int total = 0;
 	for(int a = 0; a < [AppSettings numAccounts]; a++) {
-		NSMutableArray* folderStates = [[self.syncStates objectAtIndex:a] objectForKey:FOLDER_STATES_KEY];
+		NSMutableArray* folderStates = (self.syncStates)[a][FOLDER_STATES_KEY];
 		
 		NSEnumerator* stateEnum = [folderStates objectEnumerator];
 		
 		NSDictionary* folder = nil;
 		while(folder = [stateEnum nextObject]) {
-			if ([folder objectForKey:@"numSynced"] != nil) {
-				total += [[folder objectForKey:@"numSynced"] intValue];
+			if (folder[@"numSynced"] != nil) {
+				total += [folder[@"numSynced"] intValue];
 			}
 		}
 	}
@@ -367,18 +367,18 @@ static SyncManager *singleton = nil;
 			continue;
 		}
 		
-		NSMutableArray* folderStates = [[self.syncStates objectAtIndex:a] objectForKey:FOLDER_STATES_KEY];
+		NSMutableArray* folderStates = (self.syncStates)[a][FOLDER_STATES_KEY];
 		
 		NSEnumerator* stateEnum = [folderStates objectEnumerator];
 		
 		NSDictionary* folder = nil;
 		while(folder = [stateEnum nextObject]) {
-			if ([folder objectForKey:@"deleted"] != nil && [[folder objectForKey:@"deleted"] boolValue]) {
+			if (folder[@"deleted"] != nil && [folder[@"deleted"] boolValue]) {
 				continue;
 			}
 			
-			if ([folder objectForKey:@"folderCount"] != nil) {
-				total += [[folder objectForKey:@"folderCount"] intValue];
+			if (folder[@"folderCount"] != nil) {
+				total += [folder[@"folderCount"] intValue];
 			}
 		}
 	}
@@ -452,7 +452,7 @@ static SyncManager *singleton = nil;
 }
 
 -(void)reportProgress:(float)progress withMessage:(NSString*)message {
-	NSDictionary* progressDict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat:progress], @"progress", message, @"message", nil];
+	NSDictionary* progressDict = @{@"progress": @(progress), @"message": message};
 	
 	if(self.progressDelegate != nil && [self.progressDelegate respondsToSelector:@selector(didChangeProgressTo:)]) {
 		[self.progressDelegate performSelectorOnMainThread:@selector(didChangeProgressTo:) withObject:progressDict waitUntilDone:NO];
@@ -460,8 +460,7 @@ static SyncManager *singleton = nil;
 }
 
 -(void)reportProgressNumbers:(int)total synced:(int)synced folderNum:(int)folderNum accountNum:(int)accountNum {
-	NSDictionary* progressDict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:total], @"total", [NSNumber numberWithInt:synced], 
-								  @"synced", [NSNumber numberWithInt:folderNum], @"folderNum", [NSNumber numberWithInt:accountNum], @"accountNum", nil];
+	NSDictionary* progressDict = @{@"total": @(total), @"synced": @(synced), @"folderNum": @(folderNum), @"accountNum": @(accountNum)};
 	
 	if(self.progressNumbersDelegate != nil && [self.progressNumbersDelegate respondsToSelector:@selector(didChangeProgressNumbersTo:)]) {
 		[self.progressNumbersDelegate performSelectorOnMainThread:@selector(didChangeProgressNumbersTo:) withObject:progressDict waitUntilDone:NO];
@@ -488,7 +487,7 @@ static SyncManager *singleton = nil;
 -(void)setClientMessage:(NSString*)message withColor:(NSString*)color withErrorDetail:(NSString*)errorDetailLocal {
 	NSDictionary* dict = nil;
 	if((message != nil) && (color != nil)) {
-		dict = [NSDictionary dictionaryWithObjectsAndKeys:message, @"message", color, @"color", errorDetailLocal, @"errorDetail", nil];
+		dict = @{@"message": message, @"color": color, @"errorDetail": errorDetailLocal};
 	}
 	
 	if(self.clientMessageDelegate != nil && [self.clientMessageDelegate respondsToSelector:@selector(didChangeClientMessageTo:)]) {
@@ -528,33 +527,33 @@ static SyncManager *singleton = nil;
 }
 -(NSString*)correctContentType:(NSString*)contentType filename:(NSString*)filename {
 	if(self.extensionContentType == nil) {
-		self.extensionContentType = [NSDictionary dictionaryWithObjectsAndKeys:@"text/plain", @"m",
-									 @"text/plain", @"h",
-									 @"text/plain", @"c",
-									 @"text/plain", @"cpp",
-									 @"text/plain", @"py",
-									 @"text/plain", @"rb",
-									 @"text/plain", @"cs",
-									 @"text/plain", @"csv",
-									 @"text/plain", @"java",
-									 @"text/plain", @"txt",
-									 @"text/plain", @"text",
+		self.extensionContentType = @{@"m": @"text/plain",
+									 @"h": @"text/plain",
+									 @"c": @"text/plain",
+									 @"cpp": @"text/plain",
+									 @"py": @"text/plain",
+									 @"rb": @"text/plain",
+									 @"cs": @"text/plain",
+									 @"csv": @"text/plain",
+									 @"java": @"text/plain",
+									 @"txt": @"text/plain",
+									 @"text": @"text/plain",
 									 
-									 @"text/plain", @"tex", // Latex, as reported by Beta user Kai Kunze
+									 @"tex": @"text/plain", // Latex, as reported by Beta user Kai Kunze
 									 
-									 @"image/png", @"png",
-									 @"image/gif", @"gif",
-									 @"image/tiff", @"tiff",
-									 @"image/tiff", @"tif",
-									 @"image/jpeg", @"jpeg",
-									 @"image/jpeg", @"jpg",
-									 @"application/pdf", @"pdf", nil];
+									 @"png": @"image/png",
+									 @"gif": @"image/gif",
+									 @"tiff": @"image/tiff",
+									 @"tif": @"image/tiff",
+									 @"jpeg": @"image/jpeg",
+									 @"jpg": @"image/jpeg",
+									 @"pdf": @"application/pdf"};
 	}
 	
 	NSString* extension = [filename pathExtension];
 	
-	if([self.extensionContentType objectForKey:extension] != nil) {
-		return [self.extensionContentType objectForKey:extension];
+	if((self.extensionContentType)[extension] != nil) {
+		return (self.extensionContentType)[extension];
 	}
 	
 	return contentType;	

@@ -46,9 +46,9 @@ BOOL autoCompleteMode;
 -(void)reloadQueries {	
 	//TODO(einar): Is this autoreleased?
 	NSDictionary* pastQueries = [PastQuery recentQueries];
-	self.queryHistory = [pastQueries objectForKey:@"queries"];
-	self.dates = [pastQueries objectForKey:@"datetimes"];
-	self.types = [pastQueries objectForKey:@"searchTypes"];
+	self.queryHistory = pastQueries[@"queries"];
+	self.dates = pastQueries[@"datetimes"];
+	self.types = pastQueries[@"searchTypes"];
 	
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 	[dateFormatter setDateStyle:NSDateFormatterNoStyle];
@@ -157,9 +157,9 @@ BOOL autoCompleteMode;
 }
 
 -(void)doLoad {
-	self.queryHistory = [NSArray array];
+	self.queryHistory = @[];
 	self.dates = [NSMutableArray array];
-	self.types = [NSArray array];
+	self.types = @[];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -261,10 +261,10 @@ BOOL autoCompleteMode;
 			cell.detailTextLabel.text = @"";
 			return cell;
 		}
-		cell.textLabel.text = (NSString*)[self.queryHistory objectAtIndex:indexPath.row];
-		cell.detailTextLabel.text = (NSString*)[self.dates objectAtIndex:indexPath.row];
+		cell.textLabel.text = (NSString*)(self.queryHistory)[indexPath.row];
+		cell.detailTextLabel.text = (NSString*)(self.dates)[indexPath.row];
 
-		if([[self.types objectAtIndex:indexPath.row] intValue] == 0) {
+		if([(self.types)[indexPath.row] intValue] == 0) {
 			cell.imageView.image = [UIImage imageNamed:@"textSearch.png"];
 		} else {
 			cell.imageView.image = [UIImage imageNamed:@"convoPerson2.png"];
@@ -296,7 +296,7 @@ BOOL autoCompleteMode;
 		NSDictionary* autocompletion = nil;
 		@synchronized(self) {
 			if(indexPath.row < [self.autocompletions count]) {
-				autocompletion = [self.autocompletions objectAtIndex:indexPath.row];
+				autocompletion = (self.autocompletions)[indexPath.row];
 				// this makes sure the autocompletion+contents don't get garbage-collected as we're displaying it.
 				[autocompletion retain];
 			}
@@ -311,11 +311,11 @@ BOOL autoCompleteMode;
 		}		
 		
 		acell.imageView.image = [UIImage imageNamed:@"convoPerson3.png"];
-		NSString* name = [autocompletion objectForKey:@"name"];
+		NSString* name = autocompletion[@"name"];
 		name = [self markup:name query:self.lastSearchString];
 		
 		// need to get rid of the "'"s before displaying text to the user
-		NSString* addresses = [[autocompletion objectForKey:@"emailAddresses"] stringByReplacingOccurrencesOfString:@"'" withString:@""];
+		NSString* addresses = [autocompletion[@"emailAddresses"] stringByReplacingOccurrencesOfString:@"'" withString:@""];
 		[acell setName:name withAddresses:addresses];
 		[autocompletion release];
 		
@@ -329,8 +329,8 @@ BOOL autoCompleteMode;
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	
 	if(self.tableView == tableView) {
-		NSString *queryText = [self.queryHistory objectAtIndex:indexPath.row];
-		if([[self.types objectAtIndex:indexPath.row] intValue] == 1) {
+		NSString *queryText = (self.queryHistory)[indexPath.row];
+		if([(self.types)[indexPath.row] intValue] == 1) {
 			// sender search
 			[self goSenderSearch:queryText];
 		} else {
@@ -342,8 +342,8 @@ BOOL autoCompleteMode;
 			return;
 		}
 		
-		NSDictionary* autocompletion = [self.autocompletions objectAtIndex:indexPath.row];
-		NSString* senderName = [autocompletion objectForKey:@"name"];
+		NSDictionary* autocompletion = (self.autocompletions)[indexPath.row];
+		NSString* senderName = autocompletion[@"name"];
 		[self goSenderSearch:senderName withParams:autocompletion];
 	}
 }

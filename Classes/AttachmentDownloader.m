@@ -47,7 +47,7 @@
 
 +(NSString*)attachmentDirPath {
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	NSString *saveDirectory = [paths objectAtIndex:0];
+	NSString *saveDirectory = paths[0];
 	
 	NSString* attachmentDir = [saveDirectory stringByAppendingPathComponent:@"at"];
 	return attachmentDir;
@@ -55,7 +55,7 @@
 
 +(void)ensureAttachmentDirExists {
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	NSString *saveDirectory = [paths objectAtIndex:0];
+	NSString *saveDirectory = paths[0];
 
 	NSString* attachmentDir = [saveDirectory stringByAppendingPathComponent:@"at"];
 
@@ -158,7 +158,7 @@
 		SyncManager* sm = [SyncManager getSingleton];
 		
 		NSDictionary* folderStatus = [sm retrieveState:self.folderNum accountNum:self.accountNum];
-		folderPath = [folderStatus objectForKey:@"folderPath"];
+		folderPath = folderStatus[@"folderPath"];
 	} else {
 		NSLog(@"Account type not recognized");
 	}
@@ -199,7 +199,7 @@
 			return;
 		}
 		
-		CTBareAttachment* attachment = [attachments objectAtIndex:self.attachmentNum];
+		CTBareAttachment* attachment = attachments[self.attachmentNum];
 		
 		CTCoreAttachment* fullAttachment = [attachment fetchFullAttachment];
 		

@@ -85,14 +85,14 @@ UIImage* imgAttachment = nil;
 	int nextDBNum = dbNum+1;
 	
 	if(self.isSenderSearch) {
-		NSString* senderAddresses = [self.senderSearchParams objectForKey:@"emailAddresses"];
+		NSString* senderAddresses = (self.senderSearchParams)[@"emailAddresses"];
 
-		int dbMin = [[self.senderSearchParams objectForKey:@"dbMin"] intValue];
-		int dbMax = [[self.senderSearchParams objectForKey:@"dbMax"] intValue];
+		int dbMin = [(self.senderSearchParams)[@"dbMin"] intValue];
+		int dbMax = [(self.senderSearchParams)[@"dbMax"] intValue];
 
 		[searchManager senderSearch:senderAddresses withDelegate:self startWithDB:dbNum dbMin:dbMin dbMax:dbMax];
 	} else {
-		NSArray* snippetDelims = [NSArray arrayWithObjects:@"$$$$mark$$$$",@"$$$$endmark$$$$", nil];
+		NSArray* snippetDelims = @[@"$$$$mark$$$$",@"$$$$endmark$$$$"];
 		[searchManager ftSearch:self.query withDelegate:self withSnippetDelims:snippetDelims startWithDB:dbNum];
 	}
 
@@ -113,11 +113,11 @@ UIImage* imgAttachment = nil;
 
 -(void)insertRows:(NSDictionary*)info {
 	@try {
-		[self.emailData addObjectsFromArray:[info objectForKey:@"data"]];
-		[self.tableView insertRowsAtIndexPaths:[info objectForKey:@"rows"] withRowAnimation:UITableViewRowAnimationFade];
+		[self.emailData addObjectsFromArray:info[@"data"]];
+		[self.tableView insertRowsAtIndexPaths:info[@"rows"] withRowAnimation:UITableViewRowAnimationFade];
 	} @catch (NSException *exp) {
 		NSLog(@"Exception in SRinsertRows: %@", exp);
-		NSLog(@"%@|%i|%i|%i|r%i", [info objectForKey:@"rows"], [self.emailData count], [info retainCount], [[info objectForKey:@"data"] retainCount], [[info objectForKey:@"rows"] retainCount]);
+		NSLog(@"%@|%i|%i|%i|r%i", info[@"rows"], [self.emailData count], [info retainCount], [info[@"data"] retainCount], [info[@"rows"] retainCount]);
 	}
 	[info release];
 }
@@ -130,45 +130,45 @@ UIImage* imgAttachment = nil;
 	@synchronized(self) {
 		for(NSMutableDictionary* searchResult in searchResults) {
 			// set people string to sender name or address
-			NSString* senderName = [searchResult objectForKey:@"senderName"];
+			NSString* senderName = searchResult[@"senderName"];
 			senderName = [self massageDisplayString:senderName];
-			NSString* senderAddress = [searchResult objectForKey:@"senderAddress"];
+			NSString* senderAddress = searchResult[@"senderAddress"];
 
 			if(self.isSenderSearch) {
 				if([senderName length] == 0 && [senderAddress length] == 0){
-					[searchResult setObject:@"[unknown]" forKey:@"people"];
+					searchResult[@"people"] = @"[unknown]";
 				} else if ([senderName length] == 0) {
-					[searchResult setObject:[NSString stringWithFormat:@"<span class=\"redBox\">%@</span>", senderAddress] forKey:@"people"];
+					searchResult[@"people"] = [NSString stringWithFormat:@"<span class=\"redBox\">%@</span>", senderAddress];
 				} else {
-					[searchResult setObject:[NSString stringWithFormat:@"<span class=\"redBox\">%@</span>", senderName] forKey:@"people"];
+					searchResult[@"people"] = [NSString stringWithFormat:@"<span class=\"redBox\">%@</span>", senderName];
 				}
 			} else {
 				if([senderName length] == 0 && [senderAddress length] == 0){
-					[searchResult setObject:@"[unknown]" forKey:@"people"];
+					searchResult[@"people"] = @"[unknown]";
 				} else if ([senderName length] == 0) {
-					[searchResult setObject:senderAddress forKey:@"people"];
+					searchResult[@"people"] = senderAddress;
 				} else {
-					[searchResult setObject:senderName forKey:@"people"];
+					searchResult[@"people"] = senderName;
 				}
 			}
 			
 			// massage display strings	
-			NSString *body = [StringUtil trim:[searchResult objectForKey:@"body"]];
+			NSString *body = [StringUtil trim:searchResult[@"body"]];
 			if([body length] == 0) {
-				[searchResult setObject:NSLocalizedString(@"[empty]",nil) forKey:@"body"];	
+				searchResult[@"body"] = NSLocalizedString(@"[empty]",nil);	
 			} else {
-				[searchResult setObject:[self massageDisplayString:body] forKey:@"body"];	
+				searchResult[@"body"] = [self massageDisplayString:body];	
 			}
-			NSString *subject = [searchResult objectForKey:@"subject"];
+			NSString *subject = searchResult[@"subject"];
 			if([subject length] == 0) {
-				[searchResult setObject:NSLocalizedString(@"[empty]",nil) forKey:@"subject"];	
+				searchResult[@"subject"] = NSLocalizedString(@"[empty]",nil);	
 			} else {
-				[searchResult setObject:[self massageDisplayString:subject] forKey:@"subject"];	
+				searchResult[@"subject"] = [self massageDisplayString:subject];	
 			}
 			
 			// massage snippet
 			if(!self.isSenderSearch) {
-				NSString *snippet = [searchResult objectForKey:@"snippet"];
+				NSString *snippet = searchResult[@"snippet"];
 				snippet = [StringUtil deleteQuoteNewLines:snippet];
 				snippet = [StringUtil deleteNewLines:snippet];
 				snippet = [snippet stringByReplacingOccurrencesOfString:@">" withString:@""];
@@ -178,8 +178,8 @@ UIImage* imgAttachment = nil;
 				// put snippet parts into display where they're meant to be displayed
 				NSArray* snippetParts = [snippet componentsSeparatedByString:@"{||}"];
 				for(int i = 1; i < [snippetParts count]-1; i += 2) {
-					NSString* header = (NSString*)[snippetParts objectAtIndex:i];
-					NSString* content = (NSString*)[snippetParts objectAtIndex:i+1];		
+					NSString* header = (NSString*)snippetParts[i];
+					NSString* content = (NSString*)snippetParts[i+1];		
 					content = [content stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"];
 					content = [content stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"];
 					content = [content stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"];
@@ -188,15 +188,15 @@ UIImage* imgAttachment = nil;
 					if([header isEqualToString:@"0"]) { //metaString
 						content = [content stringByReplacingOccurrencesOfString:@"$$$$mark$$$$" withString:@"<span class=\"redBox\">"];
 						content = [StringUtil trim:content];
-						[searchResult setObject:content forKey:@"people"];	
+						searchResult[@"people"] = content;	
 					} else if([header isEqualToString:@"1"]) {
 						content = [content stringByReplacingOccurrencesOfString:@"$$$$mark$$$$" withString:@"<span class=\"yellowBox\">"];
 						content = [StringUtil trim:content];
-						[searchResult setObject:content forKey:@"subject"];	
+						searchResult[@"subject"] = content;	
 					} else if([header isEqualToString:@"2"]) {
 						content = [content stringByReplacingOccurrencesOfString:@"$$$$mark$$$$" withString:@"<span class=\"yellowBox\">"];
 						content = [StringUtil trim:content];
-						[searchResult setObject:content forKey:@"body"];	
+						searchResult[@"body"] = content;	
 					}
 				}
 			}
@@ -229,7 +229,7 @@ UIImage* imgAttachment = nil;
 	if(self.emailData != nil) {
 		NSIndexPath* indexPath = [NSIndexPath indexPathForRow:[self.emailData count] inSection:0];
 		
-		[self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+		[self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 	}
 }
 
@@ -247,29 +247,29 @@ UIImage* imgAttachment = nil;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSDictionary* email = [emailData objectAtIndex:indexPath.row];
+	NSDictionary* email = emailData[indexPath.row];
 	
-	NSNumber* emailPk = [email objectForKey:@"pk"];
+	NSNumber* emailPk = email[@"pk"];
 	NSLog(@"Deleting email with pk: %@ row: %i", emailPk, indexPath.row);
 	
 	SearchRunner* sm = [SearchRunner getSingleton];
-	[sm deleteEmail:[emailPk intValue] dbNum:[[email objectForKey:@"dbNum"] intValue]];
+	[sm deleteEmail:[emailPk intValue] dbNum:[email[@"dbNum"] intValue]];
 	
 	[emailData removeObjectAtIndex:indexPath.row];
-	[self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationTop];	
+	[self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];	
 }
 
 
 -(void)emailDeleted:(NSNumber*)pk {
 	for(int i = 0; i < [emailData count]; i++) {
-		NSDictionary* email = [emailData objectAtIndex:i];
+		NSDictionary* email = emailData[i];
 		
-		NSNumber* emailPk = [email objectForKey:@"pk"];
+		NSNumber* emailPk = email[@"pk"];
 		
 		if([emailPk isEqualToNumber:pk]) {
 			[emailData removeObjectAtIndex:i];
 			NSIndexPath* indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-			[self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+			[self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 			break;
 		}
 	}
@@ -374,7 +374,7 @@ UIImage* imgAttachment = nil;
 	NSDictionary* y;
 	
 	if (indexPath.row < [self.emailData count]) {
-		y = [self.emailData objectAtIndex:indexPath.row];
+		y = (self.emailData)[indexPath.row];
 	} else {
 		y = nil; // "More Results" link
 	}
@@ -425,14 +425,14 @@ UIImage* imgAttachment = nil;
         cell = [self createMailCellFromNib];
 	}
 	
-	if([[y objectForKey:@"hasAttachment"] intValue] > 0) {
+	if([y[@"hasAttachment"] intValue] > 0) {
 		cell.attachmentIndicator.image = imgAttachment;
 		[cell.attachmentIndicator setHidden:NO];
 	} else {
 		[cell.attachmentIndicator setHidden:YES];
 	}
 	
-	NSDate* date = [y objectForKey:@"datetime"];
+	NSDate* date = y[@"datetime"];
 	if (date != nil) {
 		DateUtil* du = [DateUtil getSingleton];
 		cell.dateLabel.text = [du humanDate:date];
@@ -440,7 +440,7 @@ UIImage* imgAttachment = nil;
 		cell.dateLabel.text = @"(unknown)";
 	}
 	
-	[cell setTextWithPeople:[y objectForKey:@"people"] withSubject: [y objectForKey:@"subject"] withBody:[y objectForKey:@"body"]];
+	[cell setTextWithPeople:y[@"people"] withSubject: y[@"subject"] withBody:y[@"body"]];
 		
 	return cell;
 }
@@ -466,10 +466,10 @@ UIImage* imgAttachment = nil;
 	[sem cancel];
 	
 	MailViewController *mailViewController = [[MailViewController alloc] init];
-	NSDictionary* y = [self.emailData objectAtIndex:indexPath.row-addPrevious];
+	NSDictionary* y = (self.emailData)[indexPath.row-addPrevious];
 
-	int emailPk = [[y objectForKey:@"pk"] intValue];
-	int dbNum = [[y objectForKey:@"dbNum"] intValue];
+	int emailPk = [y[@"pk"] intValue];
+	int dbNum = [y[@"dbNum"] intValue];
 	mailViewController.emailPk = emailPk;
 	mailViewController.dbNum = dbNum;
 	mailViewController.isSenderSearch = self.isSenderSearch;

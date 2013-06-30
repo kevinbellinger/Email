@@ -325,10 +325,10 @@ NSDateFormatter* dateFormatter = nil;
 }
 
 -(void)didChangeProgressTo:(NSDictionary*)dict {
-	float progress = [[dict objectForKey:@"progress"] floatValue];
+	float progress = [dict[@"progress"] floatValue];
 
 	progressView.progressView.progress = progress;
-	progressView.progressLabel.text = [dict objectForKey:@"message"];
+	progressView.progressLabel.text = dict[@"message"];
 	
 	[progressView.updatedLabelTop setHidden:YES];
 	[progressView.clientMessageLabelBottom setHidden:YES];
@@ -367,7 +367,7 @@ NSDateFormatter* dateFormatter = nil;
 		clientMessageButton.alpha = 1.0f;
 		NSDictionary* dict = (NSDictionary*)object;
 
-		self.clientMessage = [dict objectForKey:@"message"];
+		self.clientMessage = dict[@"message"];
 		
 		if(self.clientMessage == nil) {
 			[clientMessageButton setHidden:YES];
@@ -375,14 +375,14 @@ NSDateFormatter* dateFormatter = nil;
 			return;
 		}
 		
-		self.errorDetail = [dict objectForKey:@"errorDetail"];
+		self.errorDetail = dict[@"errorDetail"];
 		
 		[clientMessageButton setTitle:self.clientMessage forState:UIControlStateNormal];
 		[clientMessageButton setTitle:self.clientMessage forState:UIControlStateHighlighted];
 		[clientMessageButton setTitle:self.clientMessage forState:UIControlStateSelected];
-		clientMessageLink=[dict objectForKey:@"link"];
+		clientMessageLink=dict[@"link"];
 		
-		NSString* colorS = [dict objectForKey:@"color"];
+		NSString* colorS = dict[@"color"];
 		UIColor* color;
 		if([colorS isEqualToString:@"green"]) {
 			color = [UIColor greenColor];
@@ -500,7 +500,7 @@ NSDateFormatter* dateFormatter = nil;
 
 	
 	UIBarButtonItem *progressItem = [[UIBarButtonItem alloc] initWithCustomView:progressView];
-	self.toolbarItems = [NSArray arrayWithObjects:refreshButton,progressItem,statusButton,nil];
+	self.toolbarItems = @[refreshButton,progressItem,statusButton];
 	[progressItem release];
 	[refreshButton release];
 	[statusButton release];

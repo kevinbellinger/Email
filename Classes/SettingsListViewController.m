@@ -109,7 +109,7 @@
     }
 	
 	if(indexPath.section == 0) {
-		int index = [[self.accountIndices objectAtIndex:indexPath.row] intValue];
+		int index = [(self.accountIndices)[indexPath.row] intValue];
 		cell.showsReorderControl = YES;
 		cell.textLabel.text = [AppSettings username:index];
 		if([[AppSettings server:index] isEqualToString:@"imap.gmail.com"]) {
@@ -153,7 +153,7 @@
 			continue;
 		}
 		
-		[y addObject:[NSNumber numberWithInt:i]];
+		[y addObject:@(i)];
 	}
 	
 	self.accountIndices = y;
@@ -214,7 +214,7 @@
 				NSString* body = [NSString stringWithFormat:@"(Your Feedback here)\n\n\nUDID: %@", [AppSettings udid]];
 				
 				//TODO(you): change this to your support email address
-				[mailCtrl setToRecipients:[NSArray arrayWithObject:@"support@yourcompany.com"]];
+				[mailCtrl setToRecipients:@[@"support@yourcompany.com"]];
 				[mailCtrl setMessageBody:body isHTML:NO];
 				[mailCtrl setSubject:@"reMail Feedback"];
 				
@@ -239,7 +239,7 @@
 			[vc release];
 		}
 	} else if (indexPath.section == 0) {
-		int accountNum = [[self.accountIndices objectAtIndex:indexPath.row] intValue];
+		int accountNum = [(self.accountIndices)[indexPath.row] intValue];
 		
 		ImapConfigViewController* vc = [[ImapConfigViewController alloc] initWithNibName:@"ImapConfig" bundle:nil];
 		vc.accountNum = accountNum;
@@ -267,9 +267,9 @@
     // TODO(gabor): Potentially delete all emails for this account on the device. Or at least ask for it.
 		
 	// Delete the row from the data source
-	int index = [[self.accountIndices objectAtIndex:indexPath.row] intValue];	
+	int index = [(self.accountIndices)[indexPath.row] intValue];	
 	[self.accountIndices removeObjectAtIndex:indexPath.row];
-	[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
+	[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:YES];
 	
 	// "Delete" account	
 	[AppSettings setAccountDeleted:YES accountNum:index];

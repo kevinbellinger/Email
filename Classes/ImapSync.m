@@ -98,7 +98,7 @@
 		int i = 0;
 		while(i < [sm folderCount:self.accountNum]) {
 			NSDictionary* folderState = [sm retrieveState:i accountNum:self.accountNum];
-			NSString* folderPath = [folderState objectForKey:@"folderPath"];
+			NSString* folderPath = folderState[@"folderPath"];
 			
 			if([sm isFolderDeleted:i accountNum:self.accountNum]) {
 				NSLog(@"Folder is deleted: %i %i", i, self.accountNum);
@@ -122,24 +122,24 @@
 			
 			NSMutableDictionary* folderState = [sm retrieveState:i accountNum:self.accountNum];
 
-			NSString* folderCountObj = [folderState objectForKey:@"folderCount"];
+			NSString* folderCountObj = folderState[@"folderCount"];
 			if(folderCountObj != nil) {
 				continue;
 			}
 			
 			int folderCount;
-			NSString* folderPath = [folderState objectForKey:@"folderPath"];
-			NSString* folderDisplayName = [folderState objectForKey:@"folderDisplayName"];
+			NSString* folderPath = folderState[@"folderPath"];
+			NSString* folderDisplayName = folderState[@"folderDisplayName"];
 			
 			CTCoreFolder* folder;
 			@try {
 				folder = [account folderWithPath:folderPath];
 				[sm reportProgressString:[NSString stringWithFormat:NSLocalizedString(@"Counting folder: %@", nil), folderDisplayName]];
 				folderCount = [folder totalMessageCount];
-				[folderState setValue:[NSNumber numberWithInt:folderCount] forKey:@"folderCount"];
+				[folderState setValue:@(folderCount) forKey:@"folderCount"];
 				[sm persistState:folderState forFolderNum:i accountNum:self.accountNum];
 				
-				[foldersToPreSync addObject:[NSNumber numberWithInt:i]];
+				[foldersToPreSync addObject:@(i)];
 			} @catch (NSException *exp) {
 				[sm syncWarning:[NSString stringWithFormat:NSLocalizedString(@"Count / first sync error in %@: %@", nil), folderDisplayName, [ImapFolderWorker decodeError:exp]]];
 				continue;
@@ -163,8 +163,8 @@
 			
 			// do an initial sync of the folder
 			NSMutableDictionary* folderState = [sm retrieveState:i accountNum:self.accountNum];
-			NSString* folderPath = [folderState objectForKey:@"folderPath"];
-			NSString* folderDisplayName = [folderState objectForKey:@"folderDisplayName"];
+			NSString* folderPath = folderState[@"folderPath"];
+			NSString* folderDisplayName = folderState[@"folderDisplayName"];
 			
 			CTCoreFolder* folder = nil;
 			@try {
@@ -196,7 +196,7 @@
 			}
 			
 			NSDictionary* folderState = [sm retrieveState:i accountNum:self.accountNum];
-			NSString* folderPath = [folderState objectForKey:@"folderPath"];
+			NSString* folderPath = folderState[@"folderPath"];
 			
 			CTCoreFolder *folder;
 			@try {

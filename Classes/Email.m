@@ -137,60 +137,60 @@ static sqlite3_stmt *inboxStmt = nil;
 		NSDate *date = [NSDate date]; // default == now!
 		const char * sqlVal = (const char *)sqlite3_column_text(emailLoadStmt, 1);
 		if(sqlVal != nil) {
-			NSString *dateString = [NSString stringWithUTF8String:sqlVal];
+			NSString *dateString = @(sqlVal);
 			date = [DateUtil datetimeInLocal:[dateFormatter dateFromString:dateString]];
 		}
 		self.datetime = date;
 		
 		NSString* temp = @"";
 		sqlVal = (const char *)sqlite3_column_text(emailLoadStmt, 2);
-		if(sqlVal != nil) {	temp = [NSString stringWithUTF8String:sqlVal]; }
+		if(sqlVal != nil) {	temp = @(sqlVal); }
 		self.senderName = temp;
 		
 		sqlVal = (const char *)sqlite3_column_text(emailLoadStmt, 3);
-		if(sqlVal != nil) {	temp = [NSString stringWithUTF8String:sqlVal]; }
+		if(sqlVal != nil) {	temp = @(sqlVal); }
 		self.senderAddress = temp; 
 		
 		sqlVal = (const char *)sqlite3_column_text(emailLoadStmt, 4);
-		if(sqlVal != nil) {	temp = [NSString stringWithUTF8String:sqlVal]; }
+		if(sqlVal != nil) {	temp = @(sqlVal); }
 		self.tos = temp;
 
 		sqlVal = (const char *)sqlite3_column_text(emailLoadStmt, 5);
-		if(sqlVal != nil) {	temp = [NSString stringWithUTF8String:sqlVal]; }
+		if(sqlVal != nil) {	temp = @(sqlVal); }
 		self.ccs = temp;
 
 		sqlVal = (const char *)sqlite3_column_text(emailLoadStmt, 6);
-		if(sqlVal != nil) {	temp = [NSString stringWithUTF8String:sqlVal]; }
+		if(sqlVal != nil) {	temp = @(sqlVal); }
 		self.bccs = temp;
 
 		sqlVal = (const char *)sqlite3_column_text(emailLoadStmt, 7);
-		if(sqlVal != nil) {	temp = [NSString stringWithUTF8String:sqlVal]; } 
+		if(sqlVal != nil) {	temp = @(sqlVal); } 
 		self.attachments = temp;
 
 		sqlVal = (const char *)sqlite3_column_text(emailLoadStmt, 8);
-		if(sqlVal != nil) {	temp = [NSString stringWithUTF8String:sqlVal]; } 
+		if(sqlVal != nil) {	temp = @(sqlVal); } 
 		self.msgId = temp;
 
 		sqlVal = (const char *)sqlite3_column_text(emailLoadStmt, 9);
-		if(sqlVal != nil) {	temp = [NSString stringWithUTF8String:sqlVal]; } 
+		if(sqlVal != nil) {	temp = @(sqlVal); } 
 		self.folder = temp;
 		
 		self.folderNum = sqlite3_column_int(emailLoadStmt, 10);
 
 		sqlVal = (const char *)sqlite3_column_text(emailLoadStmt, 11);
-		if(sqlVal != nil) {	temp = [NSString stringWithUTF8String:sqlVal]; } 
+		if(sqlVal != nil) {	temp = @(sqlVal); } 
 		self.uid = temp;
 		
 		sqlVal = (const char *)sqlite3_column_text(emailLoadStmt, 12);
-		if(sqlVal != nil) {	temp = [NSString stringWithUTF8String:sqlVal]; } 
+		if(sqlVal != nil) {	temp = @(sqlVal); } 
 		self.metaString = temp;
 		
 		sqlVal = (const char *)sqlite3_column_text(emailLoadStmt, 13);
-		if(sqlVal != nil) {	temp = [NSString stringWithUTF8String:sqlVal]; } 
+		if(sqlVal != nil) {	temp = @(sqlVal); } 
 		self.subject = temp;
 
 		sqlVal = (const char *)sqlite3_column_text(emailLoadStmt, 14);
-		if(sqlVal != nil) {	temp = [NSString stringWithUTF8String:sqlVal]; } 
+		if(sqlVal != nil) {	temp = @(sqlVal); } 
 		self.body = temp;
 	} 
 	

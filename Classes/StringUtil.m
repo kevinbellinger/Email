@@ -121,7 +121,7 @@
 + (NSString *) filePathInDocumentsDirectoryForFileName:(NSString *)filename
 {
 	NSArray *paths = NSSearchPathForDirectoriesInDomains (NSDocumentDirectory, NSUserDomainMask, YES); 
-	NSString *documentsDirectory = [paths objectAtIndex: 0]; 
+	NSString *documentsDirectory = paths[0]; 
 	NSString *pathName = [documentsDirectory stringByAppendingPathComponent:filename];
 	return pathName;
 }
@@ -155,8 +155,8 @@
 	}
 	else if([terms count] == 1 )
 	{
-		if([[terms objectAtIndex:0] length] > 0)
-			return [terms objectAtIndex:0];
+		if([terms[0] length] > 0)
+			return terms[0];
 		return @"";
 	}
 	

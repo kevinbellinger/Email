@@ -103,8 +103,8 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 		return 0;
 	}
 	
-	sqlite3_bind_text(ftSearchStmt, 1, [[snippetDelims objectAtIndex:0] UTF8String], -1, SQLITE_TRANSIENT);	
-	sqlite3_bind_text(ftSearchStmt, 2, [[snippetDelims objectAtIndex:1] UTF8String], -1, SQLITE_TRANSIENT);	
+	sqlite3_bind_text(ftSearchStmt, 1, [snippetDelims[0] UTF8String], -1, SQLITE_TRANSIENT);	
+	sqlite3_bind_text(ftSearchStmt, 2, [snippetDelims[1] UTF8String], -1, SQLITE_TRANSIENT);	
 	sqlite3_bind_text(ftSearchStmt, 3, [query UTF8String], -1, SQLITE_TRANSIENT);	
 	
 	NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init]; 
@@ -118,56 +118,56 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 		NSMutableDictionary *res= [[NSMutableDictionary alloc] init];
 		
 		int pk = sqlite3_column_int(ftSearchStmt, 0);
-		NSNumber *primaryKeyValue = [NSNumber numberWithInt:pk];					
-		[res setObject:primaryKeyValue forKey: @"pk"];
+		NSNumber *primaryKeyValue = @(pk);					
+		res[@"pk"] = primaryKeyValue;
 		
 		NSString* temp = @"";
 		const char *sqlVal = (const char *)sqlite3_column_text(ftSearchStmt, 1);
 		if(sqlVal != nil)
-			temp = [NSString stringWithUTF8String:sqlVal];
-		[res setObject:temp forKey:@"senderName"];
+			temp = @(sqlVal);
+		res[@"senderName"] = temp;
 		
 		temp = @"";
 		sqlVal = (const char *)sqlite3_column_text(ftSearchStmt, 2);
 		if(sqlVal != nil)
-			temp = [NSString stringWithUTF8String:sqlVal];
-		[res setObject:temp forKey:@"senderAddress"];
+			temp = @(sqlVal);
+		res[@"senderAddress"] = temp;
 		
 		temp = @"";
 		sqlVal = (const char *)sqlite3_column_text(ftSearchStmt, 3);
 		if(sqlVal != nil)
-			temp = [NSString stringWithUTF8String:sqlVal];
-		[res setObject:temp forKey:@"subject"];			
+			temp = @(sqlVal);
+		res[@"subject"] = temp;			
 		
 		NSDate *date = [NSDate date];
 		sqlVal = (const char *)sqlite3_column_text(ftSearchStmt, 4);
 		if(sqlVal != nil) {
-			NSString *dateString = [NSString stringWithUTF8String:sqlVal];
+			NSString *dateString = @(sqlVal);
 			date = [DateUtil datetimeInLocal:[dateFormatter dateFromString:dateString]];
 		}
-		[res setObject:date forKey:@"datetime"];
+		res[@"datetime"] = date;
 		
 		int hasAttachmentInt = sqlite3_column_int(ftSearchStmt, 5) - 2; // will be non-0 if there are attachments, the -2 are to counter the string "[]"
-		NSNumber *hasAttachment = [NSNumber numberWithInt:hasAttachmentInt];
-		[res setObject:hasAttachment forKey: @"hasAttachment"];
+		NSNumber *hasAttachment = @(hasAttachmentInt);
+		res[@"hasAttachment"] = hasAttachment;
 		
 		temp = @"";
 		sqlVal = (const char *)sqlite3_column_text(ftSearchStmt, 6);
 		if(sqlVal != nil)
-			temp = [NSString stringWithUTF8String:sqlVal];
-		[res setObject:temp forKey:@"body"];			
+			temp = @(sqlVal);
+		res[@"body"] = temp;			
 		
 		temp = @"";
 		sqlVal = (const char *)sqlite3_column_text(ftSearchStmt, 7);
 		if(sqlVal != nil)
-			temp = [NSString stringWithUTF8String:sqlVal];
-		[res setObject:temp forKey:@"snippet"];
+			temp = @(sqlVal);
+		res[@"snippet"] = temp;
 		
 		int folderNum = sqlite3_column_int(ftSearchStmt, 8);
-		NSNumber *folderNumValue = [NSNumber numberWithInt:folderNum];
-		[res setObject:folderNumValue forKey: @"folderNum"];
+		NSNumber *folderNumValue = @(folderNum);
+		res[@"folderNum"] = folderNumValue;
 		
-		[res setObject:[NSNumber numberWithInt:dbNum] forKey:@"dbNum"];
+		res[@"dbNum"] = @(dbNum);
 		
 		[resArray addObject:res];
 		
@@ -199,11 +199,11 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 
 - (void)performFTSearchAsync:(NSDictionary *)queryDict {
 	// calls to this function are enqueued by search above on an operationsQueue
-	NSString *query = [queryDict objectForKey:@"query"];
-	id delegate = [queryDict objectForKey:@"delegate"];
-	NSArray *snippetDelims = [queryDict objectForKey:@"snippetDelims"];
+	NSString *query = queryDict[@"query"];
+	id delegate = queryDict[@"delegate"];
+	NSArray *snippetDelims = queryDict[@"snippetDelims"];
 	
-	int dbIndex = [[queryDict objectForKey:@"dbIndex"] intValue];
+	int dbIndex = [queryDict[@"dbIndex"] intValue];
 	
 	NSArray* dbNumbers = [GlobalDBFunctions emailDBNumbers];
 	int totalFound = 0;
@@ -212,10 +212,10 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 		
 		// update: searching through DB with dbNum
 		if([delegate respondsToSelector:@selector(deliverProgressUpdate:)]) {
-			[delegate performSelector:@selector(deliverProgressUpdate:) withObject:[NSNumber numberWithInt:dbIndex]];
+			[delegate performSelector:@selector(deliverProgressUpdate:) withObject:@(dbIndex)];
 		}
 		
-		int dbNum = [[dbNumbers objectAtIndex:dbIndex] intValue];
+		int dbNum = [dbNumbers[dbIndex] intValue];
 		
 		[self switchToDB:[GlobalDBFunctions dbFileNameForNum:dbNum]];
 
@@ -242,10 +242,10 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 	
 	//Create the queryOp object
 	NSMutableDictionary *queryOp = [[[NSMutableDictionary alloc] init] autorelease];
-	[queryOp setObject:query forKey:@"query"];
-	[queryOp setObject:delegate forKey:@"delegate"];
-	[queryOp setObject:[NSNumber numberWithInt:dbIndex] forKey:@"dbIndex"];
-	[queryOp setObject:snippetDelims forKey:@"snippetDelims"];
+	queryOp[@"query"] = query;
+	queryOp[@"delegate"] = delegate;
+	queryOp[@"dbIndex"] = @(dbIndex);
+	queryOp[@"snippetDelims"] = snippetDelims;
 		
 	//Invoke search
 	NSInvocationOperation* searchOp = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(performFTSearchAsync:) object:queryOp];
@@ -285,50 +285,50 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 		NSMutableDictionary *res= [[NSMutableDictionary alloc] init];
 		
 		int pk = sqlite3_column_int(allMailStmt, 0);
-		NSNumber *primaryKeyValue = [NSNumber numberWithInt:pk];					
-		[res setObject:primaryKeyValue forKey: @"pk"];
+		NSNumber *primaryKeyValue = @(pk);					
+		res[@"pk"] = primaryKeyValue;
 		
 		NSString* temp = @"";
 		const char *sqlVal = (const char *)sqlite3_column_text(allMailStmt, 1);
 		if(sqlVal != nil)
-			temp = [NSString stringWithUTF8String:sqlVal];
-		[res setObject:temp forKey:@"senderName"];
+			temp = @(sqlVal);
+		res[@"senderName"] = temp;
 		
 		temp = @"";
 		sqlVal = (const char *)sqlite3_column_text(allMailStmt, 2);
 		if(sqlVal != nil)
-			temp = [NSString stringWithUTF8String:sqlVal];
-		[res setObject:temp forKey:@"senderAddress"];
+			temp = @(sqlVal);
+		res[@"senderAddress"] = temp;
 		
 		temp = @"";
 		sqlVal = (const char *)sqlite3_column_text(allMailStmt, 3);
 		if(sqlVal != nil)
-			temp = [NSString stringWithUTF8String:sqlVal];
-		[res setObject:temp forKey:@"subject"];			
+			temp = @(sqlVal);
+		res[@"subject"] = temp;			
 		
 		NSDate *date = [NSDate date];
 		sqlVal = (const char *)sqlite3_column_text(allMailStmt, 4);
 		if(sqlVal != nil) {
-			NSString *dateString = [NSString stringWithUTF8String:sqlVal];
+			NSString *dateString = @(sqlVal);
 			date = [DateUtil datetimeInLocal:[dateFormatter dateFromString:dateString]];
 		}
-		[res setObject:date forKey:@"datetime"];
+		res[@"datetime"] = date;
 		
 		int hasAttachmentInt = sqlite3_column_int(allMailStmt, 5) - 2; // will be non-0 if there are attachments, the -2 are to counter the string "[]"
-		NSNumber *hasAttachment = [NSNumber numberWithInt:hasAttachmentInt];
-		[res setObject:hasAttachment forKey: @"hasAttachment"];
+		NSNumber *hasAttachment = @(hasAttachmentInt);
+		res[@"hasAttachment"] = hasAttachment;
 		
 		temp = @"";
 		sqlVal = (const char *)sqlite3_column_text(allMailStmt, 6);
 		if(sqlVal != nil)
-			temp = [NSString stringWithUTF8String:sqlVal];
-		[res setObject:temp forKey:@"body"];
+			temp = @(sqlVal);
+		res[@"body"] = temp;
 		
 		int folderNum = sqlite3_column_int(allMailStmt, 7);
-		NSNumber *folderNumValue = [NSNumber numberWithInt:folderNum];
-		[res setObject:folderNumValue forKey: @"folderNum"];
+		NSNumber *folderNumValue = @(folderNum);
+		res[@"folderNum"] = folderNumValue;
 		
-		[res setObject:[NSNumber numberWithInt:dbNum] forKey:@"dbNum"];
+		res[@"dbNum"] = @(dbNum);
 		
 		[resArray addObject:res];
 		
@@ -360,8 +360,8 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 
 - (void)performAllMailAsync:(NSDictionary *)queryDict {
 	// calls to this function are enqueued by search above on an operationsQueue
-	id delegate = [queryDict objectForKey:@"delegate"];
-	int dbIndex = [[queryDict objectForKey:@"dbIndex"] intValue];
+	id delegate = queryDict[@"delegate"];
+	int dbIndex = [queryDict[@"dbIndex"] intValue];
 	
 	NSArray* dbNumbers = [GlobalDBFunctions emailDBNumbers];
 	int totalFound = 0;
@@ -370,10 +370,10 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 		
 		// update: searching through DB with dbNum
 		if([delegate respondsToSelector:@selector(deliverProgressUpdate:)]) {
-			[delegate performSelector:@selector(deliverProgressUpdate:) withObject:[NSNumber numberWithInt:dbIndex]];
+			[delegate performSelector:@selector(deliverProgressUpdate:) withObject:@(dbIndex)];
 		}
 		
-		int dbNum = [[dbNumbers objectAtIndex:dbIndex] intValue];
+		int dbNum = [dbNumbers[dbIndex] intValue];
 		
 		[self switchToDB:[GlobalDBFunctions dbFileNameForNum:dbNum]];
 		
@@ -400,8 +400,8 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 	
 	//Create the queryOp object
 	NSMutableDictionary *queryOp = [[[NSMutableDictionary alloc] init] autorelease];
-	[queryOp setObject:[NSNumber numberWithInt:dbIndex] forKey:@"dbIndex"];
-	[queryOp setObject:delegate forKey:@"delegate"];
+	queryOp[@"dbIndex"] = @(dbIndex);
+	queryOp[@"delegate"] = delegate;
 	
 	//Invoke search
 	NSInvocationOperation* searchOp = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(performAllMailAsync:) object:queryOp];
@@ -463,50 +463,50 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 		NSMutableDictionary *res= [[NSMutableDictionary alloc] init];
 		
 		int pk = sqlite3_column_int(folderSearchStmt, 0);
-		NSNumber *primaryKeyValue = [NSNumber numberWithInt:pk];					
-		[res setObject:primaryKeyValue forKey: @"pk"];
+		NSNumber *primaryKeyValue = @(pk);					
+		res[@"pk"] = primaryKeyValue;
 		
 		NSString* temp = @"";
 		const char *sqlVal = (const char *)sqlite3_column_text(folderSearchStmt, 1);
 		if(sqlVal != nil)
-			temp = [NSString stringWithUTF8String:sqlVal];
-		[res setObject:temp forKey:@"senderName"];
+			temp = @(sqlVal);
+		res[@"senderName"] = temp;
 		
 		temp = @"";
 		sqlVal = (const char *)sqlite3_column_text(folderSearchStmt, 2);
 		if(sqlVal != nil)
-			temp = [NSString stringWithUTF8String:sqlVal];
-		[res setObject:temp forKey:@"senderAddress"];
+			temp = @(sqlVal);
+		res[@"senderAddress"] = temp;
 		
 		temp = @"";
 		sqlVal = (const char *)sqlite3_column_text(folderSearchStmt, 3);
 		if(sqlVal != nil)
-			temp = [NSString stringWithUTF8String:sqlVal];
-		[res setObject:temp forKey:@"subject"];			
+			temp = @(sqlVal);
+		res[@"subject"] = temp;			
 		
 		NSDate *date = [NSDate date];
 		sqlVal = (const char *)sqlite3_column_text(folderSearchStmt, 4);
 		if(sqlVal != nil) {
-			NSString *dateString = [NSString stringWithUTF8String:sqlVal];
+			NSString *dateString = @(sqlVal);
 			date = [DateUtil datetimeInLocal:[dateFormatter dateFromString:dateString]];
 		}
-		[res setObject:date forKey:@"datetime"];
+		res[@"datetime"] = date;
 		
 		int hasAttachmentInt = sqlite3_column_int(folderSearchStmt, 5) - 2; // will be non-0 if there are attachments, the -2 are to counter the string "[]"
-		NSNumber *hasAttachment = [NSNumber numberWithInt:hasAttachmentInt];
-		[res setObject:hasAttachment forKey: @"hasAttachment"];
+		NSNumber *hasAttachment = @(hasAttachmentInt);
+		res[@"hasAttachment"] = hasAttachment;
 		
 		temp = @"";
 		sqlVal = (const char *)sqlite3_column_text(folderSearchStmt, 6);
 		if(sqlVal != nil)
-			temp = [NSString stringWithUTF8String:sqlVal];
-		[res setObject:temp forKey:@"body"];
+			temp = @(sqlVal);
+		res[@"body"] = temp;
 		
 		int folderNum = sqlite3_column_int(folderSearchStmt, 7);
-		NSNumber *folderNumValue = [NSNumber numberWithInt:folderNum];
-		[res setObject:folderNumValue forKey: @"folderNum"];
+		NSNumber *folderNumValue = @(folderNum);
+		res[@"folderNum"] = folderNumValue;
 		
-		[res setObject:[NSNumber numberWithInt:dbNum] forKey:@"dbNum"];
+		res[@"dbNum"] = @(dbNum);
 		
 		[resArray addObject:res];
 		
@@ -538,10 +538,10 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 
 - (void)performFolderSearchAsync:(NSDictionary *)queryDict {
 	// calls to this function are enqueued by search above on an operationsQueue
-	id delegate = [queryDict objectForKey:@"delegate"];
-	int dbIndex = [[queryDict objectForKey:@"dbIndex"] intValue];
-	int folderNum = [[queryDict objectForKey:@"folderNum"] intValue]; 
-	int maxDbFile = [[queryDict objectForKey:@"maxDbFile"] intValue]; 
+	id delegate = queryDict[@"delegate"];
+	int dbIndex = [queryDict[@"dbIndex"] intValue];
+	int folderNum = [queryDict[@"folderNum"] intValue]; 
+	int maxDbFile = [queryDict[@"maxDbFile"] intValue]; 
 	
 	NSArray* dbNumbers = [GlobalDBFunctions emailDBNumbers];
 	int totalFound = 0;
@@ -553,7 +553,7 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 	} else {
 		if(maxDbFile != -1) {
 			while(dbIndexScrolled < [dbNumbers count]) {
-				int dbNum = [[dbNumbers objectAtIndex:dbIndexScrolled] intValue];
+				int dbNum = [dbNumbers[dbIndexScrolled] intValue];
 				if(dbNum == maxDbFile) {
 					break;
 				}
@@ -566,10 +566,10 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 		
 		// update: searching through DB with dbNum
 		if([delegate respondsToSelector:@selector(deliverProgressUpdate:)]) {
-			[delegate performSelector:@selector(deliverProgressUpdate:) withObject:[NSNumber numberWithInt:dbIndexScrolled]];
+			[delegate performSelector:@selector(deliverProgressUpdate:) withObject:@(dbIndexScrolled)];
 		}
 		
-		int dbNum = [[dbNumbers objectAtIndex:dbIndexScrolled] intValue];
+		int dbNum = [dbNumbers[dbIndexScrolled] intValue];
 		
 		[self switchToDB:[GlobalDBFunctions dbFileNameForNum:dbNum]];
 		
@@ -597,11 +597,11 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 	
 	SyncManager* sm = [SyncManager getSingleton];
 	NSDictionary* folderState = [sm retrieveState:uFolderNum accountNum:accountNum];
-	NSArray* nums = [folderState objectForKey:@"dbNums"];
+	NSArray* nums = folderState[@"dbNums"];
 	
 	int maxDbFile = -1;
 	for(int i = 0; i < [nums count]; i++) {
-		int fileNum = [[nums objectAtIndex:i] intValue];
+		int fileNum = [nums[i] intValue];
 		if(fileNum > maxDbFile) {
 			maxDbFile = fileNum;
 		}
@@ -611,10 +611,10 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 	
 	//Create the queryOp object
 	NSMutableDictionary *queryOp = [[[NSMutableDictionary alloc] init] autorelease];
-	[queryOp setObject:[NSNumber numberWithInt:dbIndex] forKey:@"dbIndex"];
-	[queryOp setObject:[NSNumber numberWithInt:folderNum] forKey:@"folderNum"];
-	[queryOp setObject:delegate forKey:@"delegate"];
-	[queryOp setObject:[NSNumber numberWithInt:maxDbFile] forKey:@"maxDbFile"];
+	queryOp[@"dbIndex"] = @(dbIndex);
+	queryOp[@"folderNum"] = @(folderNum);
+	queryOp[@"delegate"] = delegate;
+	queryOp[@"maxDbFile"] = @(maxDbFile);
 	
 	//Invoke search
 	NSInvocationOperation* searchOp = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(performFolderSearchAsync:) object:queryOp];
@@ -656,50 +656,50 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 		NSMutableDictionary *res= [[NSMutableDictionary alloc] init];
 		
 		int pk = sqlite3_column_int(senderSearchStmt, 0);
-		NSNumber *primaryKeyValue = [NSNumber numberWithInt:pk];					
-		[res setObject:primaryKeyValue forKey: @"pk"];
+		NSNumber *primaryKeyValue = @(pk);					
+		res[@"pk"] = primaryKeyValue;
 		
 		NSString* temp = @"";
 		const char *sqlVal = (const char *)sqlite3_column_text(senderSearchStmt, 1);
 		if(sqlVal != nil)
-			temp = [NSString stringWithUTF8String:sqlVal];
-		[res setObject:temp forKey:@"senderName"];
+			temp = @(sqlVal);
+		res[@"senderName"] = temp;
 		
 		temp = @"";
 		sqlVal = (const char *)sqlite3_column_text(senderSearchStmt, 2);
 		if(sqlVal != nil)
-			temp = [NSString stringWithUTF8String:sqlVal];
-		[res setObject:temp forKey:@"senderAddress"];
+			temp = @(sqlVal);
+		res[@"senderAddress"] = temp;
 		
 		temp = @"";
 		sqlVal = (const char *)sqlite3_column_text(senderSearchStmt, 3);
 		if(sqlVal != nil)
-			temp = [NSString stringWithUTF8String:sqlVal];
-		[res setObject:temp forKey:@"subject"];			
+			temp = @(sqlVal);
+		res[@"subject"] = temp;			
 		
 		NSDate *date = [NSDate date];
 		sqlVal = (const char *)sqlite3_column_text(senderSearchStmt, 4);
 		if(sqlVal != nil) {
-			NSString *dateString = [NSString stringWithUTF8String:sqlVal];
+			NSString *dateString = @(sqlVal);
 			date = [DateUtil datetimeInLocal:[dateFormatter dateFromString:dateString]];
 		}
-		[res setObject:date forKey:@"datetime"];
+		res[@"datetime"] = date;
 		
 		int hasAttachmentInt = sqlite3_column_int(senderSearchStmt, 5) - 2; // will be non-0 if there are attachments, the -2 are to counter the string "[]"
-		NSNumber *hasAttachment = [NSNumber numberWithInt:hasAttachmentInt];
-		[res setObject:hasAttachment forKey: @"hasAttachment"];
+		NSNumber *hasAttachment = @(hasAttachmentInt);
+		res[@"hasAttachment"] = hasAttachment;
 		
 		temp = @"";
 		sqlVal = (const char *)sqlite3_column_text(senderSearchStmt, 6);
 		if(sqlVal != nil)
-			temp = [NSString stringWithUTF8String:sqlVal];
-		[res setObject:temp forKey:@"body"];			
+			temp = @(sqlVal);
+		res[@"body"] = temp;			
 		
 		int folderNum = sqlite3_column_int(senderSearchStmt, 7);
-		NSNumber *folderNumValue = [NSNumber numberWithInt:folderNum];
-		[res setObject:folderNumValue forKey: @"folderNum"];
+		NSNumber *folderNumValue = @(folderNum);
+		res[@"folderNum"] = folderNumValue;
 		
-		[res setObject:[NSNumber numberWithInt:dbNum] forKey:@"dbNum"];
+		res[@"dbNum"] = @(dbNum);
 		
 		[resArray addObject:res];
 		
@@ -732,11 +732,11 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 }
 
 -(void)performSenderSearchAsync:(NSDictionary *)queryDict {
-	NSString *addresses = [queryDict objectForKey:@"addresses"];
-	id delegate = [queryDict objectForKey:@"delegate"];
-	int dbIndex = [[queryDict objectForKey:@"dbIndex"] intValue];
-	int dbMin = [[queryDict objectForKey:@"dbMin"] intValue];
-	int dbMax = [[queryDict objectForKey:@"dbMax"] intValue];
+	NSString *addresses = queryDict[@"addresses"];
+	id delegate = queryDict[@"delegate"];
+	int dbIndex = [queryDict[@"dbIndex"] intValue];
+	int dbMin = [queryDict[@"dbMin"] intValue];
+	int dbMax = [queryDict[@"dbMax"] intValue];
 	
 	
 	NSArray* dbNumbers = [GlobalDBFunctions emailDBNumbers];
@@ -746,10 +746,10 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 		
 		// update: searching through DB with dbNum
 		if([delegate respondsToSelector:@selector(deliverProgressUpdate:)]) {
-			[delegate performSelector:@selector(deliverProgressUpdate:) withObject:[NSNumber numberWithInt:dbIndex]];
+			[delegate performSelector:@selector(deliverProgressUpdate:) withObject:@(dbIndex)];
 		}
 		
-		int dbNum = [[dbNumbers objectAtIndex:dbIndex] intValue];
+		int dbNum = [dbNumbers[dbIndex] intValue];
 		
 		if(dbMax != 0 && (dbNum > dbMax || dbNum < dbMin)) {
 			// prune away searching in this db if we have a dbMin / dbMax
@@ -783,11 +783,11 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 	
 	//Create the queryOp object
 	NSMutableDictionary *queryOp = [[[NSMutableDictionary alloc] init] autorelease];
-	[queryOp setObject:addressess forKey:@"addresses"];
-	[queryOp setObject:delegate forKey:@"delegate"];
-	[queryOp setObject:[NSNumber numberWithInt:dbIndex] forKey:@"dbIndex"];
-	[queryOp setObject:[NSNumber numberWithInt:dbMin] forKey:@"dbMin"];
-	[queryOp setObject:[NSNumber numberWithInt:dbMax] forKey:@"dbMax"];
+	queryOp[@"addresses"] = addressess;
+	queryOp[@"delegate"] = delegate;
+	queryOp[@"dbIndex"] = @(dbIndex);
+	queryOp[@"dbMin"] = @(dbMin);
+	queryOp[@"dbMax"] = @(dbMax);
 	
 	//Invoke search
 	NSInvocationOperation* searchOp = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(performSenderSearchAsync:) object:queryOp];
@@ -818,19 +818,19 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 		NSString *name = @"";
 		const char *sqlVal = (const char *)sqlite3_column_text(autocompleteStmt, 0);
 		if(sqlVal != nil)
-			name = [NSString stringWithUTF8String:sqlVal];
+			name = @(sqlVal);
 
 		NSString *emailAddresses = @"";
 		sqlVal = (const char *)sqlite3_column_text(autocompleteStmt, 1);
 		if(sqlVal != nil)
-			emailAddresses = [NSString stringWithUTF8String:sqlVal];
+			emailAddresses = @(sqlVal);
 		
 		int dbMin = (int)sqlite3_column_int(autocompleteStmt, 2);
 		int dbMax = (int)sqlite3_column_int(autocompleteStmt, 3);
 		
 		//int occurrences = sqlite3_column_int(autocompleteStmt, 2);
 		
-		NSDictionary* res = [NSDictionary dictionaryWithObjectsAndKeys:name, @"name", emailAddresses, @"emailAddresses", [NSNumber numberWithInt:dbMin], @"dbMin", [NSNumber numberWithInt:dbMax], @"dbMax", nil];
+		NSDictionary* res = @{@"name": name, @"emailAddresses": emailAddresses, @"dbMin": @(dbMin), @"dbMax": @(dbMax)};
 		
 		[y addObject:res];
 		count++;
@@ -847,15 +847,15 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 - (void)performAutocompleteAsync:(NSDictionary*)query {
 	// the purpose of this method is to make performAutocomplete asynchronous
 	@synchronized(self.autocompleteLock) {
-		[self performAutocomplete:[query objectForKey:@"query"] withDelegate:[query objectForKey:@"delegate"]];
+		[self performAutocomplete:query[@"query"] withDelegate:query[@"delegate"]];
 	}
 }
 
 - (void)autocomplete:(NSString *)query withDelegate:(id)autocompleteDelegate {
 	//Create the queryOp object
 	NSMutableDictionary *params = [[[NSMutableDictionary alloc] init] autorelease];
-	[params setObject:query forKey:@"query"];
-	[params setObject:autocompleteDelegate forKey:@"delegate"];
+	params[@"query"] = query;
+	params[@"delegate"] = autocompleteDelegate;
 	
 	//Invoke local search
 	NSInvocationOperation* autompleteOp = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(performAutocompleteAsync:) object:params];
@@ -883,31 +883,31 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 		res = [[[NSMutableDictionary alloc] init] autorelease];
 		
 		int pk = sqlite3_column_int(contactNameFindStmt, 0);
-		NSNumber *primaryKeyValue = [NSNumber numberWithInt:pk];					
-		[res setObject:primaryKeyValue forKey:@"pk"];
+		NSNumber *primaryKeyValue = @(pk);					
+		res[@"pk"] = primaryKeyValue;
 		
 		NSString* temp = @"";
 		const char *sqlVal = (const char *)sqlite3_column_text(contactNameFindStmt, 1);
 		if(sqlVal != nil)
-			temp = [NSString stringWithUTF8String:sqlVal];
-		[res setObject:temp forKey:@"name"];
+			temp = @(sqlVal);
+		res[@"name"] = temp;
 		
 		sqlVal = (const char *)sqlite3_column_text(contactNameFindStmt, 2);
 		if(sqlVal != nil)
-			temp = [NSString stringWithUTF8String:sqlVal];
-		[res setObject:temp forKey:@"emailAddresses"];
+			temp = @(sqlVal);
+		res[@"emailAddresses"] = temp;
 		
 		int occ = sqlite3_column_int(contactNameFindStmt, 3);
-		NSNumber *occurrences = [NSNumber numberWithInt:occ];					
-		[res setObject:occurrences forKey: @"occurrences"];
+		NSNumber *occurrences = @(occ);					
+		res[@"occurrences"] = occurrences;
 
 		int dbMin = sqlite3_column_int(contactNameFindStmt, 4);
-		NSNumber *dbMinO = [NSNumber numberWithInt:dbMin];					
-		[res setObject:dbMinO forKey:@"dbMin"];
+		NSNumber *dbMinO = @(dbMin);					
+		res[@"dbMin"] = dbMinO;
 
 		int dbMax = sqlite3_column_int(contactNameFindStmt, 5);
-		NSNumber *dbMaxO = [NSNumber numberWithInt:dbMax];					
-		[res setObject:dbMaxO forKey:@"dbMax"];
+		NSNumber *dbMaxO = @(dbMax);					
+		res[@"dbMax"] = dbMaxO;
 	}
 	
 	sqlite3_reset(contactNameFindStmt);

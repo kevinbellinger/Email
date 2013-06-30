@@ -203,7 +203,7 @@ static LoadEmailDBAccessor *sharedSQLiteManager = nil;
 		}
 		
 		NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-		NSString *saveDirectory = [paths objectAtIndex:0];
+		NSString *saveDirectory = paths[0];
 		NSString *saveFileName = [NSString stringWithFormat:@"%@.sqlite3", ret];
 		NSString *filepath = [saveDirectory stringByAppendingPathComponent:saveFileName];
 		

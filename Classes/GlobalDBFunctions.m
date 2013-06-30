@@ -46,7 +46,7 @@ NSInteger intSortReverse(id num1, id num2, void *context){
 	[GlobalDBFunctions deleteAllAttachments];
 
 	NSArray *paths = NSSearchPathForDirectoriesInDomains (NSDocumentDirectory, NSUserDomainMask, YES); 
-	NSString *documentsDirectory = [paths objectAtIndex: 0]; 
+	NSString *documentsDirectory = paths[0]; 
 	
 	NSString* fileName;
 	NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:documentsDirectory];
@@ -59,7 +59,7 @@ NSInteger intSortReverse(id num1, id num2, void *context){
 +(NSArray*)emailDBNumbers {
 	// returns the names of all email DB's in the directory
 	NSArray *paths = NSSearchPathForDirectoriesInDomains (NSDocumentDirectory, NSUserDomainMask, YES); 
-	NSString *documentsDirectory = [paths objectAtIndex: 0]; 
+	NSString *documentsDirectory = paths[0]; 
 	
 	NSString* file;
 	NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:documentsDirectory];
@@ -71,7 +71,7 @@ NSInteger intSortReverse(id num1, id num2, void *context){
 			if ([[fileName substringToIndex:6] isEqualToString:@"email-"]) {
 				NSString* fileNumber = [fileName substringFromIndex:6];
 				int number = [fileNumber intValue];
-				[numbers addObject:[NSNumber numberWithInt:number]];
+				[numbers addObject:@(number)];
 			}
 		}
 	}
@@ -88,7 +88,7 @@ NSInteger intSortReverse(id num1, id num2, void *context){
 	
 	NSMutableArray* res = [NSMutableArray arrayWithCapacity:[sortedArray count]];
 	for(int i = 0; i < [sortedArray count]; i++) {
-		int num = [[sortedArray objectAtIndex:i] intValue];
+		int num = [sortedArray[i] intValue];
 		NSString* fileName = [NSString stringWithFormat:@"email-%i.edb", num];
 		[res addObject:fileName];
 	}
@@ -99,7 +99,7 @@ NSInteger intSortReverse(id num1, id num2, void *context){
 +(int)highestDBNum {
 	// returns the highest DB number currently out there ...
 	NSArray *paths = NSSearchPathForDirectoriesInDomains (NSDocumentDirectory, NSUserDomainMask, YES); 
-	NSString *documentsDirectory = [paths objectAtIndex: 0]; 
+	NSString *documentsDirectory = paths[0]; 
 	
 	NSString* file;
 	NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:documentsDirectory];
@@ -138,7 +138,7 @@ NSInteger intSortReverse(id num1, id num2, void *context){
 	NSString *dbPath = [[ContactDBAccessor sharedManager] databaseFilepath];
 	NSDictionary *fsAttributes = [fileManager attributesOfFileSystemForPath:dbPath error:nil];
 	if(fsAttributes != nil) {
-		return [[fsAttributes objectForKey:NSFileSystemFreeSize] unsignedLongLongValue];
+		return [fsAttributes[NSFileSystemFreeSize] unsignedLongLongValue];
 	}
 	
 	return 0;
@@ -168,7 +168,7 @@ NSInteger intSortReverse(id num1, id num2, void *context){
 		
 		if (fileAttributes != nil) {
 			NSNumber *fileSize;
-			if (fileSize == [fileAttributes objectForKey:NSFileSize]) {
+			if (fileSize == fileAttributes[NSFileSize]) {
 				total += [fileSize unsignedLongValue];
 			}
 		}
@@ -188,7 +188,7 @@ NSInteger intSortReverse(id num1, id num2, void *context){
 		NSDictionary *fileAttributes = [fileManager attributesOfItemAtPath:dbPath error:nil];
 		if (fileAttributes != nil) {
 			NSNumber *fileSize;
-			if ((fileSize = [fileAttributes objectForKey:NSFileSize])) {
+			if ((fileSize = fileAttributes[NSFileSize])) {
 				total += [fileSize unsignedLongValue];
 			}
 		}
@@ -200,7 +200,7 @@ NSInteger intSortReverse(id num1, id num2, void *context){
 		NSDictionary *fileAttributes = [fileManager attributesOfItemAtPath:dbPath error:nil];
 		if (fileAttributes != nil) {
 			NSNumber *fileSize;
-			if ((fileSize = [fileAttributes objectForKey:NSFileSize])) {
+			if ((fileSize = fileAttributes[NSFileSize])) {
 				total += [fileSize unsignedLongValue];
 			}
 		}
@@ -217,7 +217,7 @@ NSInteger intSortReverse(id num1, id num2, void *context){
 		
 		if (fileAttributes != nil) {
 			NSNumber *fileSize;
-			if ((fileSize = [fileAttributes objectForKey:NSFileSize])) {
+			if ((fileSize = fileAttributes[NSFileSize])) {
 				total += [fileSize unsignedLongValue];
 			}
 		}

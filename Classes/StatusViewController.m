@@ -186,9 +186,9 @@ int syncedAtStart;
 }
 
 -(void)didChangeProgressNumbersTo:(NSDictionary*)dict {
-	int synced = [[dict objectForKey:@"synced"] intValue];
-	int folderNum = [[dict objectForKey:@"folderNum"] intValue];
-	int accountNum = [[dict objectForKey:@"accountNum"] intValue];
+	int synced = [dict[@"synced"] intValue];
+	int folderNum = [dict[@"folderNum"] intValue];
+	int accountNum = [dict[@"accountNum"] intValue];
 	
 	SyncManager* sm = [SyncManager getSingleton];
 	int onDevice = [sm emailsOnDeviceExceptFor:folderNum accountNum:accountNum] + synced;

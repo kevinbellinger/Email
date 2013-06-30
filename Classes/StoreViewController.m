@@ -170,7 +170,7 @@
 				cell = [self createStoreItemCellFromNib];
 			}			
 			
-			SKProduct* product = [self.products objectAtIndex:indexPath.row];
+			SKProduct* product = (self.products)[indexPath.row];
 			UIImage* image = [UIImage imageNamed:[NSString stringWithFormat:@"featureIcon%@.png", product.productIdentifier]];
 			cell.productIcon.image = image;
 			cell.titleLabel.text = product.localizedTitle;
@@ -225,7 +225,7 @@
 			return;
 		}
 		
-		SKProduct* product = [self.products objectAtIndex:indexPath.row];
+		SKProduct* product = (self.products)[indexPath.row];
 		
 		if([AppSettings featurePurchased:product.productIdentifier]) {
 			UIAlertView* alertView = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Already Purchased", nil) 
@@ -265,7 +265,7 @@
 	NSSortDescriptor* desc = [[[NSSortDescriptor alloc] initWithKey:@"price" ascending:NO] autorelease];
 	NSSortDescriptor* desc2 = [[[NSSortDescriptor alloc] initWithKey:@"productIdentifier" ascending:YES] autorelease];
 	
-	[a sortUsingDescriptors:[NSArray arrayWithObjects:desc, desc2, nil]];
+	[a sortUsingDescriptors:@[desc, desc2]];
 	
 	NSLog(@"Products count: %i", [response.products count]); 
 	self.products = a;
