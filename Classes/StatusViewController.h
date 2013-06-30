@@ -35,15 +35,15 @@
 	NSDate* startTime;
 }
 
-@property (nonatomic,retain) UILabel* attachmentsFileSizeLabel;
-@property (nonatomic,retain) UILabel* fileSizeLabel;
-@property (nonatomic,retain) UILabel* estimatedFileSizeLabel;
-@property (nonatomic,retain) UILabel* estimatedTimeLabel;
-@property (nonatomic,retain) UILabel* freeSpaceLabel;
-@property (nonatomic,retain) UILabel* totalEmailLabel;
-@property (nonatomic,retain) UILabel* onDeviceEmailLabel;
-@property (nonatomic,retain) UILabel* versionLabel;
-@property (nonatomic,retain) NSDate* startTime;
+@property (nonatomic,strong) UILabel* attachmentsFileSizeLabel;
+@property (nonatomic,strong) UILabel* fileSizeLabel;
+@property (nonatomic,strong) UILabel* estimatedFileSizeLabel;
+@property (nonatomic,strong) UILabel* estimatedTimeLabel;
+@property (nonatomic,strong) UILabel* freeSpaceLabel;
+@property (nonatomic,strong) UILabel* totalEmailLabel;
+@property (nonatomic,strong) UILabel* onDeviceEmailLabel;
+@property (nonatomic,strong) UILabel* versionLabel;
+@property (nonatomic,strong) NSDate* startTime;
 
 -(void)didChangeProgressNumbersTo:(NSDictionary*)dict;
 @end

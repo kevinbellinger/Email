@@ -67,8 +67,6 @@
         
         NSDate *messageDateNoTimezone = [calendar dateFromComponents:comps];
         
-        [comps release];
-        [calendar release];
         
         // no timezone applied
         return messageDateNoTimezone;

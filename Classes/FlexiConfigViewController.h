@@ -47,23 +47,23 @@
 -(IBAction)loginClick;
 -(IBAction)backgroundClick;
 
-@property (nonatomic, retain) IBOutlet UIScrollView* scrollView;
-@property (nonatomic, retain) IBOutlet UILabel* serverMessage;
-@property (nonatomic, retain) IBOutlet UIActivityIndicatorView* activityIndicator;
-@property (nonatomic, retain) IBOutlet UITextField* usernameField;
-@property (nonatomic, retain) IBOutlet UITextField* passwordField;
+@property (nonatomic, strong) IBOutlet UIScrollView* scrollView;
+@property (nonatomic, strong) IBOutlet UILabel* serverMessage;
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView* activityIndicator;
+@property (nonatomic, strong) IBOutlet UITextField* usernameField;
+@property (nonatomic, strong) IBOutlet UITextField* passwordField;
 
-@property (nonatomic, retain) IBOutlet UILabel* usernamePrompt;
-@property (nonatomic, retain) IBOutlet UILabel* passwordPrompt;
-@property (nonatomic, retain) IBOutlet UIButton* checkAndSaveButton;
+@property (nonatomic, strong) IBOutlet UILabel* usernamePrompt;
+@property (nonatomic, strong) IBOutlet UILabel* passwordPrompt;
+@property (nonatomic, strong) IBOutlet UIButton* checkAndSaveButton;
 
 @property (assign) int accountNum;
 @property (assign) BOOL newAccount;
 @property (assign) BOOL firstSetup;
 
-@property (nonatomic, retain) NSString* usernamePromptText;
+@property (nonatomic, strong) NSString* usernamePromptText;
 
-@property (nonatomic, retain) NSString* server;
+@property (nonatomic, strong) NSString* server;
 @property (assign) int encryption;
 @property (assign) int port;
 @property (assign) int authType;

@@ -37,12 +37,6 @@
 
 }
 
--(void) dealloc
-{
-	[ongoingTimers release];
-	[insertOrder release];
-	[super dealloc];
-}
 
 -(void)recordTimeWithTag:(NSString *)tag
 {
@@ -50,7 +44,6 @@
 	timeRec[@"time"] = [NSDate date];
 	timeRec[@"tag"] = tag;
 	[self.insertOrder addObject:timeRec];
-	[timeRec release];
 	
 }
 

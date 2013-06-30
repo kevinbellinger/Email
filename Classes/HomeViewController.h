@@ -40,8 +40,8 @@
 -(IBAction)usageClick:(id)sender;
 -(void)didChangeClientMessageTo:(id)object;
 
-@property (nonatomic, retain) UIButton* clientMessageButton;
-@property (nonatomic, retain) NSString* clientMessage;
-@property (nonatomic, retain) NSString* errorDetail;
+@property (nonatomic, strong) UIButton* clientMessageButton;
+@property (nonatomic, strong) NSString* clientMessage;
+@property (nonatomic, strong) NSString* errorDetail;
 @end
 

@@ -29,10 +29,10 @@
 	int recommendationsToMake;
 }
 
-@property (nonatomic, retain) UILabel *descriptionLabel;
-@property (nonatomic, retain) UILabel *howToActivateLabel;
-@property (nonatomic, retain) UILabel *featureFreeLabel;
-@property (nonatomic, retain) UIButton *recommendButton;
+@property (nonatomic, strong) UILabel *descriptionLabel;
+@property (nonatomic, strong) UILabel *howToActivateLabel;
+@property (nonatomic, strong) UILabel *featureFreeLabel;
+@property (nonatomic, strong) UIButton *recommendButton;
 @property (assign) int recommendationsToMake;
 
 -(IBAction)recommendRemail;

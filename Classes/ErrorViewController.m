@@ -29,10 +29,6 @@
 @synthesize detailText;
 @synthesize showSkip;
 
-- (void)dealloc {
-	[skipButton release];
-    [super dealloc];
-}
 
 - (void)viewDidUnload {
 	[super viewDidUnload];
@@ -89,7 +85,6 @@
 	[mailCtrl setToRecipients:@[@"support@yourcompany.com"]];
 	
 	[self presentViewController:mailCtrl animated:YES completion:nil];
-	[mailCtrl release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -98,7 +93,7 @@
 	
 	[self.skipButton setHidden:!self.showSkip];
 	
-	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(sendButtonWasPressed)] autorelease];
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(sendButtonWasPressed)];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -31,8 +31,8 @@
 
 -(void)doLoad;
 -(void)webViewDidFinishLoad:(UIWebView *)webViewLocal;
-@property (nonatomic,retain) UIActivityIndicatorView* loadingIndicator;
-@property (nonatomic, retain) UIWebView * webView;
-@property (nonatomic, retain) UILabel *loadingLabel;
-@property (nonatomic, retain) NSString* serverUrl;
+@property (nonatomic,strong) UIActivityIndicatorView* loadingIndicator;
+@property (nonatomic, strong) UIWebView * webView;
+@property (nonatomic, strong) UILabel *loadingLabel;
+@property (nonatomic, strong) NSString* serverUrl;
 @end

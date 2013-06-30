@@ -27,8 +27,8 @@
 	NSMutableArray *insertOrder;
 }
 
-@property (nonatomic,retain,readwrite) NSMutableDictionary *ongoingTimers;
-@property (nonatomic,retain,readwrite) NSMutableArray *insertOrder;
+@property (nonatomic,strong,readwrite) NSMutableDictionary *ongoingTimers;
+@property (nonatomic,strong,readwrite) NSMutableArray *insertOrder;
 
 -(void)recordTimeWithTag:(NSString *)tag;
 -(void)finishAndReport;

@@ -27,13 +27,6 @@
 @synthesize historyLabel;
 @synthesize addressLabel;
 
-- (void)dealloc {
-	[nameLabel release];
-	[historyLabel release];
-	[addressLabel release];
-	
-    [super dealloc];
-}
 
 -(id) init {
 	return self;

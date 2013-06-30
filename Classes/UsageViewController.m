@@ -37,11 +37,6 @@
 @synthesize lastRowClicked;
 @synthesize tableViewCopy;
 
-- (void)dealloc {
-	[contactData release];
-	
-    [super dealloc];
-}
 
 -(void)viewDidUnload {
 	[super viewDidUnload];
@@ -182,7 +177,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
 	
 	if(indexPath.row >= [self.contactData count]) {
@@ -309,7 +304,6 @@
 //	[mailCtrl setSubject:NSLocalizedString(@"You should try reMail", nil)];
 	
 	[self presentViewController:mailCtrl animated:YES completion:nil];
-	[mailCtrl release];
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -378,7 +372,6 @@
 	SearchRunner* sm = [SearchRunner getSingleton];
 	NSInvocationOperation *nextOp = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(doLoad) object:nil];
 	[sm.operationQueue addOperation:nextOp];
-	[nextOp release];
 }
 
 /*

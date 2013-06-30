@@ -31,9 +31,9 @@
 }
 
 
-@property (nonatomic, retain) NSOperationQueue *operationQueue;
-@property (nonatomic, retain) NSDateFormatter* dbDateFormatter;
-@property (nonatomic, retain) id updateSubscriber;
+@property (nonatomic, strong) NSOperationQueue *operationQueue;
+@property (nonatomic, strong) NSDateFormatter* dbDateFormatter;
+@property (nonatomic, strong) id updateSubscriber;
 @property (assign) volatile BOOL shuttingDown;
 
 +(id)getSingleton;

@@ -16,26 +16,12 @@ static sqlite3_stmt *inboxStmt = nil;
 @synthesize pk, senderName, senderAddress, tos, ccs, bccs, datetime, msgId, attachments, folder, folderNum, uid, subject, body, metaString;
 
 - (void)dealloc {
-	[senderName release];
-	[senderAddress release];
-	[tos release];
-	[ccs release];
-	[bccs release];
-	[datetime release];
-	[msgId release];
-	[attachments release];
-	[folder release];
-	[subject release];
-	[body release];
-	[metaString release];
-	[uid release];
 	
 	if(inboxStmt != nil) {
 		sqlite3_finalize(inboxStmt);
 		inboxStmt = nil;
 	}
 	
-	[super dealloc];
 }
 
 -(BOOL)hasAttachment {
@@ -195,7 +181,6 @@ static sqlite3_stmt *inboxStmt = nil;
 	} 
 	
 	sqlite3_finalize(emailLoadStmt);	
-	[dateFormatter release];
 }
 @end
 

@@ -17,7 +17,7 @@
 +(NSDictionary*)recentQueries;
 +(void)recordQuery:(NSString*)queryText withType:(int)type;
 
-@property (nonatomic,readwrite,retain) NSDate *datetime;
-@property (nonatomic,readwrite,retain) NSString *text;
+@property (nonatomic,readwrite,strong) NSDate *datetime;
+@property (nonatomic,readwrite,strong) NSString *text;
 @end
 

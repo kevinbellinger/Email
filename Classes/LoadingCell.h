@@ -26,6 +26,6 @@
 	IBOutlet UILabel *label;
 }
 
-@property (retain, nonatomic) UIActivityIndicatorView* activityIndicator;
-@property (retain, nonatomic) UILabel *label;
+@property (strong, nonatomic) UIActivityIndicatorView* activityIndicator;
+@property (strong, nonatomic) UILabel *label;
 @end

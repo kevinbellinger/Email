@@ -39,7 +39,7 @@ static ContactDBAccessor *sharedSQLiteManager = nil;
 	@synchronized(self) 
 	{
 		if (sharedSQLiteManager == nil) {
-			sharedSQLiteManager = [[[self alloc] init] retain];
+			sharedSQLiteManager = [[self alloc] init];
 		}
 	}
 	return sharedSQLiteManager;
@@ -48,7 +48,7 @@ static ContactDBAccessor *sharedSQLiteManager = nil;
 {
 	@synchronized(self) {
 		if (sharedSQLiteManager == nil) {
-			sharedSQLiteManager = [[super allocWithZone:zone] retain];
+			sharedSQLiteManager = [super allocWithZone:zone];
 		}
 	}
 	
@@ -106,22 +106,22 @@ static ContactDBAccessor *sharedSQLiteManager = nil;
 {
 	return self;
 }
-- (id)retain
-{
-	return self;
-}
-- (unsigned)retainCount
-{
-	return UINT_MAX;  //denotes an object that cannot be released
-}
-//- (void)release
+//- (id)retain
 //{
-//	// never release
+//	return self;
 //}
-- (id)autorelease
-{
-	return self;
-}
+//- (unsigned)retainCount
+//{
+//	return UINT_MAX;  //denotes an object that cannot be released
+//}
+////- (void)release
+////{
+////	// never release
+////}
+//- (id)autorelease
+//{
+//	return self;
+//}
 #pragma mark -
 #pragma mark Public Instance Methods
 -(sqlite3 *)database
@@ -191,10 +191,6 @@ static ContactDBAccessor *sharedSQLiteManager = nil;
 	[self executeUpdateSQL:@"VACUUM"];
 }
 #pragma mark -
-- (void)dealloc
-{
-	[super dealloc];
-}
 #pragma mark -
 #pragma mark Private Methods
 - (void)executeUpdateSQL:(NSString *) updateSQL

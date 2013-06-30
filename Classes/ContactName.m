@@ -11,13 +11,6 @@
 @synthesize	name, addresses, occurrences;
 
 
-- (void)dealloc {
-	//Release all props added here.
-	[name release];
-	[addresses release];
-	[occurrences release];
-	[super dealloc];
-}
 
 
 +(void)recordContact:(NSString*)name withAddress:(NSString*)address {

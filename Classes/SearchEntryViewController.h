@@ -34,9 +34,9 @@
 -(void)doLoad;
 
 @property (assign) BOOL autocompleting;
-@property (nonatomic, retain) NSArray *autocompletions;
-@property (nonatomic, retain) NSArray *queryHistory;
-@property (nonatomic, retain) NSMutableArray *dates;
-@property (nonatomic, retain) NSArray *types;
-@property (nonatomic, retain) NSString* lastSearchString;
+@property (nonatomic, strong) NSArray *autocompletions;
+@property (nonatomic, strong) NSArray *queryHistory;
+@property (nonatomic, strong) NSMutableArray *dates;
+@property (nonatomic, strong) NSArray *types;
+@property (nonatomic, strong) NSString* lastSearchString;
 @end

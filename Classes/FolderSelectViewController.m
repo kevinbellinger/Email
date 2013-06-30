@@ -209,17 +209,6 @@ NSString* imapUTF7Decode(NSString* in)
 @synthesize newAccount;
 @synthesize firstSetup;
 
--(void)dealloc {
-	[utf7Decoder release];
-	[folderPaths release];
-	[folderSelected release];
-	
-	[username release];
-	[password release];
-	[server release];
-	
-    [super dealloc];
-}
 
 - (void)viewDidUnload {
 	[super viewDidUnload];
@@ -239,7 +228,6 @@ NSString* imapUTF7Decode(NSString* in)
 	UINavigationController* navController = [[UINavigationController alloc] initWithRootViewController:homeController];
 	navController.navigationBarHidden = NO;
 	[self.view.window addSubview:navController.view];
-	[homeController release];
 	
 	// Remove own view from screen stack
 	[self.view removeFromSuperview];
@@ -262,9 +250,9 @@ NSString* imapUTF7Decode(NSString* in)
 
 -(void)done {
 	if([self.folderSelected count] == 0) {
-		UIAlertView* alertView = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"No Folders Selected", nil) 
+		UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"No Folders Selected", nil) 
 															 message:NSLocalizedString(@"Need to select at least one folder to download.", nil) 
-															delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
+															delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
 		[alertView show];
 		
 		return;
@@ -339,7 +327,6 @@ NSString* imapUTF7Decode(NSString* in)
 				}
 			}
 		}
-		[toDelete release];
 		
 		NSMutableSet* toAdd = [self.folderSelected mutableCopy];
 		[toAdd minusSet:syncedFolders];
@@ -366,7 +353,7 @@ NSString* imapUTF7Decode(NSString* in)
 				[sm addFolderState:folderState accountNum:self.accountNum];
 			}
 		}
-		[toAdd release]; //mutableCopy actually retains the data in it!
+		 //mutableCopy actually retains the data in it!
 		
 		[self.navigationController popToRootViewControllerAnimated:YES];
 		return;
@@ -486,7 +473,7 @@ NSString* imapUTF7Decode(NSString* in)
 
 
 -(UITableViewCell*) createNewFolderNameCell { 
-	UITableViewCell* cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"FolderNameCell"] autorelease];
+	UITableViewCell* cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"FolderNameCell"];
 	cell.detailTextLabel.font = [UIFont systemFontOfSize:12.0f];
 	
 	return cell; 

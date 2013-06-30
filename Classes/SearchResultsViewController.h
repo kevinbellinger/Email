@@ -33,9 +33,9 @@
 -(void)runSearchCreateDataWithDBNum:(int)dbNum;
 -(void)doLoad;
 
-@property (nonatomic, retain) NSMutableArray *emailData;
-@property (nonatomic, retain) NSString *query;
-@property (nonatomic, retain) NSDictionary *senderSearchParams; //contains 'mail@gaborcselle.com', 'gaborcselle@gmail.com'
+@property (nonatomic, strong) NSMutableArray *emailData;
+@property (nonatomic, strong) NSString *query;
+@property (nonatomic, strong) NSDictionary *senderSearchParams; //contains 'mail@gaborcselle.com', 'gaborcselle@gmail.com'
 @property (assign) BOOL isSenderSearch; // YES if we're doing senderQuery
 @property (assign) int nResults;
 @end

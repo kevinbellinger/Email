@@ -28,9 +28,6 @@
 @synthesize recommendationsToMake;
 @synthesize recommendButton;
 
-- (void)dealloc {
-	[super dealloc];
-}
 
 -(void)viewDidUnload {
 	[super viewDidUnload];

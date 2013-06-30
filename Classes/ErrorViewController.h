@@ -29,9 +29,9 @@
 	BOOL showSkip;
 }
 
-@property (nonatomic, retain) UIButton* skipButton;
-@property (nonatomic, retain) UITextView* textView;
-@property (nonatomic, retain) NSString* detailText;
+@property (nonatomic, strong) UIButton* skipButton;
+@property (nonatomic, strong) UITextView* textView;
+@property (nonatomic, strong) NSString* detailText;
 @property (assign) BOOL showSkip;
 
 -(IBAction)tryAgainButtonClicked;

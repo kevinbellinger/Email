@@ -31,7 +31,7 @@
 
 //-(void)pingHome;
 
-@property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) id pushSetupScreen;
+@property (nonatomic, strong) IBOutlet UIWindow *window;
+@property (nonatomic, strong) id pushSetupScreen;
 @end
 

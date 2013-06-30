@@ -43,18 +43,6 @@
 
 int syncedAtStart;
 
-- (void)dealloc {
-	[attachmentsFileSizeLabel release];
-	[startTime release];
-	[fileSizeLabel release];
-	[estimatedFileSizeLabel release];
-	[estimatedTimeLabel release];
-	[totalEmailLabel release];
-	[onDeviceEmailLabel release];
-	[freeSpaceLabel release];
-	[versionLabel release];
-    [super dealloc];
-}
 
 - (void)viewDidUnload {
 	[super viewDidUnload];
@@ -91,43 +79,42 @@ int syncedAtStart;
 }
 
 -(void)calculateTotalFileSizeThread {
-	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-	float totalFileSize = MAX(0.001f,[GlobalDBFunctions totalFileSize] / 1024.0f / 1024.0f);
-	NSString* totalFileSizeString = [NSString stringWithFormat:@"%.1f MB", totalFileSize];
-	[self.fileSizeLabel performSelectorOnMainThread:@selector(setText:) withObject:totalFileSizeString waitUntilDone:NO];
+	@autoreleasepool {
+		float totalFileSize = MAX(0.001f,[GlobalDBFunctions totalFileSize] / 1024.0f / 1024.0f);
+		NSString* totalFileSizeString = [NSString stringWithFormat:@"%.1f MB", totalFileSize];
+		[self.fileSizeLabel performSelectorOnMainThread:@selector(setText:) withObject:totalFileSizeString waitUntilDone:NO];
+		
+		SyncManager* sm = [SyncManager getSingleton];
+		int emailsOnDevice = [sm emailsOnDevice];
+		int emailsInAccounts = [sm emailsInAccounts];
+		
+		float attachmentsFileSize = [GlobalDBFunctions totalAttachmentsFileSize] / 1024.0f / 1024.0f; // MAX: I want to show that there's at least SOME data
+		if(attachmentsFileSize > 0.0f) {
+			attachmentsFileSize = MAX(0.1f, attachmentsFileSize);
+		}
+		NSString* totalAttachmentsFileSizeString = [NSString stringWithFormat:@"%.1f MB", attachmentsFileSize];
+		[self.attachmentsFileSizeLabel performSelectorOnMainThread:@selector(setText:) withObject:totalAttachmentsFileSizeString waitUntilDone:NO];
+		
+		// estimated space needed
+		if(emailsOnDevice > 2) {
+			float spacePerEmail = totalFileSize / (float)emailsOnDevice;
+			float spaceNeeded = MAX(spacePerEmail * (float)emailsInAccounts, totalFileSize) + attachmentsFileSize;
+			NSString* y = [NSString stringWithFormat:@"%i MB", (int)spaceNeeded];
+			[self.estimatedFileSizeLabel performSelectorOnMainThread:@selector(setText:) withObject:y waitUntilDone:NO];
+		} else {
+			[self.estimatedFileSizeLabel performSelectorOnMainThread:@selector(setText:) withObject:@"-" waitUntilDone:NO];
+		}
+		
+		float freeSpace = [GlobalDBFunctions freeSpaceOnDisk] / 1024.0f / 1024.0f;
+		NSString* freeSpaceString = [NSString stringWithFormat:@"%i MB", (int)freeSpace];
+		[self.freeSpaceLabel performSelectorOnMainThread:@selector(setText:) withObject:freeSpaceString waitUntilDone:NO];
 	
-	SyncManager* sm = [SyncManager getSingleton];
-	int emailsOnDevice = [sm emailsOnDevice];
-	int emailsInAccounts = [sm emailsInAccounts];
-	
-	float attachmentsFileSize = [GlobalDBFunctions totalAttachmentsFileSize] / 1024.0f / 1024.0f; // MAX: I want to show that there's at least SOME data
-	if(attachmentsFileSize > 0.0f) {
-		attachmentsFileSize = MAX(0.1f, attachmentsFileSize);
 	}
-	NSString* totalAttachmentsFileSizeString = [NSString stringWithFormat:@"%.1f MB", attachmentsFileSize];
-	[self.attachmentsFileSizeLabel performSelectorOnMainThread:@selector(setText:) withObject:totalAttachmentsFileSizeString waitUntilDone:NO];
-	
-	// estimated space needed
-	if(emailsOnDevice > 2) {
-		float spacePerEmail = totalFileSize / (float)emailsOnDevice;
-		float spaceNeeded = MAX(spacePerEmail * (float)emailsInAccounts, totalFileSize) + attachmentsFileSize;
-		NSString* y = [NSString stringWithFormat:@"%i MB", (int)spaceNeeded];
-		[self.estimatedFileSizeLabel performSelectorOnMainThread:@selector(setText:) withObject:y waitUntilDone:NO];
-	} else {
-		[self.estimatedFileSizeLabel performSelectorOnMainThread:@selector(setText:) withObject:@"-" waitUntilDone:NO];
-	}
-	
-	float freeSpace = [GlobalDBFunctions freeSpaceOnDisk] / 1024.0f / 1024.0f;
-	NSString* freeSpaceString = [NSString stringWithFormat:@"%i MB", (int)freeSpace];
-	[self.freeSpaceLabel performSelectorOnMainThread:@selector(setText:) withObject:freeSpaceString waitUntilDone:NO];
-	
-	[pool release];
 }
 
 -(IBAction)calculateTotalFileSize {
 	NSThread *driverThread = [[NSThread alloc] initWithTarget:self selector:@selector(calculateTotalFileSizeThread) object:nil];
 	[driverThread start];
-	[driverThread release];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

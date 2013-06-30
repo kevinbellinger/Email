@@ -31,12 +31,12 @@
 	NSDateComponents* yesterdayComponents;
 }
 
-@property (nonatomic, retain) NSDate *today;
-@property (nonatomic, retain) NSDate *yesterday;
-@property (nonatomic, retain) NSDate *lastWeek;
-@property (nonatomic, retain) NSDateFormatter* dateFormatter;
-@property (nonatomic, retain) NSDateComponents* todayComponents;
-@property (nonatomic, retain) NSDateComponents* yesterdayComponents;
+@property (nonatomic, strong) NSDate *today;
+@property (nonatomic, strong) NSDate *yesterday;
+@property (nonatomic, strong) NSDate *lastWeek;
+@property (nonatomic, strong) NSDateFormatter* dateFormatter;
+@property (nonatomic, strong) NSDateComponents* todayComponents;
+@property (nonatomic, strong) NSDateComponents* yesterdayComponents;
 
 
 +(id)getSingleton;

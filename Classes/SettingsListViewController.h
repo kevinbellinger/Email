@@ -11,5 +11,5 @@
 	NSMutableArray* accountIndices; // stores the indices of non-deleted accounts
 }
 
-@property (nonatomic, retain) NSMutableArray* accountIndices;
+@property (nonatomic, strong) NSMutableArray* accountIndices;
 @end

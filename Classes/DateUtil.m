@@ -32,17 +32,6 @@ static DateUtil *singleton = nil;
 @synthesize yesterdayComponents;
 @synthesize dateFormatter;
 
--(void)dealloc {
-	[today release];
-	[yesterday release];
-	[lastWeek release];
-	
-	[todayComponents release];
-	[yesterdayComponents release];
-	[dateFormatter release];
-	
-	[super dealloc];
-}
 
 -(void)refreshData {
 	//TODO(gabor): Call this every hour or so to refresh what today, yesterday, etc. mean
@@ -52,7 +41,7 @@ static DateUtil *singleton = nil;
 	self.lastWeek = [today dateByAddingTimeInterval:-6*DATE_UTIL_SECS_PER_DAY];
 	self.todayComponents = [gregorian components:(NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit) fromDate:today];
 	self.yesterdayComponents = [gregorian components:(NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit) fromDate:yesterday];
-	self.dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+	self.dateFormatter = [[NSDateFormatter alloc] init];
 }
 
 -(id)init {
@@ -111,7 +100,7 @@ static DateUtil *singleton = nil;
 	NSInteger destinationSeconds = [local secondsFromGMTForDate:utcDate];
 	
 	NSTimeInterval interval =  destinationSeconds - sourceSeconds;
-	NSDate *res = [[[NSDate alloc] initWithTimeInterval:interval sinceDate:utcDate] autorelease];
+	NSDate *res = [[NSDate alloc] initWithTimeInterval:interval sinceDate:utcDate];
 	return res;
 	
 }

@@ -27,6 +27,6 @@
 
 -(IBAction)dismiss;
 
-@property (nonatomic,retain) id dismissDelegate;
+@property (nonatomic,strong) id dismissDelegate;
 
 @end

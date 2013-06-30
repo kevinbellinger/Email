@@ -40,13 +40,13 @@
 -(IBAction)backgroundClick;
 -(IBAction)selectFoldersClicked;
 
-@property (nonatomic, retain) IBOutlet UIScrollView* scrollView;
-@property (nonatomic, retain) IBOutlet UILabel* serverMessage;
-@property (nonatomic, retain) IBOutlet UIActivityIndicatorView* activityIndicator;
-@property (nonatomic, retain) IBOutlet UITextField* usernameField;
-@property (nonatomic, retain) IBOutlet UITextField* passwordField;
-@property (nonatomic, retain) IBOutlet UIButton* selectFoldersButton;
-@property (nonatomic, retain) IBOutlet UILabel* privacyNotice;
+@property (nonatomic, strong) IBOutlet UIScrollView* scrollView;
+@property (nonatomic, strong) IBOutlet UILabel* serverMessage;
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView* activityIndicator;
+@property (nonatomic, strong) IBOutlet UITextField* usernameField;
+@property (nonatomic, strong) IBOutlet UITextField* passwordField;
+@property (nonatomic, strong) IBOutlet UIButton* selectFoldersButton;
+@property (nonatomic, strong) IBOutlet UILabel* privacyNotice;
 @property (assign) int accountNum;
 @property (assign) BOOL newAccount;
 @property (assign) BOOL firstSetup;

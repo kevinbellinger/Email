@@ -43,18 +43,18 @@
 -(IBAction)backgroundClick;
 -(IBAction)selectFoldersClicked;
 
-@property (nonatomic, retain) UIScrollView* scrollView;
+@property (nonatomic, strong) UIScrollView* scrollView;
 
-@property (nonatomic, retain) IBOutlet UILabel* serverMessage;
-@property (nonatomic, retain) IBOutlet UIActivityIndicatorView* activityIndicator;
-@property (nonatomic, retain) IBOutlet UITextField* usernameField;
-@property (nonatomic, retain) IBOutlet UITextField* passwordField;
+@property (nonatomic, strong) IBOutlet UILabel* serverMessage;
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView* activityIndicator;
+@property (nonatomic, strong) IBOutlet UITextField* usernameField;
+@property (nonatomic, strong) IBOutlet UITextField* passwordField;
 
-@property (nonatomic, retain) IBOutlet UITextField* serverField;
-@property (nonatomic, retain) IBOutlet UISegmentedControl* encryptionSelector;
-@property (nonatomic, retain) IBOutlet UITextField* portField;
+@property (nonatomic, strong) IBOutlet UITextField* serverField;
+@property (nonatomic, strong) IBOutlet UISegmentedControl* encryptionSelector;
+@property (nonatomic, strong) IBOutlet UITextField* portField;
 
-@property (nonatomic, retain) IBOutlet UIButton* selectFolders;
+@property (nonatomic, strong) IBOutlet UIButton* selectFolders;
 
 @property (assign) int accountNum;
 @property (assign) BOOL newAccount;

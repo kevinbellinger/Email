@@ -39,13 +39,6 @@
 @synthesize folderDisplayName;
 @synthesize firstSync;
 
-- (void) dealloc {
-	[folder release];
-	[account release];
-	[folderPath release];
-	[folderDisplayName release];
-	[super dealloc];
-}
 
 
 -(id)initWithFolder:(CTCoreFolder*)folderLocal folderNum:(int)folderNumLocal account:(CTCoreAccount*)accountLocal accountNum:(int)accountNumLocal {
@@ -235,134 +228,132 @@
 }
 
 -(BOOL)run {
-	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+	@autoreleasepool {
 	
-	SyncManager* sm = [SyncManager getSingleton];
-	[sm clearClientMessage];
-	NSMutableDictionary* folderState = [sm retrieveState:folderNum accountNum:self.accountNum];
-	
-	self.folderDisplayName = folderState[@"folderDisplayName"];
-	if([self.folderDisplayName isEqualToString:@""]) {
-		self.folderDisplayName = @"All Mail";
-	}
-	
-	self.folderPath = folderState[@"folderPath"];
-	
-	// Get message count for folder
-	int folderCount;
-	@try {
-		if(self.folderDisplayName != nil && [self.folderDisplayName length] > 0) {
-			[sm reportProgressString:[NSString stringWithFormat:NSLocalizedString(@"Checking: %@", nil), self.folderDisplayName]];
-		} else {
-			[sm reportProgressString:NSLocalizedString(@"Getting message counts ...", nil)];
+		SyncManager* sm = [SyncManager getSingleton];
+		[sm clearClientMessage];
+		NSMutableDictionary* folderState = [sm retrieveState:folderNum accountNum:self.accountNum];
+		
+		self.folderDisplayName = folderState[@"folderDisplayName"];
+		if([self.folderDisplayName isEqualToString:@""]) {
+			self.folderDisplayName = @"All Mail";
 		}
 		
-		folderCount = [self.folder totalMessageCount];
-	} @catch (NSException *exp) {
-		//This used to be a fatal error, testing for Christian at 
-		[sm syncWarning:[NSString stringWithFormat:NSLocalizedString(@"Folder count error: %@ %@", nil), self.folderDisplayName, [ImapFolderWorker decodeError:exp]]];
+		self.folderPath = folderState[@"folderPath"];
 		
-		NSNumber* folderCountObj = folderState[@"folderCount"];
-		
-		if(folderCountObj == nil) {
-			// There hasn't been a previous count of this folder - above
+		// Get message count for folder
+		int folderCount;
+		@try {
+			if(self.folderDisplayName != nil && [self.folderDisplayName length] > 0) {
+				[sm reportProgressString:[NSString stringWithFormat:NSLocalizedString(@"Checking: %@", nil), self.folderDisplayName]];
+			} else {
+				[sm reportProgressString:NSLocalizedString(@"Getting message counts ...", nil)];
+			}
+			
+			folderCount = [self.folder totalMessageCount];
+		} @catch (NSException *exp) {
+			//This used to be a fatal error, testing for Christian at 
 			[sm syncWarning:[NSString stringWithFormat:NSLocalizedString(@"Folder count error: %@ %@", nil), self.folderDisplayName, [ImapFolderWorker decodeError:exp]]];
-			[pool release];
+			
+			NSNumber* folderCountObj = folderState[@"folderCount"];
+			
+			if(folderCountObj == nil) {
+				// There hasn't been a previous count of this folder - above
+				[sm syncWarning:[NSString stringWithFormat:NSLocalizedString(@"Folder count error: %@ %@", nil), self.folderDisplayName, [ImapFolderWorker decodeError:exp]]];
+				return YES;
+			}
+			
+			folderCount = [folderState[@"folderCount"] intValue];
+		}
+		
+		// determine which sequence number to sync
+		int newSyncStart = folderCount; // start by syncing messages from this number onward
+		int oldSyncStart = folderCount; // then sync message from this seq number downward
+		int seqDelta = 0; // when syncing new messages, add this number to the seq number (it's equal to the number of deleted messages so far, and avoids us overwriting old messages)
+
+
+		if(folderState[@"newSyncStart"] != nil && folderState[@"oldSyncStart"] != nil && folderState[@"seqDelta"] != nil) {
+			newSyncStart = [folderState[@"newSyncStart"] intValue];
+			oldSyncStart = [folderState[@"oldSyncStart"] intValue];
+			seqDelta = [folderState[@"seqDelta"] intValue];
+		}
+		
+		NSLog(@"%@ Mail count: %i, newSyncStart: %i, oldSyncStart: %i seqDelta: %i", self.folderPath, folderCount, newSyncStart, oldSyncStart, seqDelta);
+
+		// check folderCount for sanity
+		if(folderCount == 0 && newSyncStart > folderCount) {
+			[sm syncWarning:[NSString stringWithFormat:NSLocalizedString(@"Empty folder: %@ %i/%i",nil), self.folderDisplayName, folderCount, newSyncStart]];
+			//Stop sync but don't quit syncing
 			return YES;
 		}
 		
-		folderCount = [folderState[@"folderCount"] intValue];
-	}
-	
-	// determine which sequence number to sync
-	int newSyncStart = folderCount; // start by syncing messages from this number onward
-	int oldSyncStart = folderCount; // then sync message from this seq number downward
-	int seqDelta = 0; // when syncing new messages, add this number to the seq number (it's equal to the number of deleted messages so far, and avoids us overwriting old messages)
-
-
-	if(folderState[@"newSyncStart"] != nil && folderState[@"oldSyncStart"] != nil && folderState[@"seqDelta"] != nil) {
-		newSyncStart = [folderState[@"newSyncStart"] intValue];
-		oldSyncStart = [folderState[@"oldSyncStart"] intValue];
-		seqDelta = [folderState[@"seqDelta"] intValue];
-	}
-	
-	NSLog(@"%@ Mail count: %i, newSyncStart: %i, oldSyncStart: %i seqDelta: %i", self.folderPath, folderCount, newSyncStart, oldSyncStart, seqDelta);
-
-	// check folderCount for sanity
-	if(folderCount == 0 && newSyncStart > folderCount) {
-		[sm syncWarning:[NSString stringWithFormat:NSLocalizedString(@"Empty folder: %@ %i/%i",nil), self.folderDisplayName, folderCount, newSyncStart]];
-		//Stop sync but don't quit syncing
-		[pool release];
-		return YES;
-	}
-	
-	// reset counts if folder has shrunk
-	if(newSyncStart > folderCount) {
-		seqDelta += newSyncStart - folderCount;
-		newSyncStart = folderCount;
-	}
-	if(oldSyncStart > folderCount) {
-		oldSyncStart = folderCount;
-	}
-	
-	// backward UID sync here
-	// don't do this the first time we sync, when the folder count hasn't changed, and when we're not skipping errored emails
-	if(newSyncStart != oldSyncStart && sm.skipMessageAccountNum == -1 && sm.skipMessageFolderNum == -1 && sm.skipMessageStartSeq == -1) { 
-		@try {
-			[sm reportProgressString:[NSString stringWithFormat:NSLocalizedString(@"Scanning messages in %@", nil), folderDisplayName]];
-			int proposedNewSyncStart  = [self backwardScan:newSyncStart];
-			if(proposedNewSyncStart < newSyncStart) {
-				NSLog(@"Backward sync reset %i to %i", newSyncStart, proposedNewSyncStart);
-				seqDelta += newSyncStart - proposedNewSyncStart; // need to add to syncDelta so seq numbers end up being higher
-				newSyncStart = proposedNewSyncStart;			
-			}		
-		} @catch (NSException *exp) {
-			NSLog(@"Error in backward scan: %@", exp);
-			[sm syncWarning:[NSString stringWithFormat:NSLocalizedString(@"Backward scan: %@", nil), exp]];
+		// reset counts if folder has shrunk
+		if(newSyncStart > folderCount) {
+			seqDelta += newSyncStart - folderCount;
+			newSyncStart = folderCount;
 		}
-	}
-	
-	folderState[@"newSyncStart"] = @(newSyncStart);
-	folderState[@"oldSyncStart"] = @(oldSyncStart);
-	folderState[@"folderCount"] = @(folderCount);
-	folderState[@"numSynced"] = @(newSyncStart-oldSyncStart);
-	folderState[@"seqDelta"] = @(seqDelta);
-	[sm persistState:folderState forFolderNum:self.folderNum accountNum:self.accountNum];
-	
-	EmailProcessor* emailProcessor = [EmailProcessor getSingleton];
-	
-	[sm reportProgressString:[NSString stringWithFormat:NSLocalizedString(@"Downloading new mail in %@", nil), folderDisplayName]];
-	
-	BOOL success = YES;
-	if((newSyncStart != folderCount)) { // NOTE(gabor): I killed off the newSyncStart == 0 condition, don't know what it was for ...
-		int alreadySynced = newSyncStart-oldSyncStart;
+		if(oldSyncStart > folderCount) {
+			oldSyncStart = folderCount;
+		}
 		
-		// do sync of new messages
-		success = [self newSync:newSyncStart total:folderCount seqDelta:seqDelta alreadySynced:(int)alreadySynced];
-		if(success) {
-			// write out that new sync is done and commit open transaction
-			[emailProcessor endNewSync:folderCount folderNum:self.folderNum accountNum:self.accountNum];
+		// backward UID sync here
+		// don't do this the first time we sync, when the folder count hasn't changed, and when we're not skipping errored emails
+		if(newSyncStart != oldSyncStart && sm.skipMessageAccountNum == -1 && sm.skipMessageFolderNum == -1 && sm.skipMessageStartSeq == -1) { 
+			@try {
+				[sm reportProgressString:[NSString stringWithFormat:NSLocalizedString(@"Scanning messages in %@", nil), folderDisplayName]];
+				int proposedNewSyncStart  = [self backwardScan:newSyncStart];
+				if(proposedNewSyncStart < newSyncStart) {
+					NSLog(@"Backward sync reset %i to %i", newSyncStart, proposedNewSyncStart);
+					seqDelta += newSyncStart - proposedNewSyncStart; // need to add to syncDelta so seq numbers end up being higher
+					newSyncStart = proposedNewSyncStart;			
+				}		
+			} @catch (NSException *exp) {
+				NSLog(@"Error in backward scan: %@", exp);
+				[sm syncWarning:[NSString stringWithFormat:NSLocalizedString(@"Backward scan: %@", nil), exp]];
+			}
 		}
-	}
-	
-	[sm clearWarning]; // clear any warnings from newSync
-	
-	[sm reportProgressString:[NSString stringWithFormat:NSLocalizedString(@"Downloading mail in %@", nil), folderDisplayName]];
-	
-	if(success && oldSyncStart > 0){
-		// do sync of old messages
-		success = [self oldSync:oldSyncStart total:folderCount];
-		if(success && !self.firstSync) {
-			// write out that old sync is done and commit open transaction
-			[emailProcessor endOldSync:0 folderNum:self.folderNum accountNum:self.accountNum];
-		}
-	}
-	
-	[sm clearWarning]; // clear any warnings from oldSync
 		
-	[pool release];
-	
-	return success;
+		folderState[@"newSyncStart"] = @(newSyncStart);
+		folderState[@"oldSyncStart"] = @(oldSyncStart);
+		folderState[@"folderCount"] = @(folderCount);
+		folderState[@"numSynced"] = @(newSyncStart-oldSyncStart);
+		folderState[@"seqDelta"] = @(seqDelta);
+		[sm persistState:folderState forFolderNum:self.folderNum accountNum:self.accountNum];
+		
+		EmailProcessor* emailProcessor = [EmailProcessor getSingleton];
+		
+		[sm reportProgressString:[NSString stringWithFormat:NSLocalizedString(@"Downloading new mail in %@", nil), folderDisplayName]];
+		
+		BOOL success = YES;
+		if((newSyncStart != folderCount)) { // NOTE(gabor): I killed off the newSyncStart == 0 condition, don't know what it was for ...
+			int alreadySynced = newSyncStart-oldSyncStart;
+			
+			// do sync of new messages
+			success = [self newSync:newSyncStart total:folderCount seqDelta:seqDelta alreadySynced:(int)alreadySynced];
+			if(success) {
+				// write out that new sync is done and commit open transaction
+				[emailProcessor endNewSync:folderCount folderNum:self.folderNum accountNum:self.accountNum];
+			}
+		}
+		
+		[sm clearWarning]; // clear any warnings from newSync
+		
+		[sm reportProgressString:[NSString stringWithFormat:NSLocalizedString(@"Downloading mail in %@", nil), folderDisplayName]];
+		
+		if(success && oldSyncStart > 0){
+			// do sync of old messages
+			success = [self oldSync:oldSyncStart total:folderCount];
+			if(success && !self.firstSync) {
+				// write out that old sync is done and commit open transaction
+				[emailProcessor endOldSync:0 folderNum:self.folderNum accountNum:self.accountNum];
+			}
+		}
+		
+		[sm clearWarning]; // clear any warnings from oldSync
+			
+		
+		return success;
+	}
 }
 
 -(int)backwardScan:(int)newSyncStart {
@@ -514,7 +505,11 @@
 	// - assemble data for EmailProcessor
 	// - send off to EmailProcessor
 	
-	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+//	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+    
+    @autoreleasepool {
+        
+    
 	SyncManager* sm = [SyncManager getSingleton];
 	
 	@try { // This try block is to release the pool at the very bottom
@@ -640,7 +635,6 @@
 					
 					NSInvocationOperation *nextOp = [[NSInvocationOperation alloc] initWithTarget:emailProcessor selector:@selector(addToFolderWrapper:) object:messageData];
 					[emailProcessor.operationQueue addOperation:nextOp];
-					[nextOp release];
 					
 					[self reportProgress:i syncingNew:syncingNew progressOffset:progressOffset progressTotal:progressTotal alreadySynced:alreadySynced];
 					
@@ -722,14 +716,13 @@
 							
 				// released in EmailProcessor.addEmailWrapper
 				NSMutableDictionary* messageData = [[NSMutableDictionary alloc] initWithObjectsAndKeys:senderAddress, @"senderAddress", senderName, @"senderName", to, @"toList", 
-													cc, @"ccList", bcc, @"bccList", subject, @"subject", body, @"body", htmlBody, @"htmlBody", seq, @"seq", date, @"datetime", 
+													cc, @"ccList", bcc, @"bccList", subject, @"subject", body, @"body", htmlBody, @"htmlBody", seq, @"seq", date, @"datetime",
 													messageID, @"messageID", uid, @"uid", attachments, @"attachments", self.folderPath, @"folderPath", self.folderDisplayName, @"folderDisplayName", 
 													folderNumObj, @"folderNumInAccount", accountNumObj, @"accountNum",
 													body, @"body", subject, @"subject", syncingNewLocal, @"syncingNew", startSeqObj, @"startSeq", endSeqObj, @"endSeq", md5hash, @"md5hash", nil];
 				
 				NSInvocationOperation *nextOp = [[NSInvocationOperation alloc] initWithTarget:emailProcessor selector:@selector(addEmailWrapper:) object:messageData];
 				[emailProcessor.operationQueue addOperation:nextOp];
-				[nextOp release];
 			} @catch (NSException *exp) {
 				NSLog(@"Calling addEmailWrapper: %@", exp);
 				continue;
@@ -739,8 +732,9 @@
 		// persist sync state
 		[self writeFinishedFolderState:sm syncingNew:syncingNew start:start end:end dbNums:dbNums];
 	} @finally {
-		[pool release];
-	}	
+//		[pool release];
+	}
+    }
 	
 	return YES;
 }

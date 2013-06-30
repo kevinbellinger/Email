@@ -32,9 +32,9 @@
 	volatile BOOL cancelled;
 }
 
-@property (nonatomic,retain) NSObject *autocompleteLock;
+@property (nonatomic,strong) NSObject *autocompleteLock;
 @property (assign) volatile BOOL cancelled; // flag for when we cancel a search op
-@property (nonatomic,readwrite,retain) NSOperationQueue *operationQueue;
+@property (nonatomic,readwrite,strong) NSOperationQueue *operationQueue;
 
 //Interface
 +(id)getSingleton;

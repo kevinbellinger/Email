@@ -36,7 +36,7 @@
 //@property (nonatomic,retain) TTStyledTextLabel *nameLabel;
 //@property (nonatomic,retain) TTStyledTextLabel *historyLabel;
 
-@property (nonatomic,retain) UILabel *nameLabel;
-@property (nonatomic,retain) UILabel *historyLabel;
-@property (nonatomic,retain) UILabel* addressLabel;
+@property (nonatomic,strong) UILabel *nameLabel;
+@property (nonatomic,strong) UILabel *historyLabel;
+@property (nonatomic,strong) UILabel* addressLabel;
 @end

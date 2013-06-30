@@ -16,8 +16,8 @@
     NSDateFormatter *dateReader = dictionary[@"SCDateReader"];
     if (!dateReader)
     {
-        dateReader = [[[NSDateFormatter alloc] init] autorelease];
-        dateReader.locale = [[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"] autorelease];
+        dateReader = [[NSDateFormatter alloc] init];
+        dateReader.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
         dateReader.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
         dateReader.dateFormat = @"EEE, dd MMM yyyy HH:mm:ss Z";
         dictionary[@"SCDateReader"] = dateReader;
@@ -31,7 +31,7 @@
     NSDateFormatter *dateWriter = dictionary[@"SCDateWriter"];
     if (!dateWriter)
     {
-        dateWriter = [[[NSDateFormatter alloc] init] autorelease];
+        dateWriter = [[NSDateFormatter alloc] init];
         dateWriter.locale = [NSLocale currentLocale];
         dateWriter.timeZone = [NSTimeZone defaultTimeZone];
         dateWriter.dateStyle = NSDateFormatterMediumStyle;

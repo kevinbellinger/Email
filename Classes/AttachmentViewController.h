@@ -37,11 +37,11 @@
 -(void)deliverAttachment;
 -(void)deliverError:(NSString*)error;
 
-@property (nonatomic, retain) UIWebView* webWiew;
-@property (nonatomic, retain) UILabel *loadingLabel;
-@property (nonatomic, retain) UIActivityIndicatorView* loadingIndicator;
-@property (nonatomic, retain) NSString* uid;
-@property (nonatomic, retain) NSString* contentType;
+@property (nonatomic, strong) UIWebView* webWiew;
+@property (nonatomic, strong) UILabel *loadingLabel;
+@property (nonatomic, strong) UIActivityIndicatorView* loadingIndicator;
+@property (nonatomic, strong) NSString* uid;
+@property (nonatomic, strong) NSString* contentType;
 @property (assign) int attachmentNum;
 @property (assign) int folderNum;
 @property (assign) int accountNum;

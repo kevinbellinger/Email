@@ -30,15 +30,6 @@
 @synthesize attachmentIndicator;
 @synthesize bodyLabel;
 
-- (void)dealloc {
-	[subjectLabel release];
-	[peopleLabel release];
-	[dateLabel release];
-	[attachmentIndicator release];	
-	[bodyLabel release];
-	
-    [super dealloc];
-}
 
 -(void)setupText {
 //	self.peopleLabel = [[TTStyledTextLabel alloc] initWithFrame:CGRectMake(26, 2, 205, 19)];

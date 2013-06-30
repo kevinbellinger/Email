@@ -33,14 +33,6 @@
 @synthesize folderNum;
 @synthesize contentType;
 
-- (void)dealloc {
-	[webWiew release];
-	[loadingLabel release];
-	[loadingIndicator release];
-	[contentType release];
-	[uid release];
-    [super dealloc];
-}
 
 - (void)viewDidUnload {
 	[super viewDidUnload];
@@ -81,9 +73,7 @@
 	
 	NSThread *driverThread = [[NSThread alloc] initWithTarget:downloader selector:@selector(run) object:nil];
 	[driverThread start];
-	[driverThread release];
 	
-	[downloader release];
 }
 
 -(void)deliverProgress:(NSString*)message {
@@ -95,7 +85,7 @@
 	[self.loadingIndicator setHidden:YES];
 	[self.loadingIndicator stopAnimating];
 	
-	UIAlertView* alertView = [[[UIAlertView alloc] initWithTitle:@"Error downloading attachment" message:error delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
+	UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Error downloading attachment" message:error delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
 	[alertView show];	
 }
 
@@ -110,7 +100,6 @@
 	[self.webWiew loadRequest:request];
 	
 	self.loadingLabel.text = @"Displaying ...";
-	[request release];
 }
 
 -(void)viewDidAppear:(BOOL)animated {

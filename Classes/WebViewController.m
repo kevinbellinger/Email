@@ -28,13 +28,6 @@
 @synthesize serverUrl;
 @synthesize loadingIndicator;
 
-- (void)dealloc {
-	[loadingLabel release];
-	[loadingIndicator release];
-	[webView release];
-	[serverUrl release];
-    [super dealloc];
-}
 
 
 - (void)viewDidUnload {
@@ -90,8 +83,6 @@
 	NSURL *url = [[NSURL alloc] initWithString:self.serverUrl];
 	NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
 	[self.webView loadRequest:request];
-	[url release];
-	[request release];
 	NSLog(@"End loading WebView");
 }
 

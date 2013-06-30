@@ -59,13 +59,13 @@ BOOL moreResultsAllMail = NO; // are there more results after this?
 
 UIImage* imgAttachmentAllMail = nil;
 
-- (void)dealloc {
-	[emailData release];
-	[imgAttachmentAllMail release];
-	imgAttachmentAllMail = nil;
-	
-    [super dealloc];
-}
+//- (void)dealloc {
+//	[emailData release];
+//	[imgAttachmentAllMail release];
+//	imgAttachmentAllMail = nil;
+//	
+//    [super dealloc];
+//}
 
 - (void)viewDidUnload {
 	[super viewDidUnload];
@@ -115,67 +115,65 @@ UIImage* imgAttachmentAllMail = nil;
 		[self.tableView insertRowsAtIndexPaths:info[@"rows"] withRowAnimation:UITableViewRowAnimationNone];
 	} @catch (NSException *exp) {
 		NSLog(@"Exception in insertRows: %@", exp);
-		NSLog(@"%@|%i|%i|%i|r%i", info[@"rows"], [self.emailData count], [info retainCount], [info[@"data"] retainCount], [info[@"rows"] retainCount]);
+//		NSLog(@"%@|%i|%i|%i|r%i", info[@"rows"], [self.emailData count], [info retainCount], [info[@"data"] retainCount], [info[@"rows"] retainCount]);
 	}
-	[info release];
 }
 
 -(void)loadResults:(NSArray*)searchResults {
-	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+	@autoreleasepool {
 	
-	NSMutableArray* elementsToAdd = [NSMutableArray arrayWithCapacity:100];
-	NSMutableArray* rowsToAdd = [NSMutableArray arrayWithCapacity:100];
-	@synchronized(self) {
-		for(NSMutableDictionary* searchResult in searchResults) {
-			// set people string to sender name or address
-			NSString* senderName = searchResult[@"senderName"];
-			senderName = [self massageDisplayString:senderName];
-			NSString* senderAddress = searchResult[@"senderAddress"];
+		NSMutableArray* elementsToAdd = [NSMutableArray arrayWithCapacity:100];
+		NSMutableArray* rowsToAdd = [NSMutableArray arrayWithCapacity:100];
+		@synchronized(self) {
+			for(NSMutableDictionary* searchResult in searchResults) {
+				// set people string to sender name or address
+				NSString* senderName = searchResult[@"senderName"];
+				senderName = [self massageDisplayString:senderName];
+				NSString* senderAddress = searchResult[@"senderAddress"];
+				
+				if([senderName length] == 0 && [senderAddress length] == 0){
+					searchResult[@"people"] = @"[unknown]";
+				} else if ([senderName length] == 0) {
+					searchResult[@"people"] = senderAddress;
+				} else {
+					searchResult[@"people"] = senderName;
+				}
+				
+				// massage display strings	
+				NSString *body = searchResult[@"body"];
+				searchResult[@"body"] = [self massageDisplayString:body];	
+				NSString *subject = searchResult[@"subject"];
+				searchResult[@"subject"] = [self massageDisplayString:subject];	
+				
+				NSNumber* newObj = searchResult[@"syncingNew"];
+				
+				if(newObj != nil && [newObj boolValue]) {
+					// adding an entry from syncing new items 
+					[elementsToAdd addObject:searchResult];
+					[rowsToAdd addObject:[NSIndexPath indexPathForRow:0 inSection:0]];
+				} else {
+					[elementsToAdd addObject:searchResult];
+					[rowsToAdd addObject:[NSIndexPath indexPathForRow:self.nResults inSection:0]];
+				}
+									 
+				self.nResults++;
+			}	
 			
-			if([senderName length] == 0 && [senderAddress length] == 0){
-				searchResult[@"people"] = @"[unknown]";
-			} else if ([senderName length] == 0) {
-				searchResult[@"people"] = senderAddress;
-			} else {
-				searchResult[@"people"] = senderName;
+			 // it was retained in SearchRunner!
+			
+			if([elementsToAdd count] > 0) {
+				NSDictionary* info = [[NSDictionary alloc] initWithObjectsAndKeys:elementsToAdd, @"data", rowsToAdd, @"rows", nil]; // released in insertRows()
+				[self performSelectorOnMainThread:@selector(insertRows:) withObject:info waitUntilDone:NO];
 			}
-			
-			// massage display strings	
-			NSString *body = searchResult[@"body"];
-			searchResult[@"body"] = [self massageDisplayString:body];	
-			NSString *subject = searchResult[@"subject"];
-			searchResult[@"subject"] = [self massageDisplayString:subject];	
-			
-			NSNumber* newObj = searchResult[@"syncingNew"];
-			
-			if(newObj != nil && [newObj boolValue]) {
-				// adding an entry from syncing new items 
-				[elementsToAdd addObject:searchResult];
-				[rowsToAdd addObject:[NSIndexPath indexPathForRow:0 inSection:0]];
-			} else {
-				[elementsToAdd addObject:searchResult];
-				[rowsToAdd addObject:[NSIndexPath indexPathForRow:self.nResults inSection:0]];
-			}
-								 
-			self.nResults++;
-		}	
-		
-		[searchResults release]; // it was retained in SearchRunner!
-		
-		if([elementsToAdd count] > 0) {
-			NSDictionary* info = [[NSDictionary alloc] initWithObjectsAndKeys:elementsToAdd, @"data", rowsToAdd, @"rows", nil]; // released in insertRows()
-			[self performSelectorOnMainThread:@selector(insertRows:) withObject:info waitUntilDone:NO];
 		}
-	}
 	
-	[pool release];	
+	}	
 }
 
 - (void)deliverSearchResults:(NSArray *)searchResults {
 	NSOperationQueue* q = ((SearchRunner*)[SearchRunner getSingleton]).operationQueue;
 	NSInvocationOperation *op = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(loadResults:) object:searchResults];
 	[q addOperation:op]; 
-	[op release];
 }
 
 
@@ -210,7 +208,6 @@ UIImage* imgAttachmentAllMail = nil;
 	
 	NSMutableDictionary* dataCopy = [data mutableCopy];
 	
-	[data release];
 	
     //TODO : make this safe
 	NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init]; 
@@ -219,7 +216,6 @@ UIImage* imgAttachmentAllMail = nil;
 	NSString* dateString = data[@"datetime"];
 	NSDate* dateTime = [dateFormatter dateFromString:dateString];
 	dataCopy[@"datetime"] = dateTime;
-	[dateFormatter release];
 	
 	NSArray* y = [[NSArray alloc] initWithObjects:dataCopy, nil];
 	[self deliverSearchResults:y];
@@ -283,7 +279,7 @@ UIImage* imgAttachmentAllMail = nil;
 	self.emailData = [[NSMutableArray alloc] initWithCapacity:1];
 	
 	imgAttachmentAllMail = [UIImage imageNamed:@"attachment.png"];
-	[imgAttachmentAllMail retain]; // released in "dealloc"
+//	[imgAttachmentAllMail retain]; // released in "dealloc"
 
 	//[sm registerForNewEmail:self]; (hehe - not for now)
 	
@@ -307,7 +303,6 @@ UIImage* imgAttachmentAllMail = nil;
 	
     [self presentViewController:mailCtrl animated:YES completion:nil];
 //	[self presentModalViewController:mailCtrl animated:YES];
-	[mailCtrl release];
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
@@ -407,7 +402,7 @@ UIImage* imgAttachmentAllMail = nil;
 		
 		if (cell == nil) { 
 //			cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"More"] autorelease];
-            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"More"] autorelease];
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"More"];
 		} 
 		
 		if(moreResultsAllMail) {
@@ -486,7 +481,6 @@ UIImage* imgAttachmentAllMail = nil;
 	mailViewController.deleteDelegate = self;
 	
 	[self.navigationController pushViewController:mailViewController animated:YES];
-	[mailViewController release];
 }
 
 // Override to allow orientations other than the default portrait orientation.

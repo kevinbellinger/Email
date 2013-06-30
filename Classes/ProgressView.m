@@ -32,17 +32,6 @@
 @synthesize clientMessageLabelBottom;
 
 
-- (void)dealloc {
-	[progressLabel release];
-	[updatedLabel release];
-	[progressView release];
-	[activity release];
-	
-	[updatedLabelTop release];
-	[clientMessageLabelBottom release];
-	
-    [super dealloc];
-}
 
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {

@@ -46,8 +46,8 @@
 //@property (nonatomic,retain) UIButton* rank4;	
 //@property (nonatomic,retain) UILabel* recommendTitle;
 //@property (nonatomic,retain) UILabel* recommendSubtitle;
-@property (nonatomic,retain) NSMutableArray* contactData;
-@property (nonatomic,retain) UITableView* tableViewCopy;
+@property (nonatomic,strong) NSMutableArray* contactData;
+@property (nonatomic,strong) UITableView* tableViewCopy;
 @property (assign) int lastRowClicked;
 
 //-(IBAction)rankClicked:(UIView*)sender;

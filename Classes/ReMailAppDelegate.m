@@ -42,10 +42,6 @@
 @synthesize window;
 @synthesize pushSetupScreen;
 
--(void)dealloc {
-    [window release];
-    [super dealloc];
-}
 
 -(void)deactivateAllPurchases {
 	// This is debug code, it should never be called in production
@@ -192,11 +188,9 @@
 		
 		UINavigationController* navController = [[UINavigationController alloc] initWithRootViewController:accountTypeVC];
 		[self.window addSubview:navController.view];
-		[accountTypeVC release];
 	} else {
 		// already set up - let's go to the home screen
-        //TODO : Handle iPad
-		HomeViewController *homeController = [[HomeViewController alloc] initWithNibName:@"HomeView" bundle:nil];
+      	HomeViewController *homeController = [[HomeViewController alloc] initWithNibName:@"HomeView" bundle:nil];
 		UINavigationController* navController = [[UINavigationController alloc] initWithRootViewController:homeController];
 		navController.navigationBarHidden = NO;
 		[self.window addSubview:navController.view];
@@ -205,7 +199,6 @@
 			[homeController loadIt];
 			[homeController toolbarRefreshClicked:nil];
 		}
-		[homeController release];
 	}
 	
 	[window makeKeyAndVisible];

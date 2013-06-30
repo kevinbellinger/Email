@@ -30,13 +30,6 @@
 @synthesize accountFolders;
 @synthesize accountFolderNums;
 
-- (void)dealloc {
-	// not sure why but these are failing
-	[accountIndices release];
-	[accountFolders release];
-	[accountFolderNums release];
-    [super dealloc];
-}
 
 
 - (void)viewDidUnload {
@@ -103,7 +96,7 @@
 -(void)viewDidLoad {
 	[super viewDidLoad];
 	
-	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(composeClick)] autorelease];
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(composeClick)];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -153,7 +146,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
     if(indexPath.section == 0) {
@@ -228,7 +221,6 @@
 	}
 	
 	[self presentViewController:mailCtrl animated:YES completion:nil];
-	[mailCtrl release];
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {

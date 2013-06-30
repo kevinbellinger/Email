@@ -42,12 +42,12 @@
 -(BOOL)oldSync:(int)start total:(int)total;
 -(BOOL)fetchFrom:(int)start to:(int)end seqDelta:(int)seqDelta syncingNew:(BOOL)syncingNew progressOffset:(int)progressOffset progressTotal:(int)progressTotal alreadySynced:(int)alreadySynced;
 
-@property (nonatomic, retain) CTCoreFolder* folder;
-@property (nonatomic, retain) CTCoreAccount* account;
+@property (nonatomic, strong) CTCoreFolder* folder;
+@property (nonatomic, strong) CTCoreAccount* account;
 @property (assign) int folderNum;
 @property (assign) int accountNum;
-@property (nonatomic, retain) NSString* folderDisplayName;
-@property (nonatomic, retain) NSString* folderPath;
+@property (nonatomic, strong) NSString* folderDisplayName;
+@property (nonatomic, strong) NSString* folderPath;
 
 @property (assign) BOOL firstSync;
 @end

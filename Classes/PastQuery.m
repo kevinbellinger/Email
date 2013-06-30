@@ -15,11 +15,6 @@
 
 @synthesize datetime,text;
 
-- (void)dealloc {
-	[datetime release];
-	[text release];
-	[super dealloc];
-}
 
 +(NSArray *)indices {
 	// used for quickly displaying the past query list in the UI
@@ -43,7 +38,6 @@
 	[dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSSS"];
 	
 	NSString *formattedDateString = [dateFormatter stringFromDate:[NSDate date]];
-	[dateFormatter release];
 	
 	sqlite3_bind_text(insertStmt, 1, [formattedDateString UTF8String], -1, NULL);
 	sqlite3_bind_text(insertStmt, 2, [queryText UTF8String], -1, NULL);
@@ -113,7 +107,6 @@
 	sqlite3_reset(stmt);
 	stmt = nil;
 	
-	[dateFormatter release];
 	
 	return @{@"datetimes": datetimes, @"queries": queries, @"searchTypes": searchTypes};
 }

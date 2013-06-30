@@ -34,8 +34,8 @@
 +(NSString*)fileNameForAccountNum:(int)accountNum folderNum:(int)folderNum uid:(NSString*)uid attachmentNum:(int)attachmentNum;
 +(NSString*)attachmentDirPath;
 
-@property (nonatomic, retain) id delegate;
-@property (nonatomic, retain) NSString* uid;
+@property (nonatomic, strong) id delegate;
+@property (nonatomic, strong) NSString* uid;
 @property (assign) int attachmentNum;
 @property (assign) int folderNum;
 @property (assign) int accountNum;

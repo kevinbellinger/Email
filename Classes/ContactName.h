@@ -18,9 +18,9 @@
 +(void)recordContact:(NSString*)name withAddress:(NSString*)address;
 +(void)autocomplete:(NSString*)query; 
 
-@property(nonatomic,readwrite,retain) NSNumber* occurrences;
-@property(nonatomic,readwrite,retain) NSString* name;
-@property(nonatomic,readwrite,retain) NSString* addresses;
+@property(nonatomic,readwrite,strong) NSNumber* occurrences;
+@property(nonatomic,readwrite,strong) NSString* name;
+@property(nonatomic,readwrite,strong) NSString* addresses;
 @end
 
 

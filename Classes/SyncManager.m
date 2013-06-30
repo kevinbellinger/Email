@@ -54,19 +54,6 @@ static SyncManager *singleton = nil;
 @synthesize skipMessageStartSeq;
 @synthesize lastAbort;
 
-- (void) dealloc {
-	[progressDelegate release];
-	[progressNumbersDelegate release];
-	[clientMessageDelegate release];
-	[syncStates release];
-	
-	[okContentTypes release];
-	[extensionContentType release];
-	
-	[lastAbort release];
-	
-	[super dealloc];
-}
 
 + (id)getSingleton { //NOTE: don't get an instance of SyncManager until account settings are set!
 	@synchronized(self) {
@@ -102,9 +89,8 @@ static SyncManager *singleton = nil;
 					
 					[self.syncStates addObject:props];
 					
-					[fileData release];
 				} else { 
-					NSMutableDictionary* props = [[[NSMutableDictionary alloc] initWithObjectsAndKeys:@"2", @"__version", [NSMutableArray array], FOLDER_STATES_KEY, nil] autorelease];
+					NSMutableDictionary* props = [[NSMutableDictionary alloc] initWithObjectsAndKeys:@"2", @"__version", [NSMutableArray array], FOLDER_STATES_KEY, nil];
 					[self.syncStates addObject:props];
 				}		
 			}
@@ -115,7 +101,12 @@ static SyncManager *singleton = nil;
 }
 
 -(void)runLoop {
-	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+//	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+    
+    @autoreleasepool {
+        
+    
+    
 	[NSThread setThreadPriority:0.1];
 
 	@synchronized(self) {
@@ -144,7 +135,6 @@ static SyncManager *singleton = nil;
 					imapSync = [[ImapSync alloc] init];
 					imapSync.accountNum = i;
 					[imapSync run];
-					[imapSync release];
 					break;
 				default:
 					NSLog(@"Account type currently not supported");
@@ -159,8 +149,9 @@ static SyncManager *singleton = nil;
 		application.idleTimerDisabled = NO;
 
 		self.syncInProgress = NO;
-		[pool release];
+//		[pool release];
 	}
+        }
 }
 
 -(void)run {
@@ -171,7 +162,6 @@ static SyncManager *singleton = nil;
 	//Fire the sync in a separate thread
 	NSThread *driverThread = [[NSThread alloc] initWithTarget:self selector:@selector(runLoop) object:nil];
 	[driverThread start];
-	[driverThread release];
 }
 
 #pragma mark Request sync
@@ -187,8 +177,11 @@ static SyncManager *singleton = nil;
 }
 
 - (void) requestSyncIfNoneInProgressAndConnectedThread {
-	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+//	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
 	
+    @autoreleasepool {
+        
+    
 	@try {
 		//Check there are no push in progres.
 		if(self.syncInProgress) {
@@ -215,15 +208,15 @@ static SyncManager *singleton = nil;
 			[self run];
 		}
 	} @finally {
-		[pool release];
+//		[pool release];
 	}
+        }
 }
 
 - (void) requestSyncIfNoneInProgressAndConnected {
 	// This can be called from main thread -> thread off
 	NSThread *driverThread = [[NSThread alloc] initWithTarget:self selector:@selector(requestSyncIfNoneInProgressAndConnectedThread) object:nil];
 	[driverThread start];
-	[driverThread release];
 }
 
 -(void)requestSyncIfNoneInProgress {	
@@ -260,7 +253,7 @@ static SyncManager *singleton = nil;
 -(void)addAccountState {
 	int numAccounts = [AppSettings numAccounts];
 	
-	NSMutableDictionary* props = [[[NSMutableDictionary alloc] initWithObjectsAndKeys:@"2", @"__version", [NSMutableArray array], FOLDER_STATES_KEY, nil] autorelease];
+	NSMutableDictionary* props = [[NSMutableDictionary alloc] initWithObjectsAndKeys:@"2", @"__version", [NSMutableArray array], FOLDER_STATES_KEY, nil];
 	[self.syncStates addObject:props];
 	
 	NSString* filePath = [StringUtil filePathInDocumentsDirectoryForFileName:[NSString stringWithFormat:SYNC_STATE_FILE_NAME_TEMPLATE, numAccounts+1]];

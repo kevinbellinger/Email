@@ -27,7 +27,7 @@
 	IBOutlet UILabel* dateLabel;
 	IBOutlet UILabel* dateDetailLabel;
 	IBOutlet UIButton* showDetailsButton;
-	id showDetailsDelegate;
+	id __weak showDetailsDelegate;
 	IBOutlet UIImageView* senderBubbleImage;
 	NSNumber* convoIndex;
 //	TTStyledTextLabel *theBodyLabel;
@@ -38,15 +38,15 @@
 -(void)setText:(NSString*)string;
 -(IBAction)showDetailsClicked;
 
-@property (nonatomic,retain) UILabel* senderLabel;
-@property (nonatomic,retain) UILabel* sideNoteLabel;
-@property (nonatomic,retain) UILabel* dateLabel;
-@property (nonatomic,retain) UILabel* dateDetailLabel;
-@property (nonatomic,retain) UIButton* showDetailsButton;
-@property (nonatomic,retain) UIImageView* senderBubbleImage;
-@property (nonatomic,retain) NSNumber* convoIndex;
-@property (nonatomic,assign) id showDetailsDelegate; // don't retain or the ConvoViewController will be retained forever!
+@property (nonatomic,strong) UILabel* senderLabel;
+@property (nonatomic,strong) UILabel* sideNoteLabel;
+@property (nonatomic,strong) UILabel* dateLabel;
+@property (nonatomic,strong) UILabel* dateDetailLabel;
+@property (nonatomic,strong) UIButton* showDetailsButton;
+@property (nonatomic,strong) UIImageView* senderBubbleImage;
+@property (nonatomic,strong) NSNumber* convoIndex;
+@property (nonatomic,weak) id showDetailsDelegate; // don't retain or the ConvoViewController will be retained forever!
 //@property (nonatomic,assign) TTStyledTextLabel *theBodyLabel;
-@property (nonatomic,retain) UILabel *theBodyLabel;
+@property (nonatomic,strong) UILabel *theBodyLabel;
 
 @end

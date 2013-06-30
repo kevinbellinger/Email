@@ -24,15 +24,6 @@
 
 BOOL autoCompleteMode;
 
-- (void)dealloc {
-	[autocompletions release];
-	[queryHistory release];
-	[dates release];
-
-	[lastSearchString release];
-	
-    [super dealloc];
-}
 
 - (void)viewDidUnload {
 	[super viewDidUnload];
@@ -60,7 +51,6 @@ BOOL autoCompleteMode;
 		[self.dates replaceObjectAtIndex:i withObject:d];
 	}*/
 	
-	[dateFormatter release];
 }
 
 -(SearchResultsViewController*)createSearchResultsVC {
@@ -217,7 +207,7 @@ BOOL autoCompleteMode;
 
 
 -(UITableViewCell*) createNewSearchHistoryCell { 
-	UITableViewCell* cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SearchPersonHistoryCell"] autorelease];
+	UITableViewCell* cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SearchPersonHistoryCell"];
 	cell.detailTextLabel.font = [UIFont systemFontOfSize:12.0f];
 	
 	return cell; 
@@ -298,7 +288,6 @@ BOOL autoCompleteMode;
 			if(indexPath.row < [self.autocompletions count]) {
 				autocompletion = (self.autocompletions)[indexPath.row];
 				// this makes sure the autocompletion+contents don't get garbage-collected as we're displaying it.
-				[autocompletion retain];
 			}
 		}
 		
@@ -317,7 +306,6 @@ BOOL autoCompleteMode;
 		// need to get rid of the "'"s before displaying text to the user
 		NSString* addresses = [autocompletion[@"emailAddresses"] stringByReplacingOccurrencesOfString:@"'" withString:@""];
 		[acell setName:name withAddresses:addresses];
-		[autocompletion release];
 		
 		return acell;
 	}
@@ -366,7 +354,7 @@ BOOL autoCompleteMode;
 	}
 	
 	self.lastSearchString = [currentString copy];
-	[self.lastSearchString release];	
+	self.lastSearchString;	
 	
 	NSString* autocompleteSearchString = [NSString stringWithFormat:@"%@*", currentString];
 	

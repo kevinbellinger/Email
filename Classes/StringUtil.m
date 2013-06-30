@@ -130,7 +130,7 @@
 	if([maybeText respondsToSelector:@selector(dataUsingEncoding:)]) {
 		NSData* aData;    
 		aData = [maybeText dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-		maybeText = [[[NSString alloc] initWithData:aData encoding:NSASCIIStringEncoding] autorelease];
+		maybeText = [[NSString alloc] initWithData:aData encoding:NSASCIIStringEncoding];
 	}
 	return maybeText;
 }
@@ -191,11 +191,9 @@
 	[scanner scanUpToCharactersFromSet:[NSCharacterSet alphanumericCharacterSet] intoString:&text];
 	
 	if([scanner isAtEnd]) {
-		[scanner release];
 		return YES;
 	}
 	
-	[scanner release];
 	
 	return NO;
 }

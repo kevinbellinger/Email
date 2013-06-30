@@ -29,10 +29,14 @@ void sig_handler (int sig)
 
 
 int main(int argc, char *argv[]) {
-	signal(SIGPIPE, sig_handler);
-
-    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-    int retVal = UIApplicationMain(argc, argv, nil, nil);
-    [pool release];
-    return retVal;
+//	signal(SIGPIPE, sig_handler);
+//
+//    @autoreleasepool {
+//        int retVal = UIApplicationMain(argc, argv, nil, nil);
+//        return retVal;
+//    }
+    @autoreleasepool {
+		UIApplicationMain(argc, argv, nil, nil);
+	}
+	return 0;
 }

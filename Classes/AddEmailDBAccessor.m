@@ -39,7 +39,7 @@ static AddEmailDBAccessor *sharedSQLiteManager = nil;
 	@synchronized(self) 
 	{
 		if (sharedSQLiteManager == nil) 
-			sharedSQLiteManager = [[[self alloc] init] retain];; 
+			sharedSQLiteManager = [[self alloc] init];; 
 	}
 	return sharedSQLiteManager;
 }
@@ -47,7 +47,7 @@ static AddEmailDBAccessor *sharedSQLiteManager = nil;
 {
 	@synchronized(self) {
 		if (sharedSQLiteManager == nil) {
-			sharedSQLiteManager = [[super allocWithZone:zone] retain];
+			sharedSQLiteManager = [super allocWithZone:zone];
 		}
 	}
 	
@@ -100,22 +100,22 @@ static AddEmailDBAccessor *sharedSQLiteManager = nil;
 {
 	return self;
 }
-- (id)retain
-{
-	return self;
-}
-- (unsigned)retainCount
-{
-	return UINT_MAX;  //denotes an object that cannot be released
-}
-//- (void)release
+//- (id)retain
 //{
-//	// never release
+//	return self;
 //}
-- (id)autorelease
-{
-	return self;
-}
+//- (unsigned)retainCount
+//{
+//	return UINT_MAX;  //denotes an object that cannot be released
+//}
+////- (void)release
+////{
+////	// never release
+////}
+//- (id)autorelease
+//{
+//	return self;
+//}
 #pragma mark -
 #pragma mark Public Instance Methods
 -(sqlite3 *)database {
@@ -184,11 +184,6 @@ static AddEmailDBAccessor *sharedSQLiteManager = nil;
 }
 
 #pragma mark -
-- (void)dealloc
-{
-	[databaseFilepath release];
-	[super dealloc];
-}
 #pragma mark -
 #pragma mark Private Methods
 - (void)executeUpdateSQL:(NSString *) updateSQL
@@ -225,7 +220,7 @@ static AddEmailDBAccessor *sharedSQLiteManager = nil;
 		NSString *saveFileName = [NSString stringWithFormat:@"%@.sqlite3", ret];
 		NSString *filepath = [saveDirectory stringByAppendingPathComponent:saveFileName];
 		
-		databaseFilepath = [filepath retain];
+		databaseFilepath = filepath;
 		
 		if (![[NSFileManager defaultManager] fileExistsAtPath:saveDirectory]) 
 			[[NSFileManager defaultManager] createDirectoryAtPath:saveDirectory withIntermediateDirectories:YES attributes:nil error:nil];

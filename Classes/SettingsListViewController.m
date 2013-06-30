@@ -41,9 +41,6 @@
 	// Release any cached data, images, etc that aren't in use.
 }
 
-- (void)dealloc {
-    [super dealloc];
-}
 
 - (void)viewDidUnload {
 	// Release any retained subviews of the main view.
@@ -105,7 +102,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
 	
 	if(indexPath.section == 0) {
@@ -182,21 +179,20 @@
 		
 		vc.title = NSLocalizedString(@"Select New Account Type", nil);
 		[self.navigationController pushViewController:vc animated:YES];
-		[vc release];
 	} else if (indexPath.section == 2) {
 		// Clear Data
 		if(indexPath.row == 0) {
 			// Search History
 //			ClearAttachmentsDelegate* d = [[ClearSearchHistoryDelegate alloc] init];
-			UIAlertView* av = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Clear Search History?",nil)
+			UIAlertView* av = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Clear Search History?",nil)
 														 message:NSLocalizedString(@"This will clear all the items in your search history.", nil) 
-														 delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] autorelease];
+														 delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
             av.tag = 90;
 			[av show];
 		} else {
-			UIAlertView* av = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Clear Attachments?",nil)
+			UIAlertView* av = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Clear Attachments?",nil)
 														 message:NSLocalizedString(@"This will delete all attachments downloaded to reMail.", nil) 
-														delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] autorelease];
+														delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
 			[av show];
 		}		
 	} else if (indexPath.section == 3) {
@@ -204,7 +200,6 @@
 		vc.title = NSLocalizedString(@"Reminders", nil);
 		vc.toolbarItems = [self.toolbarItems subarrayWithRange:NSMakeRange(0, 2)];
 		[self.navigationController pushViewController:vc animated:YES];
-		[vc release];
 	} else if (indexPath.section == 4) {
 		if(indexPath.row == 0) {
 			if ([MFMailComposeViewController canSendMail]) {
@@ -219,7 +214,6 @@
 				[mailCtrl setSubject:@"reMail Feedback"];
 				
 				[self presentViewController:mailCtrl animated:YES completion:nil];
-				[mailCtrl release];
 			} else {
 				WebViewController* vc = [[WebViewController alloc] init];
 				vc.title = NSLocalizedString(@"Love reMail?",nil);
@@ -227,7 +221,6 @@
 								(int)[AppSettings reMailEdition]];
 				vc.toolbarItems = [self.toolbarItems subarrayWithRange:NSMakeRange(0, 2)];
 				[self.navigationController pushViewController:vc animated:YES];
-				[vc release];
 				[self.navigationController setNavigationBarHidden:NO animated:YES];
 			}
 		} else {
@@ -236,7 +229,6 @@
 			vc.title = NSLocalizedString(@"About reMail", nil);
 			vc.toolbarItems = [self.toolbarItems subarrayWithRange:NSMakeRange(0, 2)];
 			[self.navigationController pushViewController:vc animated:YES];
-			[vc release];
 		}
 	} else if (indexPath.section == 0) {
 		int accountNum = [(self.accountIndices)[indexPath.row] intValue];
@@ -247,7 +239,6 @@
 		vc.newAccount = NO;
 		vc.title = NSLocalizedString(@"Edit Account", nil);
 		[self.navigationController pushViewController:vc animated:YES];
-		[vc release];
 	}
 }
 

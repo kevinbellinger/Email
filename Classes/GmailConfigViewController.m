@@ -45,17 +45,6 @@
 @synthesize scrollView;
 @synthesize privacyNotice;
 
-- (void)dealloc {
-	[scrollView release];
-	[serverMessage release];
-	[activityIndicator release];
-	[usernameField release];
-	[passwordField release];
-	[selectFoldersButton release];
-	[privacyNotice release];
-	
-    [super dealloc];
-}
 
 - (void)viewDidUnload {
 	[super viewDidUnload];
@@ -135,7 +124,6 @@
 	vc.accountNum = self.accountNum;
 	
 	[self.navigationController pushViewController:vc animated:YES];
-	[vc release];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -170,57 +158,57 @@
 }
 
 -(void)doLogin:(NSNumber*)forceSelectFolders {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	@autoreleasepool {
 	
-	NSString* username = self.usernameField.text;
-	NSString* password = self.passwordField.text;
-	NSString* server = GMAIL_SERVER;
-	int encryption = GMAIL_CONNECTION_TYPE;
-	int port = GMAIL_PORT;
-	int authentication = GMAIL_AUTH_TYPE;
-	
-	if(![StringUtil stringContains:username subString:@"@"]) {
-		username = [NSString stringWithFormat:@"%@@gmail.com", username];
-	}
-	
-	NSLog(@"Logging in with user %@", username);
-	
-	NSMutableArray* folderNames = [[[NSMutableArray alloc] initWithCapacity:20] autorelease];
-	NSString* response = [ImapSync validate:username password:password server:GMAIL_SERVER port:GMAIL_PORT encryption:GMAIL_CONNECTION_TYPE authentication:GMAIL_AUTH_TYPE folders:folderNames]; 
-	
-	if([StringUtil stringContains:response subString:@"Parse error"]) {
-		[[Reachability sharedReachability] setHostName:server];
-		NetworkStatus status =[[Reachability sharedReachability] remoteHostStatus];
-		if(status == NotReachable) {
-			response = NSLocalizedString(@"Email server unreachable", nil);
-		} else if(status == ReachableViaCarrierDataNetwork) {
-			response = NSLocalizedString(@"Error connecting to server. Try over Wifi.", nil);
-		} else {
-			response = NSLocalizedString(@"Error connecting to server.", nil);
-		}
-	} else if([StringUtil stringContains:response subString:CTLoginErrorDesc]) {
-		response = NSLocalizedString(@"Wrong username or password.", nil);
-	}
-	
-	if([response isEqualToString:@"OK"]) { 
-		NSDictionary* localConfig = @{@"username": username,
-								@"password": password,
-								@"server": server,
-								@"encryption": @(encryption),
-								@"port": @(port),
-								@"authentication": @(authentication),
-								@"folderNames": folderNames};
+		NSString* username = self.usernameField.text;
+		NSString* password = self.passwordField.text;
+		NSString* server = GMAIL_SERVER;
+		int encryption = GMAIL_CONNECTION_TYPE;
+		int port = GMAIL_PORT;
+		int authentication = GMAIL_AUTH_TYPE;
 		
-		if(self.newAccount || [forceSelectFolders boolValue]) {
-			[self performSelectorOnMainThread:@selector(showFolderSelect:) withObject:localConfig waitUntilDone:NO];
-		} else {
-			[self performSelectorOnMainThread:@selector(saveSettings:) withObject:localConfig waitUntilDone:NO];
+		if(![StringUtil stringContains:username subString:@"@"]) {
+			username = [NSString stringWithFormat:@"%@@gmail.com", username];
 		}
-				
-	} else {
-		[self performSelectorOnMainThread:@selector(failedLoginWithMessage:) withObject:response waitUntilDone:NO];
+		
+		NSLog(@"Logging in with user %@", username);
+		
+		NSMutableArray* folderNames = [[NSMutableArray alloc] initWithCapacity:20];
+		NSString* response = [ImapSync validate:username password:password server:GMAIL_SERVER port:GMAIL_PORT encryption:GMAIL_CONNECTION_TYPE authentication:GMAIL_AUTH_TYPE folders:folderNames]; 
+		
+		if([StringUtil stringContains:response subString:@"Parse error"]) {
+			[[Reachability sharedReachability] setHostName:server];
+			NetworkStatus status =[[Reachability sharedReachability] remoteHostStatus];
+			if(status == NotReachable) {
+				response = NSLocalizedString(@"Email server unreachable", nil);
+			} else if(status == ReachableViaCarrierDataNetwork) {
+				response = NSLocalizedString(@"Error connecting to server. Try over Wifi.", nil);
+			} else {
+				response = NSLocalizedString(@"Error connecting to server.", nil);
+			}
+		} else if([StringUtil stringContains:response subString:CTLoginErrorDesc]) {
+			response = NSLocalizedString(@"Wrong username or password.", nil);
+		}
+		
+		if([response isEqualToString:@"OK"]) { 
+			NSDictionary* localConfig = @{@"username": username,
+									@"password": password,
+									@"server": server,
+									@"encryption": @(encryption),
+									@"port": @(port),
+									@"authentication": @(authentication),
+									@"folderNames": folderNames};
+			
+			if(self.newAccount || [forceSelectFolders boolValue]) {
+				[self performSelectorOnMainThread:@selector(showFolderSelect:) withObject:localConfig waitUntilDone:NO];
+			} else {
+				[self performSelectorOnMainThread:@selector(saveSettings:) withObject:localConfig waitUntilDone:NO];
+			}
+					
+		} else {
+			[self performSelectorOnMainThread:@selector(failedLoginWithMessage:) withObject:response waitUntilDone:NO];
+		}
 	}
-	[pool release];
 }
 
 -(BOOL)accountExists:(NSString*)username server:(NSString*)server {
@@ -252,7 +240,6 @@
 		if([self accountExists:username server:server]) {
 			UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Account Exists",nil) message:NSLocalizedString(@"reMail already has an account for this username/server combination", nil) delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
 			[alertView show];
-			[alertView release];
 			return;
 		}
 	}
@@ -263,7 +250,6 @@
 	
 	NSThread *driverThread = [[NSThread alloc] initWithTarget:self selector:@selector(doLogin:) object:@NO];
 	[driverThread start];
-	[driverThread release];
 }
 
 
@@ -282,7 +268,6 @@
 	
 	NSThread *driverThread = [[NSThread alloc] initWithTarget:self selector:@selector(doLogin:) object:@YES];
 	[driverThread start];
-	[driverThread release];
 }
 
 - (void)didReceiveMemoryWarning {

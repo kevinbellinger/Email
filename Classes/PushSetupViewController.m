@@ -34,16 +34,6 @@
 @synthesize activityIndicator;
 
 
-- (void)dealloc {
-	[disableButton release];
-	[okButton release];
-	[timePicker release];
-	[remindDescriptionLabel release];
-	[remindTitleLabel release];
-	[activityIndicator release];
-	
-	[super dealloc];
-}
 
 
 - (void)viewDidUnload {
@@ -112,7 +102,6 @@
 	
 	UIAlertView* as = [[UIAlertView alloc] initWithTitle:@"Push registration error" message:blah delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 	[as show];
-	[as release];
 }
 
 -(void)didRegisterForRemoteNotificationsWithDeviceToken:(NSString*)deviceToken {
@@ -133,7 +122,6 @@
 	NSString* hours = [dateF stringFromDate:date];
 	[dateF setDateFormat:@"mm"];
 	NSString* minutes = [dateF stringFromDate:date];
-	[dateF release];
 	
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];  
 	NSString *encodedPostString = [NSString stringWithFormat:@"umd=%@&token=%@&aid=%@&sv=%@&e=%i&gmtd=%i&m=%@&h=%@", md5([AppSettings udid]), deviceToken, [AppSettings appID], [AppSettings version], edition, gmtDifference, minutes, hours];
@@ -152,7 +140,6 @@
 	NSHTTPURLResponse *urlResponse;
 	NSError *error;
 	[NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&error];
-	[request release];
 	
 	if(error == nil) {
 		[AppSettings setPushDeviceToken:deviceToken];
@@ -164,7 +151,6 @@
 		
 		UIAlertView* as = [[UIAlertView alloc] initWithTitle:@"Push call error" message:blah delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 		[as show];
-		[as release];
 	}
 	
 	[ActivityIndicator off];
@@ -201,7 +187,6 @@
 	NSHTTPURLResponse *urlResponse;
 	NSError *error;
 	[NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&error];
-	[request release];
 	
 	[ActivityIndicator off];
 	

@@ -53,18 +53,18 @@
 	NSDate* lastAbort;
 }
 
-@property (nonatomic,retain) id progressDelegate;
-@property (nonatomic,retain) id progressNumbersDelegate;
-@property (nonatomic,retain) id clientMessageDelegate;
-@property (nonatomic,retain) id myEmailDelegate;
+@property (nonatomic,strong) id progressDelegate;
+@property (nonatomic,strong) id progressNumbersDelegate;
+@property (nonatomic,strong) id clientMessageDelegate;
+@property (nonatomic,strong) id myEmailDelegate;
 
-@property (nonatomic,retain) NSMutableArray *syncStates;
+@property (nonatomic,strong) NSMutableArray *syncStates;
 @property (assign) BOOL syncInProgress;
 @property (nonatomic) BOOL clientMessageWasError;
 
 //for checking attachments
-@property (nonatomic, retain) NSSet* okContentTypes;
-@property (nonatomic, retain) NSDictionary* extensionContentType;
+@property (nonatomic, strong) NSSet* okContentTypes;
+@property (nonatomic, strong) NSDictionary* extensionContentType;
 
 // skip message
 @property (nonatomic) int lastErrorAccountNum;
@@ -73,7 +73,7 @@
 @property (nonatomic) int skipMessageAccountNum;
 @property (nonatomic) int skipMessageFolderNum;
 @property (nonatomic) int skipMessageStartSeq;
-@property (nonatomic, retain) NSDate* lastAbort;
+@property (nonatomic, strong) NSDate* lastAbort;
 
 
 +(id)getSingleton;

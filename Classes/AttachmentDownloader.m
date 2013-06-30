@@ -39,11 +39,6 @@
 @synthesize folderNum;
 @synthesize accountNum;
 
--(void)dealloc {
-	[uid release];
-	[delegate release];
-	[super dealloc];
-}
 
 +(NSString*)attachmentDirPath {
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -97,128 +92,121 @@
 	
 	[NSThread setThreadPriority:0.1];
 	
-	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+	@autoreleasepool {
 
-	if(![GlobalDBFunctions enoughFreeSpaceForSync]) {
-		[self deliverError:[NSString stringWithFormat:NSLocalizedString(@"iPhone/iPod disk full", nil), exp]];
-		[pool release];
-		return;
-	}
-	
-	[ActivityIndicator on];
-	
-	// connect to IMAP server
-	[self deliverProgress:NSLocalizedString(@"Logging into Account ...", nil)];
-	
-	NSString* username = [AppSettings username:self.accountNum];
-	NSString* password = [AppSettings password:self.accountNum];
-	
-	if(username == nil || [username length] == 0 || password == nil) {
-		[self deliverError:NSLocalizedString(@"Invalid credentials", nil)];
-		[pool release];
-		return;
-	}
-	
-	// log in 
-	CTCoreAccount* account = [[CTCoreAccount alloc] init];
-	
-	@try   {
-        [account connectToServer:[AppSettings server:self.accountNum] 
-							port:[AppSettings serverPort:self.accountNum]
-				  connectionType:[AppSettings serverEncryption:self.accountNum]
-						authType:[AppSettings serverAuthentication:self.accountNum] 
-						   login:username 
-						password:password];
-    } @catch (NSException *exp) {
-		[ActivityIndicator off];
-		[account disconnect];
-        NSLog(@"Connect exception: %@", exp);
-		[self deliverError:[ImapFolderWorker decodeError:exp]];
-		[pool release];
-        return; 
-	}
-	
-	[self deliverProgress:NSLocalizedString(@"Opening Folder ...", nil)];
-	
-	// figure out name of folder to fetch (i.e. the Gmail name)
-	NSSet* folders;
-	@try {
-		folders = [account allFolders];
-	} @catch (NSException *exp) {
-		[ActivityIndicator off];
-		[account disconnect];
-		[pool release];
-        NSLog(@"Error getting folders: %@", exp);
-		[self deliverError:[NSString stringWithFormat:NSLocalizedString(@"List Folders: %@", nil), [ImapFolderWorker decodeError:exp]]];
-        return; 
-	}
-	
-	NSString* folderPath = nil;
-	if ([AppSettings accountType:self.accountNum] == AccountTypeImap) {
-		SyncManager* sm = [SyncManager getSingleton];
-		
-		NSDictionary* folderStatus = [sm retrieveState:self.folderNum accountNum:self.accountNum];
-		folderPath = folderStatus[@"folderPath"];
-	} else {
-		NSLog(@"Account type not recognized");
-	}
-	
-	CTCoreFolder *folder;
-	@try {
-		folder = [account folderWithPath:folderPath];
-	} @catch (NSException *exp) {
-		[ActivityIndicator off];
-		[account disconnect];
-        NSLog(@"Error getting folder: %@", exp);
-		[self deliverError:[NSString stringWithFormat:NSLocalizedString(@"Folder: %@", nil), [ImapFolderWorker decodeError:exp]]];
-        return; 
-	}
-	
-	if(folder == nil) {
-		[ActivityIndicator off];
-		[self deliverError:NSLocalizedString(@"Folder not found", nil)];
-		[pool release];
-        return; 
-	}
-	
-	[self deliverProgress:NSLocalizedString(@"Fetching Attachment ...", nil)];
-	
-	CTCoreMessage* message;
-	@try  {
-		message = [folder messageWithUID:self.uid];
-		
-		NSLog(@"Subject: %@", message.subject);
-		
-		[message fetchBodyStructure];
-		
-		NSArray* attachments = [message attachments];
-		
-		if([attachments count] <= self.attachmentNum)  {
-			[self deliverError:NSLocalizedString(@"Can't find attachment on server", nil)];
-			[pool release];
+		if(![GlobalDBFunctions enoughFreeSpaceForSync]) {
+			[self deliverError:[NSString stringWithFormat:NSLocalizedString(@"iPhone/iPod disk full", nil), exp]];
 			return;
 		}
 		
-		CTBareAttachment* attachment = attachments[self.attachmentNum];
+		[ActivityIndicator on];
 		
-		CTCoreAttachment* fullAttachment = [attachment fetchFullAttachment];
+		// connect to IMAP server
+		[self deliverProgress:NSLocalizedString(@"Logging into Account ...", nil)];
 		
-		NSString* filename = [AttachmentDownloader fileNameForAccountNum:self.accountNum folderNum:self.folderNum uid:self.uid attachmentNum:self.attachmentNum];
-		NSString* attachmentDir = [AttachmentDownloader attachmentDirPath];
-		NSString* attachmentPath = [attachmentDir stringByAppendingPathComponent:filename];
+		NSString* username = [AppSettings username:self.accountNum];
+		NSString* password = [AppSettings password:self.accountNum];
 		
-		[fullAttachment writeToFile:attachmentPath];		
-	} @catch (NSException *exp) {
-		[self deliverError:[NSString stringWithFormat:NSLocalizedString(@"Fetch error: %@", nil), [ImapFolderWorker decodeError:exp]]];
+		if(username == nil || [username length] == 0 || password == nil) {
+			[self deliverError:NSLocalizedString(@"Invalid credentials", nil)];
+			return;
+		}
+		
+		// log in 
+		CTCoreAccount* account = [[CTCoreAccount alloc] init];
+		
+		@try   {
+        [account connectToServer:[AppSettings server:self.accountNum] 
+								port:[AppSettings serverPort:self.accountNum]
+					  connectionType:[AppSettings serverEncryption:self.accountNum]
+							authType:[AppSettings serverAuthentication:self.accountNum] 
+							   login:username 
+							password:password];
+    } @catch (NSException *exp) {
+			[ActivityIndicator off];
+			[account disconnect];
+        NSLog(@"Connect exception: %@", exp);
+			[self deliverError:[ImapFolderWorker decodeError:exp]];
+        return; 
+		}
+		
+		[self deliverProgress:NSLocalizedString(@"Opening Folder ...", nil)];
+		
+		// figure out name of folder to fetch (i.e. the Gmail name)
+		NSSet* folders;
+		@try {
+			folders = [account allFolders];
+		} @catch (NSException *exp) {
+			[ActivityIndicator off];
+			[account disconnect];
+        NSLog(@"Error getting folders: %@", exp);
+			[self deliverError:[NSString stringWithFormat:NSLocalizedString(@"List Folders: %@", nil), [ImapFolderWorker decodeError:exp]]];
+        return; 
+		}
+		
+		NSString* folderPath = nil;
+		if ([AppSettings accountType:self.accountNum] == AccountTypeImap) {
+			SyncManager* sm = [SyncManager getSingleton];
+			
+			NSDictionary* folderStatus = [sm retrieveState:self.folderNum accountNum:self.accountNum];
+			folderPath = folderStatus[@"folderPath"];
+		} else {
+			NSLog(@"Account type not recognized");
+		}
+		
+		CTCoreFolder *folder;
+		@try {
+			folder = [account folderWithPath:folderPath];
+		} @catch (NSException *exp) {
+			[ActivityIndicator off];
+			[account disconnect];
+        NSLog(@"Error getting folder: %@", exp);
+			[self deliverError:[NSString stringWithFormat:NSLocalizedString(@"Folder: %@", nil), [ImapFolderWorker decodeError:exp]]];
+        return; 
+		}
+		
+		if(folder == nil) {
+			[ActivityIndicator off];
+			[self deliverError:NSLocalizedString(@"Folder not found", nil)];
+        return; 
+		}
+		
+		[self deliverProgress:NSLocalizedString(@"Fetching Attachment ...", nil)];
+		
+		CTCoreMessage* message;
+		@try  {
+			message = [folder messageWithUID:self.uid];
+			
+			NSLog(@"Subject: %@", message.subject);
+			
+			[message fetchBodyStructure];
+			
+			NSArray* attachments = [message attachments];
+			
+			if([attachments count] <= self.attachmentNum)  {
+				[self deliverError:NSLocalizedString(@"Can't find attachment on server", nil)];
+				return;
+			}
+			
+			CTBareAttachment* attachment = attachments[self.attachmentNum];
+			
+			CTCoreAttachment* fullAttachment = [attachment fetchFullAttachment];
+			
+			NSString* filename = [AttachmentDownloader fileNameForAccountNum:self.accountNum folderNum:self.folderNum uid:self.uid attachmentNum:self.attachmentNum];
+			NSString* attachmentDir = [AttachmentDownloader attachmentDirPath];
+			NSString* attachmentPath = [attachmentDir stringByAppendingPathComponent:filename];
+			
+			[fullAttachment writeToFile:attachmentPath];		
+		} @catch (NSException *exp) {
+			[self deliverError:[NSString stringWithFormat:NSLocalizedString(@"Fetch error: %@", nil), [ImapFolderWorker decodeError:exp]]];
+			[ActivityIndicator off];
+			[account disconnect];
+			return;
+		}
+		
 		[ActivityIndicator off];
 		[account disconnect];
-		[pool release];
-		return;
+		[self deliverAttachment];
 	}
-	
-	[ActivityIndicator off];
-	[account disconnect];
-	[self deliverAttachment];
-	[pool release];
 }
 @end

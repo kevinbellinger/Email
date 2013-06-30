@@ -69,34 +69,34 @@
 -(NSString*)massageDisplayString:(NSString*)y;
 
 
-@property (nonatomic, retain) NSString *query;
+@property (nonatomic, strong) NSString *query;
 @property (assign) BOOL isSenderSearch; // YES if we're doing senderQuery
 
 @property (assign) BOOL copyMode;
 
-@property (nonatomic, retain) id deleteDelegate;
-@property (nonatomic, retain) Email *email;
+@property (nonatomic, strong) id deleteDelegate;
+@property (nonatomic, strong) Email *email;
 @property (assign) int emailPk;
 @property (assign) int dbNum;
-@property (nonatomic, retain) NSArray* attachmentMetadata;
-@property (nonatomic, retain) UIBarButtonItem* replyButton;
-@property (nonatomic, retain) UILabel* fromLabel;
-@property (nonatomic, retain) UILabel* toLabel;
-@property (nonatomic, retain) UILabel* ccLabel;
-@property (nonatomic, retain) UILabel* subjectLabel;
-@property (nonatomic, retain) UILabel* dateLabel;
-@property (nonatomic, retain) UIImageView* unreadIndicator;
-@property (nonatomic, retain) UIScrollView* scrollView;
+@property (nonatomic, strong) NSArray* attachmentMetadata;
+@property (nonatomic, strong) UIBarButtonItem* replyButton;
+@property (nonatomic, strong) UILabel* fromLabel;
+@property (nonatomic, strong) UILabel* toLabel;
+@property (nonatomic, strong) UILabel* ccLabel;
+@property (nonatomic, strong) UILabel* subjectLabel;
+@property (nonatomic, strong) UILabel* dateLabel;
+@property (nonatomic, strong) UIImageView* unreadIndicator;
+@property (nonatomic, strong) UIScrollView* scrollView;
 
-@property (nonatomic, retain) UIButton* theCopyModeButton;
-@property (nonatomic, retain) UILabel* theCopyModeLabel;
+@property (nonatomic, strong) UIButton* theCopyModeButton;
+@property (nonatomic, strong) UILabel* theCopyModeLabel;
 
 //@property (nonatomic, retain) TTStyledTextLabel* subjectTTLabel;
 //@property (nonatomic, retain) TTStyledTextLabel* bodyTTLabel;
 
-@property (nonatomic, retain) UILabel* subjectTTLabel;
-@property (nonatomic, retain) UILabel* bodyTTLabel;
+@property (nonatomic, strong) UILabel* subjectTTLabel;
+@property (nonatomic, strong) UILabel* bodyTTLabel;
 
-@property (nonatomic, retain) UITextView* subjectUIView;
-@property (nonatomic, retain) UITextView* bodyUIView;
+@property (nonatomic, strong) UITextView* subjectUIView;
+@property (nonatomic, strong) UITextView* bodyUIView;
 @end

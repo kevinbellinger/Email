@@ -33,7 +33,7 @@
 	sqlite3 *database;
 }
 
-@property (nonatomic,retain) NSString *databaseFilepath;
+@property (nonatomic,strong) NSString *databaseFilepath;
 
 + (id)sharedManager;
 + (BOOL)beginTransaction;

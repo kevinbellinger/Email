@@ -33,15 +33,15 @@
 	IBOutlet UIActivityIndicatorView* activityIndicator;
 }
 
-@property (nonatomic,retain) UIButton* disableButton;
-@property (nonatomic,retain) UIButton* okButton;
+@property (nonatomic,strong) UIButton* disableButton;
+@property (nonatomic,strong) UIButton* okButton;
 
-@property (nonatomic,retain) UIDatePicker* timePicker;
+@property (nonatomic,strong) UIDatePicker* timePicker;
 
-@property (nonatomic,retain) UILabel* remindDescriptionLabel;
-@property (nonatomic,retain) UILabel* remindTitleLabel;
+@property (nonatomic,strong) UILabel* remindDescriptionLabel;
+@property (nonatomic,strong) UILabel* remindTitleLabel;
 
-@property (nonatomic,retain) UIActivityIndicatorView* activityIndicator;
+@property (nonatomic,strong) UIActivityIndicatorView* activityIndicator;
 
 
 -(IBAction)disableClicked;

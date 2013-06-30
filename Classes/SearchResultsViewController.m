@@ -45,20 +45,6 @@ static NSDateFormatter *dateFormatter = nil;
 
 UIImage* imgAttachment = nil;
 
-- (void)dealloc {
-	[query release];
-	[emailData release];
-	
-	if (imgAttachment != nil) {
-		[imgAttachment release];
-	}
-	
-	if (dateFormatter != nil) {
-		[dateFormatter release];
-	}
-
-    [super dealloc];
-}
 
 - (void)viewDidUnload {
 	[super viewDidUnload];
@@ -117,112 +103,109 @@ UIImage* imgAttachment = nil;
 		[self.tableView insertRowsAtIndexPaths:info[@"rows"] withRowAnimation:UITableViewRowAnimationFade];
 	} @catch (NSException *exp) {
 		NSLog(@"Exception in SRinsertRows: %@", exp);
-		NSLog(@"%@|%i|%i|%i|r%i", info[@"rows"], [self.emailData count], [info retainCount], [info[@"data"] retainCount], [info[@"rows"] retainCount]);
+//		NSLog(@"%@|%i|%i|%i|r%i", info[@"rows"], [self.emailData count], [info retainCount], [info[@"data"] retainCount], [info[@"rows"] retainCount]);
 	}
-	[info release];
 }
 
 -(void)loadResults:(NSArray*)searchResults {
-	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+	@autoreleasepool {
 
-	NSMutableArray* elementsToAdd = [NSMutableArray arrayWithCapacity:100];
-	NSMutableArray* rowsToAdd = [NSMutableArray arrayWithCapacity:100];
-	@synchronized(self) {
-		for(NSMutableDictionary* searchResult in searchResults) {
-			// set people string to sender name or address
-			NSString* senderName = searchResult[@"senderName"];
-			senderName = [self massageDisplayString:senderName];
-			NSString* senderAddress = searchResult[@"senderAddress"];
+		NSMutableArray* elementsToAdd = [NSMutableArray arrayWithCapacity:100];
+		NSMutableArray* rowsToAdd = [NSMutableArray arrayWithCapacity:100];
+		@synchronized(self) {
+			for(NSMutableDictionary* searchResult in searchResults) {
+				// set people string to sender name or address
+				NSString* senderName = searchResult[@"senderName"];
+				senderName = [self massageDisplayString:senderName];
+				NSString* senderAddress = searchResult[@"senderAddress"];
 
-			if(self.isSenderSearch) {
-				if([senderName length] == 0 && [senderAddress length] == 0){
-					searchResult[@"people"] = @"[unknown]";
-				} else if ([senderName length] == 0) {
-					searchResult[@"people"] = [NSString stringWithFormat:@"<span class=\"redBox\">%@</span>", senderAddress];
+				if(self.isSenderSearch) {
+					if([senderName length] == 0 && [senderAddress length] == 0){
+						searchResult[@"people"] = @"[unknown]";
+					} else if ([senderName length] == 0) {
+						searchResult[@"people"] = [NSString stringWithFormat:@"<span class=\"redBox\">%@</span>", senderAddress];
+					} else {
+						searchResult[@"people"] = [NSString stringWithFormat:@"<span class=\"redBox\">%@</span>", senderName];
+					}
 				} else {
-					searchResult[@"people"] = [NSString stringWithFormat:@"<span class=\"redBox\">%@</span>", senderName];
-				}
-			} else {
-				if([senderName length] == 0 && [senderAddress length] == 0){
-					searchResult[@"people"] = @"[unknown]";
-				} else if ([senderName length] == 0) {
-					searchResult[@"people"] = senderAddress;
-				} else {
-					searchResult[@"people"] = senderName;
-				}
-			}
-			
-			// massage display strings	
-			NSString *body = [StringUtil trim:searchResult[@"body"]];
-			if([body length] == 0) {
-				searchResult[@"body"] = NSLocalizedString(@"[empty]",nil);	
-			} else {
-				searchResult[@"body"] = [self massageDisplayString:body];	
-			}
-			NSString *subject = searchResult[@"subject"];
-			if([subject length] == 0) {
-				searchResult[@"subject"] = NSLocalizedString(@"[empty]",nil);	
-			} else {
-				searchResult[@"subject"] = [self massageDisplayString:subject];	
-			}
-			
-			// massage snippet
-			if(!self.isSenderSearch) {
-				NSString *snippet = searchResult[@"snippet"];
-				snippet = [StringUtil deleteQuoteNewLines:snippet];
-				snippet = [StringUtil deleteNewLines:snippet];
-				snippet = [snippet stringByReplacingOccurrencesOfString:@">" withString:@""];
-				snippet = [StringUtil compressWhiteSpace:snippet];
-				snippet = [StringUtil trim:snippet];
-				
-				// put snippet parts into display where they're meant to be displayed
-				NSArray* snippetParts = [snippet componentsSeparatedByString:@"{||}"];
-				for(int i = 1; i < [snippetParts count]-1; i += 2) {
-					NSString* header = (NSString*)snippetParts[i];
-					NSString* content = (NSString*)snippetParts[i+1];		
-					content = [content stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"];
-					content = [content stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"];
-					content = [content stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"];
-					content = [content stringByReplacingOccurrencesOfString:@"$$$$endmark$$$$" withString:@"</span>"];
-					
-					if([header isEqualToString:@"0"]) { //metaString
-						content = [content stringByReplacingOccurrencesOfString:@"$$$$mark$$$$" withString:@"<span class=\"redBox\">"];
-						content = [StringUtil trim:content];
-						searchResult[@"people"] = content;	
-					} else if([header isEqualToString:@"1"]) {
-						content = [content stringByReplacingOccurrencesOfString:@"$$$$mark$$$$" withString:@"<span class=\"yellowBox\">"];
-						content = [StringUtil trim:content];
-						searchResult[@"subject"] = content;	
-					} else if([header isEqualToString:@"2"]) {
-						content = [content stringByReplacingOccurrencesOfString:@"$$$$mark$$$$" withString:@"<span class=\"yellowBox\">"];
-						content = [StringUtil trim:content];
-						searchResult[@"body"] = content;	
+					if([senderName length] == 0 && [senderAddress length] == 0){
+						searchResult[@"people"] = @"[unknown]";
+					} else if ([senderName length] == 0) {
+						searchResult[@"people"] = senderAddress;
+					} else {
+						searchResult[@"people"] = senderName;
 					}
 				}
+				
+				// massage display strings	
+				NSString *body = [StringUtil trim:searchResult[@"body"]];
+				if([body length] == 0) {
+					searchResult[@"body"] = NSLocalizedString(@"[empty]",nil);	
+				} else {
+					searchResult[@"body"] = [self massageDisplayString:body];	
+				}
+				NSString *subject = searchResult[@"subject"];
+				if([subject length] == 0) {
+					searchResult[@"subject"] = NSLocalizedString(@"[empty]",nil);	
+				} else {
+					searchResult[@"subject"] = [self massageDisplayString:subject];	
+				}
+				
+				// massage snippet
+				if(!self.isSenderSearch) {
+					NSString *snippet = searchResult[@"snippet"];
+					snippet = [StringUtil deleteQuoteNewLines:snippet];
+					snippet = [StringUtil deleteNewLines:snippet];
+					snippet = [snippet stringByReplacingOccurrencesOfString:@">" withString:@""];
+					snippet = [StringUtil compressWhiteSpace:snippet];
+					snippet = [StringUtil trim:snippet];
+					
+					// put snippet parts into display where they're meant to be displayed
+					NSArray* snippetParts = [snippet componentsSeparatedByString:@"{||}"];
+					for(int i = 1; i < [snippetParts count]-1; i += 2) {
+						NSString* header = (NSString*)snippetParts[i];
+						NSString* content = (NSString*)snippetParts[i+1];		
+						content = [content stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"];
+						content = [content stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"];
+						content = [content stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"];
+						content = [content stringByReplacingOccurrencesOfString:@"$$$$endmark$$$$" withString:@"</span>"];
+						
+						if([header isEqualToString:@"0"]) { //metaString
+							content = [content stringByReplacingOccurrencesOfString:@"$$$$mark$$$$" withString:@"<span class=\"redBox\">"];
+							content = [StringUtil trim:content];
+							searchResult[@"people"] = content;	
+						} else if([header isEqualToString:@"1"]) {
+							content = [content stringByReplacingOccurrencesOfString:@"$$$$mark$$$$" withString:@"<span class=\"yellowBox\">"];
+							content = [StringUtil trim:content];
+							searchResult[@"subject"] = content;	
+						} else if([header isEqualToString:@"2"]) {
+							content = [content stringByReplacingOccurrencesOfString:@"$$$$mark$$$$" withString:@"<span class=\"yellowBox\">"];
+							content = [StringUtil trim:content];
+							searchResult[@"body"] = content;	
+						}
+					}
+				}
+				
+				[elementsToAdd addObject:searchResult];
+				[rowsToAdd addObject:[NSIndexPath indexPathForRow:self.nResults inSection:0]];
+				
+				self.nResults++;
+			}	
+			
+			
+			if([elementsToAdd count] > 0) {
+				NSDictionary* info = [[NSDictionary alloc] initWithObjectsAndKeys:elementsToAdd, @"data", rowsToAdd, @"rows", nil]; // released in insertRows()
+				[self performSelectorOnMainThread:@selector(insertRows:) withObject:info waitUntilDone:NO];
 			}
-			
-			[elementsToAdd addObject:searchResult];
-			[rowsToAdd addObject:[NSIndexPath indexPathForRow:self.nResults inSection:0]];
-			
-			self.nResults++;
-		}	
-		
-		[searchResults release]; 
-		
-		if([elementsToAdd count] > 0) {
-			NSDictionary* info = [[NSDictionary alloc] initWithObjectsAndKeys:elementsToAdd, @"data", rowsToAdd, @"rows", nil]; // released in insertRows()
-			[self performSelectorOnMainThread:@selector(insertRows:) withObject:info waitUntilDone:NO];
 		}
-	}
 	
-	[pool release];	
+	}	
 }
 
 - (void)deliverSearchResults:(NSArray *)searchResults {
 	NSOperationQueue* q = ((SearchRunner*)[SearchRunner getSingleton]).operationQueue;
 	NSInvocationOperation *op = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(loadResults:) object:searchResults];
 	[q addOperation:op]; 
-	[op release];
 }
 
 -(void)reloadMoreItem {
@@ -309,7 +292,7 @@ UIImage* imgAttachment = nil;
 	[self updateTitle];
 	
 	imgAttachment = [UIImage imageNamed:@"attachment.png"];
-	[imgAttachment retain]; // released in "dealloc"
+//	[imgAttachment retain]; // released in "dealloc"
 	
 	[self runSearchCreateDataWithDBNum:currentDBNum];
 }
@@ -399,7 +382,7 @@ UIImage* imgAttachment = nil;
 		
 		if (cell == nil) { 
 //			cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"More"] autorelease];
-            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"More"] autorelease];
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"More"];
 		} 
 			
 		if(moreResults) {
@@ -477,7 +460,6 @@ UIImage* imgAttachment = nil;
 	mailViewController.deleteDelegate = self;
 
 	[self.navigationController pushViewController:mailViewController animated:YES];
-	[mailViewController release];
 }
 
 #pragma mark Rotation

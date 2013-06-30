@@ -118,21 +118,6 @@ NSDateFormatter* dateFormatter = nil;
 // Search icon is from:    http://www.icons-land.com/
 // Settings icon is from:  http://www.iconspedia.com/icon/settings-1625.html
 
-- (void)dealloc {
-	[clientMessage release];
-	[clientMessageButton release];
-	
-	if(progressView != nil) {
-		[progressView release];
-		progressView = nil;
-	}
-	if(dateFormatter != nil) {
-		[dateFormatter release];
-		dateFormatter = nil;
-	}
-	
-    [super dealloc];
-}
 
 - (void)viewDidUnload {
 	[super viewDidUnload];
@@ -145,7 +130,6 @@ NSDateFormatter* dateFormatter = nil;
 	SettingsListViewController *alvc = [[SettingsListViewController alloc] initWithNibName:@"SettingsList" bundle:nil];
 	alvc.toolbarItems = [self.toolbarItems subarrayWithRange:NSMakeRange(0, 2)];
 	[self.navigationController pushViewController:alvc animated:YES];
-	[alvc release];
 }
 
 -(IBAction)searchClick:(id)sender {
@@ -195,7 +179,6 @@ NSDateFormatter* dateFormatter = nil;
 	FolderListViewController *vc = [[FolderListViewController alloc] initWithNibName:@"FolderList" bundle:nil];
 	vc.toolbarItems = [self.toolbarItems subarrayWithRange:NSMakeRange(0, 2)];
 	[self.navigationController pushViewController:vc animated:(sender != nil)];
-	[vc release];
 }
 
 -(void)openErrorDetails {
@@ -210,15 +193,11 @@ NSDateFormatter* dateFormatter = nil;
 		NSURL *url = [[NSURL alloc] initWithString:self.errorDetail]; 
 		NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
 		[wv loadRequest:request];
-		[request release];
-		[url release];	
 		
 		vc.view = wv;
-		[wv	release];
 
 		vc.toolbarItems = [self.toolbarItems subarrayWithRange:NSMakeRange(0, 2)];
 		[self.navigationController pushViewController:vc animated:YES];
-		[vc release];		
 	} else {
 		SyncManager* sm = [SyncManager getSingleton];
 		BOOL showSkip = (sm.lastErrorFolderNum != -1 && sm.lastErrorStartSeq != -1 && sm.lastErrorAccountNum != -1);
@@ -242,7 +221,6 @@ NSDateFormatter* dateFormatter = nil;
 				} else {
 					evc.detailText = [NSString stringWithFormat:@"%@\n\nLOGS:\n%@", self.errorDetail, content];
 				}				
-				[content release];
 			} else if (error != nil) {
 				evc.detailText = [NSString stringWithFormat:@"%@\n\nLOGS:\n%@", self.errorDetail, error];
 			}
@@ -257,7 +235,6 @@ NSDateFormatter* dateFormatter = nil;
 		evc.showSkip = showSkip;
 		
 		[self.navigationController pushViewController:evc animated:YES];
-		[evc release];
 	}	
 }
 
@@ -272,7 +249,6 @@ NSDateFormatter* dateFormatter = nil;
 	StatusViewController* vc = [[StatusViewController alloc] initWithNibName:@"Status" bundle:nil];
 	vc.toolbarItems = [self.toolbarItems subarrayWithRange:NSMakeRange(0, 2)];
 	[self.navigationController pushViewController:vc animated:(sender != nil)];
-	[vc release];
 }
 
 
@@ -339,22 +315,22 @@ NSDateFormatter* dateFormatter = nil;
 }
 
 - (void)loadIt {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	@autoreleasepool {
 
-	loaded = YES;
+		loaded = YES;
+		
+		[GlobalDBFunctions tableCheck];
+		SyncManager* ssm = [SyncManager getSingleton];
+		[ssm registerForProgressWithDelegate:self];
+		[ssm registerForClientMessageWithDelegate:self];
+		[self didChangeClientMessageTo:nil];
+
+		if([AppSettings firstSync]) {
+			[ssm requestSyncIfNoneInProgressAndConnected];
+			[AppSettings setFirstSync:NO];
+		}
 	
-	[GlobalDBFunctions tableCheck];
-	SyncManager* ssm = [SyncManager getSingleton];
-	[ssm registerForProgressWithDelegate:self];
-	[ssm registerForClientMessageWithDelegate:self];
-	[self didChangeClientMessageTo:nil];
-
-	if([AppSettings firstSync]) {
-		[ssm requestSyncIfNoneInProgressAndConnected];
-		[AppSettings setFirstSync:NO];
 	}
-	
-	[pool release];
 }
 
 -(void)didChangeClientMessageTo:(id)object {
@@ -424,7 +400,6 @@ NSDateFormatter* dateFormatter = nil;
 	if(!loaded) {
 		NSThread *driverThread = [[NSThread alloc] initWithTarget:self selector:@selector(loadIt) object:nil];
 		[driverThread start];
-		[driverThread release];
 		loaded = YES;
 	}
 	
@@ -501,9 +476,6 @@ NSDateFormatter* dateFormatter = nil;
 	
 	UIBarButtonItem *progressItem = [[UIBarButtonItem alloc] initWithCustomView:progressView];
 	self.toolbarItems = @[refreshButton,progressItem,statusButton];
-	[progressItem release];
-	[refreshButton release];
-	[statusButton release];
 	
 	// Set client message invisible
 	[clientMessageButton setHidden:YES];

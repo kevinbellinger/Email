@@ -5,17 +5,7 @@
 //  Created by Liangjun Jiang on 7/15/09.
 //  Copyright 2010 Google Inc.
 //  
-//  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
-//  
-//   http://www.apache.org/licenses/LICENSE-2.0
-//  
-//  Unless required by applicable law or agreed to in writing, software
-//  distributed under the License is distributed on an "AS IS" BASIS,
-//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//  See the License for the specific language governing permissions and
-//  limitations under the License.
+
 //
 
 #import "ImapSync.h"
@@ -31,7 +21,12 @@
 @synthesize accountNum;
 
 -(void)run {	
-	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+//	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+    
+    @autoreleasepool {
+        
+   
+    
 	SyncManager *sm = [SyncManager getSingleton];
 	[sm clearWarning];
 	
@@ -48,7 +43,7 @@
 	
 	if(username == nil || [username length] == 0 || password == nil) {
 		[sm syncAborted:[NSString stringWithFormat:NSLocalizedString(@"Incomplete credentials for account %i", nil), self.accountNum] detail:NSLocalizedString(@"http://www.ljapps.com/app_incomplete_credentials?lang=en", nil)];
-		[pool release];
+//		[pool release];
 		return;
 	}
 	
@@ -174,7 +169,6 @@
 				ImapFolderWorker* ifw = [[ImapFolderWorker alloc] initWithFolder:folder folderNum:i account:account accountNum:self.accountNum];
 				ifw.firstSync = YES;
 				BOOL success = [ifw run];
-				[ifw release];
 				
 				if(!success) {
 					break;
@@ -219,7 +213,6 @@
 			//Sync it!
 			ImapFolderWorker* ifw = [[ImapFolderWorker alloc] initWithFolder:folder folderNum:i account:account accountNum:self.accountNum];
 			BOOL success = [ifw run];
-			[ifw release];
 			[folder disconnect];
 			
 			if(!success) {
@@ -234,9 +227,10 @@
 		}
 		
 		[account disconnect];
-		[account release];
-		[pool release];
+		account = nil;
+//		[pool release];
 	}
+         }
 }
 
 #pragma mark IMAP-related stuff
@@ -255,7 +249,6 @@
 		folderSet = [account allFolders];
 	} @catch (NSException *exp) {
 		[account disconnect];
-		[account release];
         return [NSString stringWithFormat:NSLocalizedString(@"Error getting folders: %@", nil), [ImapFolderWorker decodeError:exp]];
 	}
 	
@@ -285,7 +278,6 @@
 	}
 	
 	[account disconnect];
-	[account release];
 	return @"OK";
 }
 

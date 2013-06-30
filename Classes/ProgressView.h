@@ -32,11 +32,11 @@
 
 }
 
-@property(nonatomic,retain) UILabel* progressLabel;
-@property(nonatomic,retain) UILabel* updatedLabel;
-@property(nonatomic,retain) UIProgressView* progressView;
-@property(nonatomic,retain) UIActivityIndicatorView* activity; 
-@property(nonatomic,retain) UILabel* updatedLabelTop;
-@property(nonatomic,retain) UILabel* clientMessageLabelBottom;
+@property(nonatomic,strong) UILabel* progressLabel;
+@property(nonatomic,strong) UILabel* updatedLabel;
+@property(nonatomic,strong) UIProgressView* progressView;
+@property(nonatomic,strong) UIActivityIndicatorView* activity; 
+@property(nonatomic,strong) UILabel* updatedLabelTop;
+@property(nonatomic,strong) UILabel* clientMessageLabelBottom;
 
 @end

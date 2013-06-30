@@ -36,11 +36,11 @@
 -(void)setupText;
 -(void)setTextWithPeople:(NSString*)people withSubject:(NSString*)subject withBody:(NSString*)body;
 
-@property (nonatomic,retain) UILabel* dateLabel;
-@property (nonatomic,retain) UIImageView* attachmentIndicator;
-@property (nonatomic,retain) UILabel* bodyLabel;
-@property (nonatomic,retain) UILabel* subjectLabel;
-@property (nonatomic,retain) UILabel* peopleLabel;
+@property (nonatomic,strong) UILabel* dateLabel;
+@property (nonatomic,strong) UIImageView* attachmentIndicator;
+@property (nonatomic,strong) UILabel* bodyLabel;
+@property (nonatomic,strong) UILabel* subjectLabel;
+@property (nonatomic,strong) UILabel* peopleLabel;
 
 //@property (nonatomic,retain) TTStyledTextLabel* bodyLabel;
 //@property (nonatomic,retain) TTStyledTextLabel* subjectLabel;

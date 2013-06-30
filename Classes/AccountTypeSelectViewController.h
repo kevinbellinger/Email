@@ -30,8 +30,8 @@
 //	IBOutlet UILabel* rackspaceLabel;
 //	IBOutlet UIButton* rackspaceButton;
 
-	IBOutlet UILabel* imapLabel;
-	IBOutlet UIButton* imapButton;
+//    UILabel* imapLabel;
+//	UIButton* imapButton;
 	
 //	IBOutlet UIButton* buyButton;
 }
@@ -42,8 +42,8 @@
 
 //@property (nonatomic,retain) UILabel* rackspaceLabel;
 //@property (nonatomic,retain) UIButton* rackspaceButton;
-@property (nonatomic,retain) UILabel* imapLabel;
-@property (nonatomic,retain) UIButton* imapButton;
+@property (nonatomic,weak) IBOutlet UILabel* imapLabel;
+@property (nonatomic,weak) IBOutlet UIButton* imapButton;
 //@property (nonatomic,retain) UIButton* buyButton;
 
 -(IBAction)gmailClicked;

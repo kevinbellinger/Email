@@ -39,13 +39,13 @@
 	BOOL newAccount;
 }
 
-@property (nonatomic, retain) NSDictionary* utf7Decoder;
-@property (nonatomic, retain) NSArray* folderPaths;
-@property (nonatomic, retain) NSMutableSet* folderSelected;
+@property (nonatomic, strong) NSDictionary* utf7Decoder;
+@property (nonatomic, strong) NSArray* folderPaths;
+@property (nonatomic, strong) NSMutableSet* folderSelected;
 
-@property (nonatomic, retain) NSString* username;
-@property (nonatomic, retain) NSString* password;
-@property (nonatomic, retain) NSString* server;
+@property (nonatomic, strong) NSString* username;
+@property (nonatomic, strong) NSString* password;
+@property (nonatomic, strong) NSString* server;
 
 @property (assign) int encryption;
 @property (assign) int port;

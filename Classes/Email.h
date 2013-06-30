@@ -32,26 +32,26 @@
 }
 
 @property (assign) int pk;
-@property (nonatomic,readwrite,retain) NSString* senderName;
-@property (nonatomic,readwrite,retain) NSString* senderAddress;
+@property (nonatomic,readwrite,strong) NSString* senderName;
+@property (nonatomic,readwrite,strong) NSString* senderAddress;
 
-@property (nonatomic,readwrite,retain) NSString* tos;
-@property (nonatomic,readwrite,retain) NSString* ccs;
-@property (nonatomic,readwrite,retain) NSString* bccs;
+@property (nonatomic,readwrite,strong) NSString* tos;
+@property (nonatomic,readwrite,strong) NSString* ccs;
+@property (nonatomic,readwrite,strong) NSString* bccs;
 
-@property (nonatomic,readwrite,retain) NSDate* datetime;
+@property (nonatomic,readwrite,strong) NSDate* datetime;
 
-@property (nonatomic,readwrite,retain) NSString* msgId;
+@property (nonatomic,readwrite,strong) NSString* msgId;
 
-@property (nonatomic,readwrite,retain) NSString* attachments;
+@property (nonatomic,readwrite,strong) NSString* attachments;
 
-@property (nonatomic,readwrite,retain) NSString* folder;
+@property (nonatomic,readwrite,strong) NSString* folder;
 @property (assign) int folderNum;
-@property (nonatomic,readwrite,retain) NSString* uid;
+@property (nonatomic,readwrite,strong) NSString* uid;
 
-@property (nonatomic,readwrite,retain) NSString* subject;
-@property (nonatomic,readwrite,retain) NSString* body;
-@property (nonatomic,readwrite,retain) NSString* metaString;
+@property (nonatomic,readwrite,strong) NSString* subject;
+@property (nonatomic,readwrite,strong) NSString* body;
+@property (nonatomic,readwrite,strong) NSString* metaString;
 
 +(void)tableCheck;
 +(void)deleteWithPk:(int)pk;

@@ -52,10 +52,6 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 	}
 }
 
-- (void) dealloc {
-	[operationQueue release];
-	[super dealloc];
-}
 	
 +(id)getSingleton {
 	@synchronized(self) {
@@ -68,10 +64,10 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 
 -(id)init {
 	if(self = [super init]) {
-		NSOperationQueue *ops = [[[NSOperationQueue alloc] init] autorelease];
+		NSOperationQueue *ops = [[NSOperationQueue alloc] init];
 		[ops setMaxConcurrentOperationCount:2]; // 1 for the search process, and one for delivering the results
 		self.operationQueue = ops;
-		self.autocompleteLock = [[[NSObject alloc] init] autorelease];
+		self.autocompleteLock = [[NSObject alloc] init];
 	}
 	
 	return self;
@@ -171,7 +167,7 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 		
 		[resArray addObject:res];
 		
-		if(self.cancelled) { [res release]; break; }
+		if(self.cancelled) {  break; }
 		
 		if(count <= 4 || (count % 25 == 0)) {
 			if([delegate respondsToSelector:@selector(deliverSearchResults:)]) {
@@ -180,16 +176,13 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 			resArray = [[NSMutableArray alloc] initWithCapacity:100];
 		}
 		
-		[res release];
 	}
 	
-	[dateFormatter release];
 
 	if(!self.cancelled) { 
 		if([resArray count] > 0 && [delegate respondsToSelector:@selector(deliverSearchResults:)]) {
 			[delegate performSelector:@selector(deliverSearchResults:) withObject:resArray];
 		} else {
-			[resArray release];
 		}
 	}
 	
@@ -241,7 +234,7 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 	self.cancelled = NO;
 	
 	//Create the queryOp object
-	NSMutableDictionary *queryOp = [[[NSMutableDictionary alloc] init] autorelease];
+	NSMutableDictionary *queryOp = [[NSMutableDictionary alloc] init];
 	queryOp[@"query"] = query;
 	queryOp[@"delegate"] = delegate;
 	queryOp[@"dbIndex"] = @(dbIndex);
@@ -251,7 +244,6 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 	NSInvocationOperation* searchOp = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(performFTSearchAsync:) object:queryOp];
 	assert(searchOp != nil);
 	[self.operationQueue addOperation:searchOp]; 
-	[searchOp release];
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -332,7 +324,7 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 		
 		[resArray addObject:res];
 		
-		if(self.cancelled) { [res release]; break; }
+		if(self.cancelled) {  break; }
 		
 		if(count <= 4 || (count % 25 == 0)) {
 			if([delegate respondsToSelector:@selector(deliverSearchResults:)]) {
@@ -341,16 +333,13 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 			resArray = [[NSMutableArray alloc] initWithCapacity:100];
 		}
 		
-		[res release];
 	}
 	
-	[dateFormatter release];
 	
 	if(!self.cancelled) { 
 		if([resArray count] > 0 && [delegate respondsToSelector:@selector(deliverSearchResults:)]) {
 			[delegate performSelector:@selector(deliverSearchResults:) withObject:resArray];
 		} else {
-			[resArray release];
 		}
 	}
 	
@@ -399,7 +388,7 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 	self.cancelled = NO;
 	
 	//Create the queryOp object
-	NSMutableDictionary *queryOp = [[[NSMutableDictionary alloc] init] autorelease];
+	NSMutableDictionary *queryOp = [[NSMutableDictionary alloc] init];
 	queryOp[@"dbIndex"] = @(dbIndex);
 	queryOp[@"delegate"] = delegate;
 	
@@ -407,7 +396,6 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 	NSInvocationOperation* searchOp = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(performAllMailAsync:) object:queryOp];
 	assert(searchOp != nil);
 	[self.operationQueue addOperation:searchOp]; 
-	[searchOp release];
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -510,7 +498,7 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 		
 		[resArray addObject:res];
 		
-		if(self.cancelled) { [res release]; break; }
+		if(self.cancelled) {  break; }
 		
 		if(count <= 4 || (count % 25 == 0)) {
 			if([delegate respondsToSelector:@selector(deliverSearchResults:)]) {
@@ -519,16 +507,13 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 			resArray = [[NSMutableArray alloc] initWithCapacity:100];
 		}
 		
-		[res release];
 	}
 	
-	[dateFormatter release];
 	
 	if(!self.cancelled) { 
 		if([resArray count] > 0 && [delegate respondsToSelector:@selector(deliverSearchResults:)]) {
 			[delegate performSelector:@selector(deliverSearchResults:) withObject:resArray];
 		} else {
-			[resArray release];
 		}
 	}
 	
@@ -610,7 +595,7 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 	self.cancelled = NO;
 	
 	//Create the queryOp object
-	NSMutableDictionary *queryOp = [[[NSMutableDictionary alloc] init] autorelease];
+	NSMutableDictionary *queryOp = [[NSMutableDictionary alloc] init];
 	queryOp[@"dbIndex"] = @(dbIndex);
 	queryOp[@"folderNum"] = @(folderNum);
 	queryOp[@"delegate"] = delegate;
@@ -620,7 +605,6 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 	NSInvocationOperation* searchOp = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(performFolderSearchAsync:) object:queryOp];
 	assert(searchOp != nil);
 	[self.operationQueue addOperation:searchOp]; 
-	[searchOp release];
 }
 
 
@@ -703,7 +687,7 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 		
 		[resArray addObject:res];
 		
-		if(self.cancelled) { [res release]; break; }
+		if(self.cancelled) {  break; }
 		
 		if(count <= 4 || (count % 25 == 0)) {
 			if([delegate respondsToSelector:@selector(deliverSearchResults:)]) {
@@ -712,16 +696,13 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 			resArray = [[NSMutableArray alloc] initWithCapacity:100];
 		}
 		
-		[res release];
 	}
 	
-	[dateFormatter release];
 	
 	if(!self.cancelled) { 	
 		if([resArray count] > 0 && [delegate respondsToSelector:@selector(deliverSearchResults:)]) {
 			[delegate performSelector:@selector(deliverSearchResults:) withObject:resArray];
 		} else {
-			[resArray release];
 		}
 	}
 	
@@ -782,7 +763,7 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 	self.cancelled = NO;
 	
 	//Create the queryOp object
-	NSMutableDictionary *queryOp = [[[NSMutableDictionary alloc] init] autorelease];
+	NSMutableDictionary *queryOp = [[NSMutableDictionary alloc] init];
 	queryOp[@"addresses"] = addressess;
 	queryOp[@"delegate"] = delegate;
 	queryOp[@"dbIndex"] = @(dbIndex);
@@ -792,7 +773,6 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 	//Invoke search
 	NSInvocationOperation* searchOp = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(performSenderSearchAsync:) object:queryOp];
 	[self.operationQueue addOperation:searchOp]; 
-	[searchOp release];
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -853,14 +833,13 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 
 - (void)autocomplete:(NSString *)query withDelegate:(id)autocompleteDelegate {
 	//Create the queryOp object
-	NSMutableDictionary *params = [[[NSMutableDictionary alloc] init] autorelease];
+	NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
 	params[@"query"] = query;
 	params[@"delegate"] = autocompleteDelegate;
 	
 	//Invoke local search
 	NSInvocationOperation* autompleteOp = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(performAutocompleteAsync:) object:params];
 	[self.operationQueue addOperation:autompleteOp];
-	[autompleteOp release];
 }
 
 #pragma mark Utility functions
@@ -880,7 +859,7 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 	
 	//Exec query - 
 	if(sqlite3_step(contactNameFindStmt) == SQLITE_ROW) {
-		res = [[[NSMutableDictionary alloc] init] autorelease];
+		res = [[NSMutableDictionary alloc] init];
 		
 		int pk = sqlite3_column_int(contactNameFindStmt, 0);
 		NSNumber *primaryKeyValue = @(pk);					
@@ -934,7 +913,7 @@ static sqlite3_stmt *contactNameFindStmt = nil;
 }
 
 -(Email*)loadEmail:(int)pk dbNum:(int)dbNum {
-	Email* email = [[[Email alloc] init] autorelease];
+	Email* email = [[Email alloc] init];
 	
 	// switch to the right db
 	NSString* fileName = [GlobalDBFunctions dbFileNameForNum:dbNum];

@@ -33,18 +33,6 @@
 @synthesize convoIndex; // index of email in the conversation
 @synthesize theBodyLabel;
 
-- (void)dealloc {
-	[senderLabel release];
-	[sideNoteLabel release];
-	[dateLabel release];
-	[dateDetailLabel release];
-	[senderBubbleImage release];
-	[showDetailsButton release];
-	//[showDetailsDelegate release]; - don't do this - it's an assign property!
-	[convoIndex release];
-	[theBodyLabel release];
-    [super dealloc];
-}
 
 -(void)setupText {
 //	self.theBodyLabel = [[TTStyledTextLabel alloc] initWithFrame:CGRectMake(6, 41, 312, 1941)];

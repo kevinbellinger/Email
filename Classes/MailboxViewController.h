@@ -32,7 +32,7 @@
 -(void)runLoadDataWithDBNum:(int)dbNum;
 -(void)doLoad;
 
-@property (nonatomic, retain) NSMutableArray *emailData;
+@property (nonatomic, strong) NSMutableArray *emailData;
 @property (assign) int nResults;
 @property (assign) int folderNum;
 @end

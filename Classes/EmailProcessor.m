@@ -68,13 +68,6 @@ static NSDictionary* SENDERS_FALSE_NAMES = nil;
 BOOL firstOne = YES; // caused effect: Don't endTransaction when we're just starting
 BOOL transactionOpen = NO; // caused effect (with firstOne): After we start up, don't wrap the first ADDS_PER_TRANSACTION calls into a transaction
 
-- (void) dealloc {
-	[operationQueue release];
-	[dbDateFormatter release];
-	[updateSubscriber release];
-	
-	[super dealloc];
-}
 
 +(void)clearPreparedStmts {
 	// for rollover
@@ -183,14 +176,13 @@ BOOL transactionOpen = NO; // caused effect (with firstOne): After we start up, 
 								@"Eventbrite", @"invite@eventbrite.com", nil];
 		}
 		
-		NSOperationQueue *ops = [[[NSOperationQueue alloc] init] autorelease];
+		NSOperationQueue *ops = [[NSOperationQueue alloc] init];
 		[ops setMaxConcurrentOperationCount:1]; // note that this makes it a simple, single queue
 		self.operationQueue = ops;
 		
 		NSDateFormatter* df = [[NSDateFormatter alloc] init];
 		[df setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSSS"];
 		self.dbDateFormatter = df;
-		[df release];
 		
 		currentDBNum = -1;
 		addsSinceTransaction = 0;
@@ -488,7 +480,6 @@ BOOL transactionOpen = NO; // caused effect (with firstOne): After we start up, 
 
 -(void)addToFolderWrapper:(NSMutableDictionary *)data {
 	NSDate* date = data[@"datetime"];	
-	[date retain];
 	NSString *datetime = [self.dbDateFormatter stringFromDate:date];
 	data[@"datetime"] = datetime;
 	
@@ -501,7 +492,6 @@ BOOL transactionOpen = NO; // caused effect (with firstOne): After we start up, 
 	NSString* md5hash = data[@"md5hash"];
 	
 	int dbNum = [EmailProcessor dbNumForDate:date];
-	[date release];
 	
 	if(self.shuttingDown) return;
 	
@@ -509,20 +499,19 @@ BOOL transactionOpen = NO; // caused effect (with firstOne): After we start up, 
 	NSString* uid = y[@"uid"];
 	int folderNum = [y[@"folderNum"] intValue];
 	
-	[y release];
 	
 	if(self.shuttingDown) return;
 	
 	[self switchToDBNum:dbNum];
 	
 	[self addToFolder:newFolderNum emailWithDatetime:datetime uid:uid oldFolderNum:folderNum];
-	[data release]; // this was retained in our caller, now releasing	
+	 // this was retained in our caller, now releasing	
 }
 
 -(void)addEmailWrapper:(NSMutableDictionary *)data {
 	// Note that there should be no parallel accesses to addEmailWrapper
 	
-	if(self.shuttingDown) { [data release]; return; }
+	if(self.shuttingDown) {  return; }
 	
 	// strip htmlBody if that's all we found
 	// we do this because we don't want to interrupt imap fetching above
@@ -548,7 +537,6 @@ BOOL transactionOpen = NO; // caused effect (with firstOne): After we start up, 
 	data[@"body"] = body;
 	
 	NSDate* date = data[@"datetime"];	
-	[date retain];
 	NSString *datetime = [self.dbDateFormatter stringFromDate:date];
 	data[@"datetime"] = datetime;
 
@@ -637,7 +625,6 @@ BOOL transactionOpen = NO; // caused effect (with firstOne): After we start up, 
 	data[@"bccs"] = bccJson;	
 	
 	int dbNum = [EmailProcessor dbNumForDate:date];
-	[date release];
 	
 	data[@"dbNum"] = @(dbNum);
 
@@ -648,11 +635,10 @@ BOOL transactionOpen = NO; // caused effect (with firstOne): After we start up, 
 	[self addEmail:data];
 	
 	if(self.updateSubscriber != nil && [self.updateSubscriber respondsToSelector:@selector(processorUpdate:)]) {
-		[data retain];
 		[self.updateSubscriber performSelector:@selector(processorUpdate:) withObject:data];
 	}
 	
-	[data release]; // retained in messageData
+	 // retained in messageData
 }
 
 -(void)writeUpdateContactName:(int)pk withAddresses:(NSString*)addresses withOccurrences:(int)occurrences dbMin:(int)dbMin dbMax:(int)dbMax {

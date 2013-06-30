@@ -183,10 +183,6 @@
 		14F842EE113728830096DE57 /* SettingsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F842DC113728830096DE57 /* SettingsListViewController.m */; };
 		14F842EF113728830096DE57 /* UpsellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F842DE113728830096DE57 /* UpsellViewController.m */; };
 		14F842F0113728830096DE57 /* UsageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F842E0113728830096DE57 /* UsageViewController.m */; };
-		14F842F911372B6E0096DE57 /* StoreItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F842F211372B6E0096DE57 /* StoreItemCell.m */; };
-		14F842FA11372B6E0096DE57 /* StoreItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F842F411372B6E0096DE57 /* StoreItemViewController.m */; };
-		14F842FB11372B6E0096DE57 /* StoreObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F842F611372B6E0096DE57 /* StoreObserver.m */; };
-		14F842FC11372B6E0096DE57 /* StoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F842F811372B6E0096DE57 /* StoreViewController.m */; };
 		14F842FF11372BB40096DE57 /* SearchRunner.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F842FE11372BB40096DE57 /* SearchRunner.m */; };
 		14F8430A11372C340096DE57 /* AttachmentDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F8430111372C340096DE57 /* AttachmentDownloader.m */; };
 		14F8430B11372C340096DE57 /* EmailProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F8430311372C340096DE57 /* EmailProcessor.m */; };
@@ -205,6 +201,7 @@
 		D620E096177F6F0B0046587F /* NSDateFormatter+Safe.m in Sources */ = {isa = PBXBuildFile; fileRef = D620E095177F6F0B0046587F /* NSDateFormatter+Safe.m */; };
 		D620E09A177F72170046587F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D620E099177F72170046587F /* Default-568h@2x.png */; };
 		D664FB3916AEEB0700C7C4DE /* NSString+StrippingHTML.m in Sources */ = {isa = PBXBuildFile; fileRef = D664FB3816AEEB0700C7C4DE /* NSString+StrippingHTML.m */; };
+		D695BD821780C1C10016BE28 /* Storyboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D695BD801780C1C10016BE28 /* Storyboard_iPhone.storyboard */; };
 		D6A08F3116A9D8C90074B7C5 /* HomeView_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6A08F3016A9D8C90074B7C5 /* HomeView_iPad.xib */; };
 		D6A08F3316A9E0410074B7C5 /* Intro_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6A08F3216A9E0410074B7C5 /* Intro_iPad.xib */; };
 		D6A08F3516A9E3900074B7C5 /* AccountTypeSelect_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6A08F3416A9E38F0074B7C5 /* AccountTypeSelect_iPad.xib */; };
@@ -530,14 +527,6 @@
 		14F842DE113728830096DE57 /* UpsellViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UpsellViewController.m; path = Classes/UpsellViewController.m; sourceTree = "<group>"; };
 		14F842DF113728830096DE57 /* UsageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UsageViewController.h; path = Classes/UsageViewController.h; sourceTree = "<group>"; };
 		14F842E0113728830096DE57 /* UsageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UsageViewController.m; path = Classes/UsageViewController.m; sourceTree = "<group>"; };
-		14F842F111372B6E0096DE57 /* StoreItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StoreItemCell.h; path = Classes/StoreItemCell.h; sourceTree = "<group>"; };
-		14F842F211372B6E0096DE57 /* StoreItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StoreItemCell.m; path = Classes/StoreItemCell.m; sourceTree = "<group>"; };
-		14F842F311372B6E0096DE57 /* StoreItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StoreItemViewController.h; path = Classes/StoreItemViewController.h; sourceTree = "<group>"; };
-		14F842F411372B6E0096DE57 /* StoreItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StoreItemViewController.m; path = Classes/StoreItemViewController.m; sourceTree = "<group>"; };
-		14F842F511372B6E0096DE57 /* StoreObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StoreObserver.h; path = Classes/StoreObserver.h; sourceTree = "<group>"; };
-		14F842F611372B6E0096DE57 /* StoreObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StoreObserver.m; path = Classes/StoreObserver.m; sourceTree = "<group>"; };
-		14F842F711372B6E0096DE57 /* StoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StoreViewController.h; path = Classes/StoreViewController.h; sourceTree = "<group>"; };
-		14F842F811372B6E0096DE57 /* StoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StoreViewController.m; path = Classes/StoreViewController.m; sourceTree = "<group>"; };
 		14F842FD11372BB40096DE57 /* SearchRunner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchRunner.h; path = Classes/SearchRunner.h; sourceTree = "<group>"; };
 		14F842FE11372BB40096DE57 /* SearchRunner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchRunner.m; path = Classes/SearchRunner.m; sourceTree = "<group>"; };
 		14F8430011372C340096DE57 /* AttachmentDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AttachmentDownloader.h; path = Classes/AttachmentDownloader.h; sourceTree = "<group>"; };
@@ -571,6 +560,7 @@
 		D620E099177F72170046587F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		D664FB3716AEEB0700C7C4DE /* NSString+StrippingHTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+StrippingHTML.h"; path = "Classes/NSString+StrippingHTML.h"; sourceTree = "<group>"; };
 		D664FB3816AEEB0700C7C4DE /* NSString+StrippingHTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+StrippingHTML.m"; path = "Classes/NSString+StrippingHTML.m"; sourceTree = "<group>"; };
+		D695BD811780C1C10016BE28 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = English; path = English.lproj/Storyboard_iPhone.storyboard; sourceTree = "<group>"; };
 		D6A08F3016A9D8C90074B7C5 /* HomeView_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HomeView_iPad.xib; path = Resources/xibs/HomeView_iPad.xib; sourceTree = "<group>"; };
 		D6A08F3216A9E0410074B7C5 /* Intro_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Intro_iPad.xib; path = Resources/xibs/Intro_iPad.xib; sourceTree = "<group>"; };
 		D6A08F3416A9E38F0074B7C5 /* AccountTypeSelect_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AccountTypeSelect_iPad.xib; path = Resources/xibs/AccountTypeSelect_iPad.xib; sourceTree = "<group>"; };
@@ -888,21 +878,6 @@
 			name = UIClasses;
 			sourceTree = "<group>";
 		};
-		14D749A910AB6D910019FB1F /* Store */ = {
-			isa = PBXGroup;
-			children = (
-				14F842F111372B6E0096DE57 /* StoreItemCell.h */,
-				14F842F211372B6E0096DE57 /* StoreItemCell.m */,
-				14F842F311372B6E0096DE57 /* StoreItemViewController.h */,
-				14F842F411372B6E0096DE57 /* StoreItemViewController.m */,
-				14F842F511372B6E0096DE57 /* StoreObserver.h */,
-				14F842F611372B6E0096DE57 /* StoreObserver.m */,
-				14F842F711372B6E0096DE57 /* StoreViewController.h */,
-				14F842F811372B6E0096DE57 /* StoreViewController.m */,
-			);
-			name = Store;
-			sourceTree = "<group>";
-		};
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -948,7 +923,6 @@
 				F8618DC810DAE4A100C41188 /* MailCore.xcodeproj */,
 				207A09F50F53269D0092E457 /* Sync */,
 				148937030FF987B700AFAD05 /* Search */,
-				14D749A910AB6D910019FB1F /* Store */,
 				14C4C95A0F253DBA00BFFF6B /* UIClasses */,
 				080E96DDFE201D6D7F000001 /* Models */,
 				29B97315FDCFA39411CA2CEA /* DBAccessors */,
@@ -991,6 +965,7 @@
 				1439C4F21090D936006CE583 /* Xibs */,
 				1439C4F11090D928006CE583 /* Artwork */,
 				8D1107310486CEB800E47090 /* Info.plist */,
+				D695BD801780C1C10016BE28 /* Storyboard_iPhone.storyboard */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1177,6 +1152,7 @@
 				14F83CAC113723340096DE57 /* homeBgNoLogo.png in Resources */,
 				14F83CAD113723340096DE57 /* homeBtnFolders.png in Resources */,
 				D620E09A177F72170046587F /* Default-568h@2x.png in Resources */,
+				D695BD821780C1C10016BE28 /* Storyboard_iPhone.storyboard in Resources */,
 				14F83CAE113723340096DE57 /* homeBtnInbox.png in Resources */,
 				14F83CAF113723340096DE57 /* homeBtnSearch.png in Resources */,
 				14F83CB0113723340096DE57 /* homeBtnSettings.png in Resources */,
@@ -1321,10 +1297,6 @@
 				14F842EE113728830096DE57 /* SettingsListViewController.m in Sources */,
 				14F842EF113728830096DE57 /* UpsellViewController.m in Sources */,
 				14F842F0113728830096DE57 /* UsageViewController.m in Sources */,
-				14F842F911372B6E0096DE57 /* StoreItemCell.m in Sources */,
-				14F842FA11372B6E0096DE57 /* StoreItemViewController.m in Sources */,
-				14F842FB11372B6E0096DE57 /* StoreObserver.m in Sources */,
-				14F842FC11372B6E0096DE57 /* StoreViewController.m in Sources */,
 				14F842FF11372BB40096DE57 /* SearchRunner.m in Sources */,
 				14F8430A11372C340096DE57 /* AttachmentDownloader.m in Sources */,
 				14F8430B11372C340096DE57 /* EmailProcessor.m in Sources */,
@@ -1447,6 +1419,14 @@
 			name = About.xib;
 			sourceTree = "<group>";
 		};
+		D695BD801780C1C10016BE28 /* Storyboard_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D695BD811780C1C10016BE28 /* English */,
+			);
+			name = Storyboard_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -1472,6 +1452,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = dist.plist;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1495,6 +1476,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
@@ -1519,6 +1501,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;

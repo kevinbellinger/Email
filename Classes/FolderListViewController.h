@@ -29,7 +29,7 @@
 
 -(IBAction)composeClick;
 
-@property (nonatomic,retain) NSArray *accountIndices;
-@property (nonatomic,retain) NSDictionary *accountFolders;
-@property (nonatomic,retain) NSDictionary *accountFolderNums;
+@property (nonatomic,strong) NSArray *accountIndices;
+@property (nonatomic,strong) NSDictionary *accountFolders;
+@property (nonatomic,strong) NSDictionary *accountFolderNums;
 @end

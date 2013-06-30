@@ -25,11 +25,6 @@
 @synthesize activityIndicator;
 @synthesize label;
 
-- (void)dealloc {
-	[label release];
-	[activityIndicator release];
-    [super dealloc];
-}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
 

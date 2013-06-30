@@ -52,22 +52,6 @@
 @synthesize authType;
 
 
-- (void)dealloc {
-	[scrollView release];
-	[serverMessage release];
-	[activityIndicator release];
-	[usernameField release];
-	[passwordField release];
-	[usernamePrompt release];
-	[passwordPrompt release];
-	[checkAndSaveButton release];
-	
-	[usernamePromptText release];
-	
-	[server release];
-	
-    [super dealloc];
-}
 
 - (void)viewDidUnload {
 	[super viewDidUnload];
@@ -148,7 +132,6 @@
 	vc.accountNum = self.accountNum;
 	
 	[self.navigationController pushViewController:vc animated:YES];
-	[vc release];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -181,49 +164,49 @@
 }
 
 -(void)doLogin:(NSNumber*)forceSelectFolders {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	@autoreleasepool {
 	
-	NSString* username = self.usernameField.text;
-	NSString* password = self.passwordField.text;
-	
-	NSLog(@"Logging in with user %@", username);
-	
-	NSMutableArray* folderNames = [[[NSMutableArray alloc] initWithCapacity:20] autorelease];
-	NSString* response = [ImapSync validate:username password:password server:self.server port:self.port encryption:self.encryption authentication:self.authType folders:folderNames];
-	
-	if([StringUtil stringContains:response subString:@"Parse error"]) {
-		[[Reachability sharedReachability] setHostName:self.server];
-		NetworkStatus status =[[Reachability sharedReachability] remoteHostStatus];
-		if(status == NotReachable) {
-			response = NSLocalizedString(@"Email server unreachable", nil);
-		} else if(status == ReachableViaCarrierDataNetwork) {
-			response = NSLocalizedString(@"Error connecting to server. Try over Wifi.", nil);
-		} else {
-			response = NSLocalizedString(@"Error connecting to server.", nil);
-		}
-	} else if([StringUtil stringContains:response subString:CTLoginErrorDesc]) {
-		response = NSLocalizedString(@"Wrong username or password.", nil);
-	}
-	
-	if([response isEqualToString:@"OK"]) { 
-		NSDictionary* localConfig = @{@"username": username,
-									 @"password": password,
-									 @"server": self.server,
-									 @"encryption": @(self.encryption),
-									 @"port": @(self.port),
-									 @"authentication": @(self.authType),
-									 @"folderNames": folderNames};
+		NSString* username = self.usernameField.text;
+		NSString* password = self.passwordField.text;
 		
-		if(self.newAccount || [forceSelectFolders boolValue]) {
-			[self performSelectorOnMainThread:@selector(showFolderSelect:) withObject:localConfig waitUntilDone:NO];
-		} else {
-			[self performSelectorOnMainThread:@selector(saveSettings:) withObject:localConfig waitUntilDone:NO];
+		NSLog(@"Logging in with user %@", username);
+		
+		NSMutableArray* folderNames = [[NSMutableArray alloc] initWithCapacity:20];
+		NSString* response = [ImapSync validate:username password:password server:self.server port:self.port encryption:self.encryption authentication:self.authType folders:folderNames];
+		
+		if([StringUtil stringContains:response subString:@"Parse error"]) {
+			[[Reachability sharedReachability] setHostName:self.server];
+			NetworkStatus status =[[Reachability sharedReachability] remoteHostStatus];
+			if(status == NotReachable) {
+				response = NSLocalizedString(@"Email server unreachable", nil);
+			} else if(status == ReachableViaCarrierDataNetwork) {
+				response = NSLocalizedString(@"Error connecting to server. Try over Wifi.", nil);
+			} else {
+				response = NSLocalizedString(@"Error connecting to server.", nil);
+			}
+		} else if([StringUtil stringContains:response subString:CTLoginErrorDesc]) {
+			response = NSLocalizedString(@"Wrong username or password.", nil);
 		}
 		
-	} else {
-		[self performSelectorOnMainThread:@selector(failedLoginWithMessage:) withObject:response waitUntilDone:NO];
+		if([response isEqualToString:@"OK"]) { 
+			NSDictionary* localConfig = @{@"username": username,
+										 @"password": password,
+										 @"server": self.server,
+										 @"encryption": @(self.encryption),
+										 @"port": @(self.port),
+										 @"authentication": @(self.authType),
+										 @"folderNames": folderNames};
+			
+			if(self.newAccount || [forceSelectFolders boolValue]) {
+				[self performSelectorOnMainThread:@selector(showFolderSelect:) withObject:localConfig waitUntilDone:NO];
+			} else {
+				[self performSelectorOnMainThread:@selector(saveSettings:) withObject:localConfig waitUntilDone:NO];
+			}
+			
+		} else {
+			[self performSelectorOnMainThread:@selector(failedLoginWithMessage:) withObject:response waitUntilDone:NO];
+		}
 	}
-	[pool release];
 }
 
 -(BOOL)accountExists:(NSString*)username server:(NSString*)server {
@@ -250,7 +233,6 @@
 		if([self accountExists:username server:self.server]) {
 			UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Account Exists",nil) message:NSLocalizedString(@"reMail already has an account for this username/server combination", nil) delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
 			[alertView show];
-			[alertView release];
 			return;
 		}
 	}
@@ -261,7 +243,6 @@
 	
 	NSThread *driverThread = [[NSThread alloc] initWithTarget:self selector:@selector(doLogin:) object:@NO];
 	[driverThread start];
-	[driverThread release];
 }
 
 

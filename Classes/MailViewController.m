@@ -45,7 +45,7 @@
 
 -(UIImageView*)createLine: (CGFloat) y {
 	CGFloat contentWidth = self.scrollView.frame.size.width;
-	UIImageView* line = [[[UIImageView alloc] init] autorelease];
+	UIImageView* line = [[UIImageView alloc] init];
 	line.backgroundColor = [UIColor darkGrayColor];
 	line.frame = CGRectMake(0,y,contentWidth,1);
 	line.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -62,9 +62,9 @@
 	MailViewController* mailVC;
 }
 
-@property (nonatomic, retain) NSString* name;
-@property (nonatomic, retain) NSString* address;
-@property (nonatomic, retain) MailViewController* mailVC;
+@property (nonatomic, strong) NSString* name;
+@property (nonatomic, strong) NSString* address;
+@property (nonatomic, strong) MailViewController* mailVC;
 @end
 
 @implementation PersonActionSheetHandler
@@ -112,30 +112,6 @@
 @synthesize bodyUIView;
 
 
-- (void)dealloc {
-	[email release];
-	
-	[fromLabel release];
-	[toLabel release];
-	[ccLabel release];
-	[scrollView release];
-	[replyButton release];
-	
-	[theCopyModeButton release];
-	[theCopyModeLabel release];
-	
-	[subjectLabel release];
-	[dateLabel release];
-	[unreadIndicator release];
-	
-	[attachmentMetadata release];
-	
-	[subjectTTLabel release];
-	[bodyTTLabel release];
-	[subjectUIView release];
-	[bodyUIView release];
-    [super dealloc];
-}
 
 - (void)viewDidUnload {
 	[super viewDidUnload];
@@ -178,8 +154,8 @@
 	pash.address = address;
 	pash.mailVC = self;
 	
-	UIActionSheet* aS = [[[UIActionSheet alloc] initWithTitle:title delegate:pash cancelButtonTitle:NSLocalizedString(@"Cancel",nil) destructiveButtonTitle:nil otherButtonTitles:
-							NSLocalizedString(@"Compose Email To",nil), NSLocalizedString(@"Copy Address",nil), NSLocalizedString(@"Copy Name",nil), nil] autorelease];
+	UIActionSheet* aS = [[UIActionSheet alloc] initWithTitle:title delegate:pash cancelButtonTitle:NSLocalizedString(@"Cancel",nil) destructiveButtonTitle:nil otherButtonTitles:
+							NSLocalizedString(@"Compose Email To",nil), NSLocalizedString(@"Copy Address",nil), NSLocalizedString(@"Copy Name",nil), nil];
 	[aS showInView:self.view];
 }
 
@@ -189,7 +165,6 @@
 						 NSLocalizedString(@"Forward", nil), 
 						 nil];
 	[aS showInView:self.view];
-	[aS release];
 }
 
 -(NSMutableArray*)emailAddressesForJson:(NSString*)json {
@@ -235,7 +210,6 @@
 	
 	NSString* quotedBody = self.email.body;
 	
-	[dateFormatter release];
 	
 	if([AppSettings promo]) {
 		NSString* promoLine = NSLocalizedString(PROMO_STR, nil);
@@ -256,7 +230,7 @@
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == 0) { // Delete
-		UIAlertView* alertView = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Delete Message?",nil) message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"Yes", @"No", nil] autorelease];
+		UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Delete Message?",nil) message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"Yes", @"No", nil];
 		[alertView show];	
 		return;
 	}
@@ -304,7 +278,7 @@
 								  cc:nil
 				  includeAttachments:YES];
 	} else if (buttonIndex == 0) { // Delete
-		UIAlertView* alertView = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Delete Message?",nil) message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"Yes", @"No", nil] autorelease];
+		UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Delete Message?",nil) message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"Yes", @"No", nil];
 		[alertView show];	
 	}
 }
@@ -343,7 +317,6 @@
 		
 		[mailCtrl addAttachmentData:data mimeType:contentType fileName:filename];
 		
-		[data release];
 		
 		i++;
 	}
@@ -377,7 +350,6 @@
 	
     [self presentViewController:mailCtrl animated:YES completion:nil];
 //	[self presentModalViewController:mailCtrl animated:YES];
-	[mailCtrl release];
 }
 
 -(void)attachmentButtonClicked:(UIButton*)target {
@@ -396,7 +368,6 @@
 	avc.contentType = [sm correctContentType:contentType filename:filename];
 	[avc doLoad];
 	[self.navigationController pushViewController:avc animated:YES];
-	[avc release];
 	
 }
 
@@ -425,9 +396,9 @@
 #pragma mark Assemble UI
 -(int)peopleList:(NSString*)title addToView:(UIView*)addToView peopleList:(NSArray*)peopleList top:(int)top highlightAll:(BOOL)highlightAll highlightQuery:(NSString*)highlightQuery {
 	// produces a list of people name buttons
-	UIView* toView = [[[UIView alloc] init] autorelease];
+	UIView* toView = [[UIView alloc] init];
 	toView.frame = CGRectMake(0,top,320,100);
-	UILabel* labelTo = [[[UILabel alloc] init] autorelease];
+	UILabel* labelTo = [[UILabel alloc] init];
 	labelTo.font = [UIFont systemFontOfSize:14];
     labelTo.textColor = [UIColor blackColor];
 //	labelTo.textColor = [UIColor darkGrayColor];	
@@ -498,9 +469,9 @@
 
 -(int)attachmentList:(NSString*)title addToView:(UIView*)addToView attachmentList:(NSArray*)attachmentList top:(int)top highlightQuery:(NSString*)highlightQuery {
 	// produces a list of attachment name buttons
-	UIView* toView = [[[UIView alloc] init] autorelease];
+	UIView* toView = [[UIView alloc] init];
 	toView.frame = CGRectMake(0,top,320,100);
-	UILabel* labelTo = [[[UILabel alloc] init] autorelease];
+	UILabel* labelTo = [[UILabel alloc] init];
 	labelTo.font = [UIFont systemFontOfSize:14];
 	labelTo.textColor = [UIColor darkGrayColor];	
 	labelTo.text = title;
@@ -574,7 +545,6 @@
 //				CGSize size = [filename sizeWithFont:label.font];
 				label.frame = CGRectMake(0, 0, size.width+2, 30);
 				[toView addSubview:label];
-				[label release];
 			}
 		}
 		i++;
@@ -642,7 +612,7 @@
 	
 	if(showTTView) {
 //		self.subjectTTLabel = [[[TTStyledTextLabel alloc] initWithFrame:CGRectMake(5, top, 320-65-5, 21)] autorelease];
-        self.subjectTTLabel = [[[UILabel alloc] initWithFrame:CGRectMake(5, top, 320-65-5, 21)] autorelease];
+        self.subjectTTLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, top, 320-65-5, 21)];
         
 		self.subjectTTLabel.font = [UIFont boldSystemFontOfSize:17];
 		self.subjectTTLabel.textColor = [UIColor blackColor];
@@ -657,7 +627,7 @@
 		subjectUIRect = CGRectMake(-3, top, 320-62-10, 21);
 	}
 			
-	self.subjectUIView = [[[UITextView alloc] initWithFrame:subjectUIRect] autorelease];
+	self.subjectUIView = [[UITextView alloc] initWithFrame:subjectUIRect];
 	self.subjectUIView.font = [UIFont boldSystemFontOfSize:17];
 	self.subjectUIView.textColor = [UIColor blackColor];
 	self.subjectUIView.text = subject;
@@ -673,7 +643,7 @@
 	
 	[addToView addSubview:self.subjectUIView];
 
-	UILabel* labelDate = [[[UILabel alloc] initWithFrame:CGRectMake(5, top+22, 250, 17)] autorelease];
+	UILabel* labelDate = [[UILabel alloc] initWithFrame:CGRectMake(5, top+22, 250, 17)];
 	labelDate.font = [UIFont systemFontOfSize:12];
 	labelDate.textColor = [UIColor darkGrayColor];
 	labelDate.text = [dateFormatter stringFromDate:date];
@@ -687,7 +657,7 @@
 	if(showTTView) {
 //		self.theCopyModeLabel = [[[UILabel alloc] initWithFrame:CGRectMake(self.subjectTTLabel.right-1, top+22, 61, 17)] autorelease];
         
-        self.theCopyModeLabel = [[[UILabel alloc] initWithFrame:CGRectMake(self.subjectTTLabel.frame.origin.x + self.subjectLabel.frame.size.width-1, top+22, 61, 17)] autorelease];
+        self.theCopyModeLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.subjectTTLabel.frame.origin.x + self.subjectLabel.frame.size.width-1, top+22, 61, 17)];
         
         
 		self.theCopyModeLabel.font = [UIFont systemFontOfSize:12];
@@ -710,7 +680,6 @@
 		[addToView addSubview:self.theCopyModeButton];
 	}
 	
-	[dateFormatter release];
 	
 //	return line.bottom;
     return line.frame.origin.y + line.frame.size.height;
@@ -721,7 +690,7 @@
 	// not showing the TT view is an optimization for when we don't have any markup to show
 	if(showTTView) {
 //		self.bodyTTLabel = [[[TTStyledTextLabel alloc] initWithFrame:CGRectMake(5, top+8, 310, 100)] autorelease];
-        self.bodyTTLabel = [[[UILabel alloc] initWithFrame:CGRectMake(5, top+8, 310, 100)] autorelease];
+        self.bodyTTLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, top+8, 310, 100)];
         
 		self.bodyTTLabel.font = [UIFont systemFontOfSize:14];
 		self.bodyTTLabel.textColor = [UIColor blackColor];
@@ -729,7 +698,7 @@
 	
 	CGFloat contentWidth = self.scrollView.frame.size.width;
 	
-	self.bodyUIView = [[[UITextView alloc] initWithFrame:CGRectMake(-3, top, 382, 100)] autorelease];
+	self.bodyUIView = [[UITextView alloc] initWithFrame:CGRectMake(-3, top, 382, 100)];
 	self.bodyUIView.font = [UIFont systemFontOfSize:14];
 	self.bodyUIView.textColor = [UIColor blackColor]; 
 	self.bodyUIView.scrollEnabled = NO;
@@ -769,11 +738,11 @@
 }
 
 -(void)loadEmail {
-	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-	self.email = [[SearchRunner getSingleton] loadEmail:self.emailPk dbNum:self.dbNum];
-	
-	[self performSelectorOnMainThread:@selector(loadedEmail) withObject:nil waitUntilDone:NO];
-	[pool release];
+	@autoreleasepool {
+		self.email = [[SearchRunner getSingleton] loadEmail:self.emailPk dbNum:self.dbNum];
+		
+		[self performSelectorOnMainThread:@selector(loadedEmail) withObject:nil waitUntilDone:NO];
+	}
 }
 	
 -(void)loadedEmail {
@@ -851,7 +820,6 @@
 	if(!loaded) {
 		NSThread *driverThread = [[NSThread alloc] initWithTarget:self selector:@selector(loadEmail) object:nil];
 		[driverThread start];
-		[driverThread release];	
 		loaded = YES;
 	}
 	
@@ -862,11 +830,11 @@
 
 
 - (void)loadView {
-	self.view = [[[[UIView class] alloc] initWithFrame:CGRectMake(0,0,320,480)] autorelease];
+	self.view = [[[UIView class] alloc] initWithFrame:CGRectMake(0,0,320,480)];
 	self.view.backgroundColor = [UIColor blackColor];
 		
 	// This is our real view, dude
-	self.scrollView = [[[[UIScrollView class] alloc] initWithFrame:CGRectMake(0,0,320,480)] autorelease];
+	self.scrollView = [[[UIScrollView class] alloc] initWithFrame:CGRectMake(0,0,320,480)];
 	self.scrollView.backgroundColor = [UIColor whiteColor];
 	self.scrollView.canCancelContentTouches = NO;
 	self.scrollView.showsVerticalScrollIndicator = YES;
@@ -879,20 +847,18 @@
 	loadingIndicator.hidesWhenStopped = NO;
 	[self.scrollView addSubview:loadingIndicator];
 	[loadingIndicator startAnimating];
-	[loadingIndicator release];
 	
 	UILabel* loadingLabel = [[UILabel alloc] initWithFrame:CGRectMake(127, 160, 90, 20)];
 	loadingLabel.font = [UIFont systemFontOfSize:14];
 	loadingLabel.textColor = [UIColor darkGrayColor];	
 	loadingLabel.text = NSLocalizedString(@"Loading email", nil);
 	[self.scrollView addSubview:loadingLabel];
-	[loadingLabel release];
 	
 	self.scrollView.contentSize = CGSizeMake(320, 180);
 	self.scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	
 	self.title = @"eMail";
-	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(replyButtonWasPressed)] autorelease];
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(replyButtonWasPressed)];
 }
 
 #pragma mark String massinging and match markup
@@ -918,7 +884,7 @@
 
 	NSArray* queryParts = [queryLocal componentsSeparatedByCharactersInSet:endSet];
 	
-	for(NSString* queryPart in queryParts) {
+	for(__strong NSString* queryPart in queryParts) {
 		
 		BOOL star = NO;
 		if([queryPart hasSuffix:@"*"]) {
@@ -971,7 +937,6 @@
 	[markedUp replaceOccurrencesOfString:@"$$$$endDelim$$$$" withString:endDelim options:NSLiteralSearch range:NSMakeRange(0,[markedUp length])];
 	[markedUp replaceOccurrencesOfString:@"$$$$beginDelim$$$$" withString:beginDelim options:NSLiteralSearch range:NSMakeRange(0,[markedUp length])];
 	NSString* res = [NSString stringWithString:markedUp];
-	[markedUp release];
 	
 	return res;	
 }
@@ -985,7 +950,7 @@
 	scanner.caseSensitive = NO;
 	NSString* dest = nil;
 	NSString* prev = nil;
-	for(NSString* queryPart in queryParts) {
+	for(__strong NSString* queryPart in queryParts) {
 		BOOL star = NO;
 		if([queryPart hasSuffix:@"*"]) {
 			star = YES;
@@ -1022,12 +987,10 @@
 			}
 			
 			if(beginOk && endOk) {
-				[scanner release];
 				return YES;
 			}
 		}
 	}	
-	[scanner release];
 	
 	return NO;
 }

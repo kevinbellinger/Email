@@ -46,9 +46,6 @@
 }
 
 
-- (void)dealloc {
-    [super dealloc];
-}
 
 
 -(IBAction)moreClick {
