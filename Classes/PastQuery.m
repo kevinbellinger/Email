@@ -2,7 +2,7 @@
 //  PastQuery.m
 //  MyMail
 //
-//  Created by Gabor Cselle on 1/18/09.
+//  Created by Liangjun Jiang on 1/18/09.
 //  Copyright 2010 Google Inc.
 //  
 //

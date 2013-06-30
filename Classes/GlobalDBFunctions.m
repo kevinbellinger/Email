@@ -2,7 +2,7 @@
 //  GlobalDBFunctions.m
 //  MyMail
 //
-//  Created by Gabor Cselle on 6/29/09.
+//  Created by Liangjun Jiang on 6/29/09.
 //  Copyright 2013 LJApps Inc. All rights reserved.
 //
 

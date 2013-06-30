@@ -2,7 +2,7 @@
 //  EmailProcessor.m
 //  MyMail
 //
-//  Created by Gabor Cselle on 6/29/09.
+//  Created by Liangjun Jiang on 6/29/09.
 //  Copyright 2010 Google Inc.
 //  
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -164,7 +164,7 @@ BOOL transactionOpen = NO; // caused effect (with firstOne): After we start up, 
 		
 		// Dict of email senders who tend to include the wrong sender name
 		// with email they send (for example, Paypal might send an email
-		// with senderName == "Gabor Cselle", senderAddress == "service@paypal.com".
+		// with senderName == "Liangjun Jiang", senderAddress == "service@paypal.com".
 		// When we get an email with senderAddress == "service@paypal.com", we set set senderName to "Paypal"
 		if(SENDERS_FALSE_NAMES == nil) {
 			SENDERS_FALSE_NAMES = [[NSDictionary alloc] initWithObjectsAndKeys:

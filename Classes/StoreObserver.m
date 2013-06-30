@@ -2,7 +2,7 @@
 //  StoreObserver.m
 //  MyMail
 //
-//  Created by Gabor Cselle on 11/11/09.
+//  Created by Liangjun Jiang on 11/11/09.
 //  Copyright 2010 Google Inc.
 //  
 //  Licensed under the Apache License, Version 2.0 (the "License");
