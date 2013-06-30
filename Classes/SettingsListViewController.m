@@ -15,7 +15,7 @@
 #import "UpsellViewController.h"
 #import "WebViewController.h"
 #import "PushSetupViewController.h"
-#import "StoreViewController.h"
+//#import "StoreViewController.h"
 
 #define MULTI_ACCOUNT_LIMIT 10
 
