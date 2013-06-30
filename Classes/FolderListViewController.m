@@ -222,7 +222,7 @@
 	mailCtrl.mailComposeDelegate = self;
 	
 	if([AppSettings promo]) {
-		NSString* promoLine = NSLocalizedString(@"I sent this email with reMail: http://www.remail.com/s", nil);
+		NSString* promoLine = NSLocalizedString(@"I sent this email with reMail: http://www.ljapps.com/s", nil);
 		NSString* body = [NSString stringWithFormat:@"\n\n%@", promoLine];
 		[mailCtrl setMessageBody:body isHTML:NO];
 	}

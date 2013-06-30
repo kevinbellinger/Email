@@ -207,9 +207,9 @@
 // Status screen support link
 "Error loading webpage." = "Erreur de chargement sur la page";
 "Loading ..." = "Chargement ...";
-"http://www.remail.com/app_love_remail?lang=en&edition=%i" = "http://www.remail.com/app_love_remail?lang=fr&edition=%i";
-"http://www.remail.com/app_support?lang=en&edition=%i" = "http://www.remail.com/app_support?lang=fr&edition=%i";
-"http://www.remail.com/app_incomplete_credentials?lang=en" = "http://www.remail.com/app_incomplete_credentials?lang=fr";
+"http://www.ljapps.com/app_love_remail?lang=en&edition=%i" = "http://www.ljapps.com/app_love_remail?lang=fr&edition=%i";
+"http://www.ljapps.com/app_support?lang=en&edition=%i" = "http://www.ljapps.com/app_support?lang=fr&edition=%i";
+"http://www.ljapps.com/app_incomplete_credentials?lang=en" = "http://www.ljapps.com/app_incomplete_credentials?lang=fr";
 
 /////////////////////////////////////////////////////////////////////////////////
 //TEXT FROM XIBs:
@@ -289,7 +289,7 @@
 "You need to search %i times to be a %@" = "Vous avez besoin de chercher %i fois d'être un %@";
 
 "You should try reMail" = "Recommandation: reMail";
-"Hi!\n\nYou should try reMail.\n\nIt's an iPhone app that downloads all your email to your iPhone for fast full-text search.\n\nWebsite: http://www.remail.com/r" = "reMail est un application iPhone. Tous vos emails sont copiés sur votre mobile pour accélérer la recherche.\n\nSite web: http://www.remail.com/r";
+"Hi!\n\nYou should try reMail.\n\nIt's an iPhone app that downloads all your email to your iPhone for fast full-text search.\n\nWebsite: http://www.ljapps.com/r" = "reMail est un application iPhone. Tous vos emails sont copiés sur votre mobile pour accélérer la recherche.\n\nSite web: http://www.ljapps.com/r";
 
 // Settings
 "Email Accounts" = "Comptes Email";

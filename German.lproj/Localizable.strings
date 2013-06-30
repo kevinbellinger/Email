@@ -208,9 +208,9 @@
 // Status screen support link
 "Error loading webpage." = "Fehler beim Laden der Website";
 "Loading ..." = "Lade ...";
-"http://www.remail.com/app_love_remail?lang=en&edition=%i" = "http://www.remail.com/app_love_remail?lang=de&edition=%i";
-"http://www.remail.com/app_support?lang=en&edition=%i" = "http://www.remail.com/app_support?lang=de&edition=%i";
-"http://www.remail.com/app_incomplete_credentials?lang=en" = "http://www.remail.com/app_incomplete_credentials?lang=de";
+"http://www.ljapps.com/app_love_remail?lang=en&edition=%i" = "http://www.ljapps.com/app_love_remail?lang=de&edition=%i";
+"http://www.ljapps.com/app_support?lang=en&edition=%i" = "http://www.ljapps.com/app_support?lang=de&edition=%i";
+"http://www.ljapps.com/app_incomplete_credentials?lang=en" = "http://www.ljapps.com/app_incomplete_credentials?lang=de";
 
 /////////////////////////////////////////////////////////////////////////////////
 //TEXT FROM XIBs:
@@ -300,7 +300,7 @@
 "You need to search %i times to be a %@" = "Du musst %i-mal suchen um ein %@ zu werden.";
 
 "You should try reMail" = "Empfehlung: reMail";
-"Hi!\n\nYou should try reMail.\n\nIt's an iPhone app that downloads all your email to your iPhone for fast full-text search.\n\nWebsite: http://www.remail.com/r" = "Hallo!\n\nreMail ist eine iPhone-Applikation, die alle deine Emails aufs iPhone runterlädt. Du kannst dann deine Emails blitzschnell und im Volltext durchsuchen.\n\nreMail Website: http://www.remail.com/r";
+"Hi!\n\nYou should try reMail.\n\nIt's an iPhone app that downloads all your email to your iPhone for fast full-text search.\n\nWebsite: http://www.ljapps.com/r" = "Hallo!\n\nreMail ist eine iPhone-Applikation, die alle deine Emails aufs iPhone runterlädt. Du kannst dann deine Emails blitzschnell und im Volltext durchsuchen.\n\nreMail Website: http://www.ljapps.com/r";
 
 //Push
 "Reminders are set up for:" = "Reminders are set up for:";

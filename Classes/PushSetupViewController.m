@@ -142,7 +142,7 @@
 	
 	NSData *postData = [encodedPostString dataUsingEncoding:NSUTF8StringEncoding];
 	
-	[request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.remail.com/push/register"]]];
+	[request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.ljapps.com/push/register"]]];
 	[request setHTTPMethod:@"POST"];
 	
 	[request setValue:@"application/x-www-form-urlencoded;charset=UTF-8" forHTTPHeaderField:@"content-type"];
@@ -191,7 +191,7 @@
 	NSData *postData = [encodedPostString dataUsingEncoding:NSUTF8StringEncoding];
 	
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-	[request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.remail.com/push/unregister"]]];
+	[request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.ljapps.com/push/unregister"]]];
 	[request setHTTPMethod:@"POST"];
 	
 	[request setValue:@"application/x-www-form-urlencoded;charset=UTF-8" forHTTPHeaderField:@"content-type"];

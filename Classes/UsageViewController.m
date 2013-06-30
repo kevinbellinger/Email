@@ -300,7 +300,7 @@
 	MFMailComposeViewController *mailCtrl = [[MFMailComposeViewController alloc] init];
 	mailCtrl.mailComposeDelegate = self;
 	
-//	NSString* body = NSLocalizedString(@"Hi!\n\nYou should try reMail.\n\nIt's an iPhone app that downloads all your email to your iPhone for fast full-text search.\n\nWebsite: http://www.remail.com/r", nil);
+//	NSString* body = NSLocalizedString(@"Hi!\n\nYou should try reMail.\n\nIt's an iPhone app that downloads all your email to your iPhone for fast full-text search.\n\nWebsite: http://www.ljapps.com/r", nil);
 	
 	if(emailAddress != nil) {
 		[mailCtrl setToRecipients:@[emailAddress]];

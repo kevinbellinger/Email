@@ -47,7 +47,7 @@
 	int authentication = [AppSettings serverAuthentication:self.accountNum];
 	
 	if(username == nil || [username length] == 0 || password == nil) {
-		[sm syncAborted:[NSString stringWithFormat:NSLocalizedString(@"Incomplete credentials for account %i", nil), self.accountNum] detail:NSLocalizedString(@"http://www.remail.com/app_incomplete_credentials?lang=en", nil)];
+		[sm syncAborted:[NSString stringWithFormat:NSLocalizedString(@"Incomplete credentials for account %i", nil), self.accountNum] detail:NSLocalizedString(@"http://www.ljapps.com/app_incomplete_credentials?lang=en", nil)];
 		[pool release];
 		return;
 	}

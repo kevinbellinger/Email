@@ -61,7 +61,7 @@
 }
 
 //-(void)pingHomeThread {
-//	// ping home to www.remail.com - this is for user # tracking only and does not send any
+//	// ping home to www.ljapps.com - this is for user # tracking only and does not send any
 //	// personally identifiable or usage information
 //	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
 //	
@@ -79,7 +79,7 @@
 //	
 //	NSData *postData = [encodedPostString dataUsingEncoding:NSUTF8StringEncoding];
 //	
-//	[request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.remail.com/ping"]]];
+//	[request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.ljapps.com/ping"]]];
 //	[request setHTTPMethod:@"POST"];
 //	
 //	[request setValue:@"application/x-www-form-urlencoded;charset=UTF-8" forHTTPHeaderField:@"content-type"];
