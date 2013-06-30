@@ -30,6 +30,7 @@
     return myFields->fld_orig_date->dt_date_time;
 }
 
+#pragma clang diagnostic ignored "-Wobjc-protocol-method-implementation"
 - (NSTimeZone*)senderTimeZone
 {
     struct mailimf_date_time *d;
