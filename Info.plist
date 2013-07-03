@@ -34,14 +34,22 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>3.0</string>
+	<string>1.0</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>LSRequiresIPhoneOS</key>
 	<false/>
-	<key>NSMainNibFile</key>
-	<string>RootWindow</string>
+	<key>UIMainStoryboardFile~ipad</key>
+	<string>Storybard_iPad</string>
+	<key>UIMainStoryboardFile~iphone</key>
+	<string>Storyboard_iPhone</string>
 	<key>UIPrerenderedIcon</key>
 	<string>true</string>
 	<key>UIRequiresPersistentWiFi</key>
 	<string>true</string>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
 </dict>
 </plist>

@@ -202,6 +202,7 @@
 		D620E09A177F72170046587F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D620E099177F72170046587F /* Default-568h@2x.png */; };
 		D664FB3916AEEB0700C7C4DE /* NSString+StrippingHTML.m in Sources */ = {isa = PBXBuildFile; fileRef = D664FB3816AEEB0700C7C4DE /* NSString+StrippingHTML.m */; };
 		D695BD821780C1C10016BE28 /* Storyboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D695BD801780C1C10016BE28 /* Storyboard_iPhone.storyboard */; };
+		D695BD9C1783A4190016BE28 /* Storyboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D695BD9B1783A4190016BE28 /* Storyboard_iPad.storyboard */; };
 		D6A08F3116A9D8C90074B7C5 /* HomeView_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6A08F3016A9D8C90074B7C5 /* HomeView_iPad.xib */; };
 		D6A08F3316A9E0410074B7C5 /* Intro_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6A08F3216A9E0410074B7C5 /* Intro_iPad.xib */; };
 		D6A08F3516A9E3900074B7C5 /* AccountTypeSelect_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6A08F3416A9E38F0074B7C5 /* AccountTypeSelect_iPad.xib */; };
@@ -561,6 +562,7 @@
 		D664FB3716AEEB0700C7C4DE /* NSString+StrippingHTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+StrippingHTML.h"; path = "Classes/NSString+StrippingHTML.h"; sourceTree = "<group>"; };
 		D664FB3816AEEB0700C7C4DE /* NSString+StrippingHTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+StrippingHTML.m"; path = "Classes/NSString+StrippingHTML.m"; sourceTree = "<group>"; };
 		D695BD811780C1C10016BE28 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = English; path = English.lproj/Storyboard_iPhone.storyboard; sourceTree = "<group>"; };
+		D695BD9B1783A4190016BE28 /* Storyboard_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard_iPad.storyboard; sourceTree = "<group>"; };
 		D6A08F3016A9D8C90074B7C5 /* HomeView_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HomeView_iPad.xib; path = Resources/xibs/HomeView_iPad.xib; sourceTree = "<group>"; };
 		D6A08F3216A9E0410074B7C5 /* Intro_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Intro_iPad.xib; path = Resources/xibs/Intro_iPad.xib; sourceTree = "<group>"; };
 		D6A08F3416A9E38F0074B7C5 /* AccountTypeSelect_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AccountTypeSelect_iPad.xib; path = Resources/xibs/AccountTypeSelect_iPad.xib; sourceTree = "<group>"; };
@@ -966,6 +968,7 @@
 				1439C4F11090D928006CE583 /* Artwork */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				D695BD801780C1C10016BE28 /* Storyboard_iPhone.storyboard */,
+				D695BD9B1783A4190016BE28 /* Storyboard_iPad.storyboard */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1192,6 +1195,7 @@
 				14F83CD2113723340096DE57 /* ranksNoTrophy.png in Resources */,
 				14F83CD3113723340096DE57 /* ranksTrophy.png in Resources */,
 				14F83CD4113723340096DE57 /* reMailAppIcon.png in Resources */,
+				D695BD9C1783A4190016BE28 /* Storyboard_iPad.storyboard in Resources */,
 				14F83CD5113723340096DE57 /* reMailAppIconElite.png in Resources */,
 				14F83CD6113723340096DE57 /* reMailAppIconGmail.png in Resources */,
 				14F83CD7113723340096DE57 /* reMailAppIconGold.png in Resources */,
@@ -1441,9 +1445,10 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = "-objC";
 				PREBINDING = NO;
-				SDKROOT = iphonesimulator4.1;
+				SDKROOT = iphoneos7.0;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Distribution;
@@ -1531,10 +1536,11 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-objC";
 				PREBINDING = NO;
-				SDKROOT = iphonesimulator4.1;
+				SDKROOT = iphoneos7.0;
 				STRIP_INSTALLED_PRODUCT = NO;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
@@ -1550,9 +1556,10 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = "-objC";
 				PREBINDING = NO;
-				SDKROOT = iphonesimulator4.1;
+				SDKROOT = iphoneos7.0;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;

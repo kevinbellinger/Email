@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ReMailAppDelegate.h"
 
 void sig_handler (int sig)
 {
@@ -36,7 +37,7 @@ int main(int argc, char *argv[]) {
 //        return retVal;
 //    }
     @autoreleasepool {
-		UIApplicationMain(argc, argv, nil, nil);
+		UIApplicationMain(argc, argv, nil, NSStringFromClass([ReMailAppDelegate class]));
 	}
 	return 0;
 }

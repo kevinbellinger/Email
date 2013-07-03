@@ -2,21 +2,6 @@
 //  NextMailAppDelegate.m
 //  NextMail iPhone Application
 //
-//  Created by Liangjun Jiang on 1/16/09.
-//  Copyright 2010 Google Inc.
-//  
-//  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
-//  
-//   http://www.apache.org/licenses/LICENSE-2.0
-//  
-//  Unless required by applicable law or agreed to in writing, software
-//  distributed under the License is distributed on an "AS IS" BASIS,
-//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//  See the License for the specific language governing permissions and
-//  limitations under the License.
-//
 
 #import "ReMailAppDelegate.h"
 #import "Reachability.h"
@@ -173,21 +158,20 @@
 	
 	BOOL firstSync = [AppSettings firstSync];
 	
+    UINavigationController *navController = (UINavigationController *)self.window.rootViewController;
+    
 	if(firstSync) {
 		[AppSettings setDatastoreVersion:1];
 		
 		//Need to set up first account
-		AccountTypeSelectViewController* accountTypeVC;
+		AccountTypeSelectViewController* accountTypeVC = (AccountTypeSelectViewController *)[navController viewControllers][0];
         
-        //TODO: Handle iPad
-		accountTypeVC = [[AccountTypeSelectViewController alloc] initWithNibName:@"AccountTypeSelect" bundle:nil];
-		
-		accountTypeVC.firstSetup = YES;
+        accountTypeVC.firstSetup = YES;
 		accountTypeVC.accountNum = 0;
 		accountTypeVC.newAccount = YES;
 		
-		UINavigationController* navController = [[UINavigationController alloc] initWithRootViewController:accountTypeVC];
-		[self.window addSubview:navController.view];
+//		UINavigationController* navController = [[UINavigationController alloc] initWithRootViewController:accountTypeVC];
+//		[self.window addSubview:navController.view];
 	} else {
 		// already set up - let's go to the home screen
       	HomeViewController *homeController = [[HomeViewController alloc] initWithNibName:@"HomeView" bundle:nil];
