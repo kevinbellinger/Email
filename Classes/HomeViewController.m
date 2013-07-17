@@ -126,60 +126,80 @@ NSDateFormatter* dateFormatter = nil;
 	self.clientMessageButton = nil;	
 }
 
--(IBAction)accountListClick:(id)sender {
-	SettingsListViewController *alvc = [[SettingsListViewController alloc] initWithNibName:@"SettingsList" bundle:nil];
-	alvc.toolbarItems = [self.toolbarItems subarrayWithRange:NSMakeRange(0, 2)];
-	[self.navigationController pushViewController:alvc animated:YES];
+//-(IBAction)accountListClick:(id)sender {
+//	SettingsListViewController *alvc = [[SettingsListViewController alloc] initWithNibName:@"SettingsList" bundle:nil];
+//	alvc.toolbarItems = [self.toolbarItems subarrayWithRange:NSMakeRange(0, 2)];
+//	[self.navigationController pushViewController:alvc animated:YES];
+//}
+//
+//-(IBAction)searchClick:(id)sender {
+//	NSArray* nibContents = [[NSBundle mainBundle] loadNibNamed:@"SearchEntryView" owner:self options:NULL];
+//	NSEnumerator *nibEnumerator = [nibContents objectEnumerator]; 
+//	SearchEntryViewController *uivc = nil;
+//	NSObject* nibItem = nil;
+//    while ( (nibItem = [nibEnumerator nextObject]) != NULL) { 
+//        if ( [nibItem isKindOfClass: [SearchEntryViewController class]]) { 
+//			uivc = (SearchEntryViewController*) nibItem;
+//			break;
+//		}
+//	}
+//
+//	if(uivc == nil) {
+//		return;
+//	}
+//	
+//	uivc.toolbarItems = [self.toolbarItems subarrayWithRange:NSMakeRange(0, 2)];
+//	
+//	[uivc doLoad];
+//	[self.navigationController pushViewController:uivc animated:(sender != nil)];
+//}
+//
+//-(IBAction)usageClick:(id)sender {
+//	NSArray* nibContents = [[NSBundle mainBundle] loadNibNamed:@"Usage" owner:self options:NULL];
+//	NSEnumerator *nibEnumerator = [nibContents objectEnumerator]; 
+//	UsageViewController *uivc = nil;
+//	NSObject* nibItem = nil;
+//    while ( (nibItem = [nibEnumerator nextObject]) != NULL) { 
+//        if ( [nibItem isKindOfClass: [UsageViewController class]]) { 
+//			uivc = (UsageViewController*) nibItem;
+//			break;
+//		}
+//	}
+//	
+//	if(uivc == nil) {
+//		return;
+//	}
+//	
+//	uivc.toolbarItems = [self.toolbarItems subarrayWithRange:NSMakeRange(0, 2)];
+//	
+//	[self.navigationController pushViewController:uivc animated:(sender != nil)];	
+//}
+//
+//-(IBAction)foldersClick:(id)sender {
+//	FolderListViewController *vc = [[FolderListViewController alloc] initWithNibName:@"FolderList" bundle:nil];
+//	vc.toolbarItems = [self.toolbarItems subarrayWithRange:NSMakeRange(0, 2)];
+//	[self.navigationController pushViewController:vc animated:(sender != nil)];
+//}
+
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    UIViewController *viewController = nil;
+    if([segue.identifier isEqualToString:@"SearchEntry"])
+    {
+        SearchEntryViewController *searchEntryViewController = segue.destinationViewController;
+        viewController = searchEntryViewController;
+        
+    } else if ([segue.identifier isEqualToString:@"Usage"]){
+        UsageViewController *usageViewController = segue.destinationViewController;
+        usageViewController.toolbarItems = [self.toolbarItems subarrayWithRange:NSMakeRange(0,2)];
+        
+    } else if ([segue.identifier isEqualToString:@"FolderList"]) {
+        FolderListViewController *vc = segue.destinationViewController;
+        vc.toolbarItems = [self.toolbarItems subarrayWithRange:NSMakeRange(0, 2)];
+    }
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
--(IBAction)searchClick:(id)sender {
-	NSArray* nibContents = [[NSBundle mainBundle] loadNibNamed:@"SearchEntryView" owner:self options:NULL];
-	NSEnumerator *nibEnumerator = [nibContents objectEnumerator]; 
-	SearchEntryViewController *uivc = nil;
-	NSObject* nibItem = nil;
-    while ( (nibItem = [nibEnumerator nextObject]) != NULL) { 
-        if ( [nibItem isKindOfClass: [SearchEntryViewController class]]) { 
-			uivc = (SearchEntryViewController*) nibItem;
-			break;
-		}
-	}
-
-	if(uivc == nil) {
-		return;
-	}
-	
-	uivc.toolbarItems = [self.toolbarItems subarrayWithRange:NSMakeRange(0, 2)];
-	
-	[uivc doLoad];
-	[self.navigationController pushViewController:uivc animated:(sender != nil)];
-}
-
--(IBAction)usageClick:(id)sender {
-	NSArray* nibContents = [[NSBundle mainBundle] loadNibNamed:@"Usage" owner:self options:NULL];
-	NSEnumerator *nibEnumerator = [nibContents objectEnumerator]; 
-	UsageViewController *uivc = nil;
-	NSObject* nibItem = nil;
-    while ( (nibItem = [nibEnumerator nextObject]) != NULL) { 
-        if ( [nibItem isKindOfClass: [UsageViewController class]]) { 
-			uivc = (UsageViewController*) nibItem;
-			break;
-		}
-	}
-	
-	if(uivc == nil) {
-		return;
-	}
-	
-	uivc.toolbarItems = [self.toolbarItems subarrayWithRange:NSMakeRange(0, 2)];
-	
-	[self.navigationController pushViewController:uivc animated:(sender != nil)];	
-}
-
--(IBAction)foldersClick:(id)sender {
-	FolderListViewController *vc = [[FolderListViewController alloc] initWithNibName:@"FolderList" bundle:nil];
-	vc.toolbarItems = [self.toolbarItems subarrayWithRange:NSMakeRange(0, 2)];
-	[self.navigationController pushViewController:vc animated:(sender != nil)];
-}
 
 -(void)openErrorDetails {
 	if([self.errorDetail hasPrefix:@"http"]) {
@@ -489,10 +509,10 @@ NSDateFormatter* dateFormatter = nil;
 	// restore previous position in app
 	if([[AppSettings lastpos] isEqualToString:@"search"]) {
 		[self loadIt];
-		[self searchClick:nil];
+//		[self searchClick:nil];
 	} else if ([[AppSettings lastpos] isEqualToString:@"folders"]) {
 		[self loadIt];
-		[self foldersClick:nil];
+//		[self foldersClick:nil];
 	} else if ([[AppSettings lastpos] isEqualToString:@"status"]) {
 		[self loadIt];
 		[self toolbarStatusClicked:nil];

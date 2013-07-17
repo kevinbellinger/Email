@@ -52,7 +52,7 @@
         <!--Home View Controller-->
         <scene sceneID="vcP-5x-7Mt">
             <objects>
-                <viewController id="sGh-J5-umz" customClass="HomeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeView" id="sGh-J5-umz" customClass="HomeViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uzS-Vt-Kkl"/>
                         <viewControllerLayoutGuide type="bottom" id="jLi-KT-NFM"/>

@@ -224,13 +224,18 @@ NSString* imapUTF7Decode(NSString* in)
 
 -(void)openRemail {
 	// display home screen
-	HomeViewController *homeController = [[HomeViewController alloc] initWithNibName:@"HomeView" bundle:nil];
-	UINavigationController* navController = [[UINavigationController alloc] initWithRootViewController:homeController];
+//	HomeViewController *homeController = [[HomeViewController alloc] initWithNibName:@"HomeView" bundle:nil];
+//	[self.view.window addSubview:navController.view];
+//	
+//	// Remove own view from screen stack
+//	[self.view removeFromSuperview];
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Storyboard_iPhone" bundle:nil];
+    HomeViewController *homeViewController = (HomeViewController *)[storyboard instantiateViewControllerWithIdentifier:@"HomeView"];
+    UINavigationController* navController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
 	navController.navigationBarHidden = NO;
-	[self.view.window addSubview:navController.view];
-	
-	// Remove own view from screen stack
-	[self.view removeFromSuperview];
+    self.view.window.rootViewController = navController;
+    
 }
 
 -(NSString*)imapFolderNameToDisplayName:(NSString*)folderPath {
