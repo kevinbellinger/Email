@@ -38,41 +38,78 @@ BOOL introShown = NO;
 ////	self.buyButton = nil;
 //}
 
-
--(IBAction)gmailClicked {
-	GmailConfigViewController* vc = [[GmailConfigViewController alloc] initWithNibName:@"GmailConfig" bundle:nil];
-	vc.firstSetup = self.firstSetup;
-	vc.accountNum = self.accountNum;
-	vc.newAccount = YES;
-	vc.title = NSLocalizedString(@"Gmail", nil);
-	[self.navigationController pushViewController:vc animated:YES];
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    UIViewController *viewController = nil;
+    if([segue.identifier isEqualToString:@"GmailConfig"])
+    {
+        GmailConfigViewController* vc = segue.destinationViewController;
+        vc.firstSetup = self.firstSetup;
+        vc.accountNum = self.accountNum;
+        vc.newAccount = YES;
+        vc.title = NSLocalizedString(@"Gmail", nil);
+        viewController = vc;
+        
+    } else if ([segue.identifier isEqualToString:@"Usage"]){
+        FlexiConfigViewController* vc = segue.destinationViewController;
+        vc.firstSetup = self.firstSetup;
+        vc.accountNum = self.accountNum;
+        vc.newAccount = YES;
+        vc.title = NSLocalizedString(@"Rackspace", nil);
+        vc.usernamePromptText = NSLocalizedString(@"Rackspace email address:", nil);
+        vc.server = @"secure.emailsrvr.com";
+        vc.port = 993;
+        vc.authType = IMAP_AUTH_TYPE_PLAIN;
+        vc.encryption = CONNECTION_TYPE_TLS;
+        viewController = vc;
+        
+    } else if ([segue.identifier isEqualToString:@"ImapConfig"]) {
+        ImapConfigViewController* vc = [[ImapConfigViewController alloc] initWithNibName:@"ImapConfig" bundle:nil];
+        vc.firstSetup = self.firstSetup;
+        vc.accountNum = self.accountNum;
+        vc.newAccount = self.newAccount;
+        vc.title = NSLocalizedString(@"IMAP", nil);
+        viewController = vc;
+    }
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
--(IBAction)rackspaceClicked {
-	FlexiConfigViewController* vc = [[FlexiConfigViewController alloc] initWithNibName:@"FlexiConfig" bundle:nil];
-	vc.firstSetup = self.firstSetup;
-	vc.accountNum = self.accountNum;
-	vc.newAccount = YES;
-	vc.title = NSLocalizedString(@"Rackspace", nil);
-	vc.usernamePromptText = NSLocalizedString(@"Rackspace email address:", nil);
-	
-	vc.server = @"secure.emailsrvr.com";
-	vc.port = 993;
-	vc.authType = IMAP_AUTH_TYPE_PLAIN;
-	vc.encryption = CONNECTION_TYPE_TLS;
-	
-	[self.navigationController pushViewController:vc animated:YES];
-}
 
--(IBAction)imapClicked {
-	ImapConfigViewController* vc = [[ImapConfigViewController alloc] initWithNibName:@"ImapConfig" bundle:nil];
-	vc.firstSetup = self.firstSetup;
-	vc.accountNum = self.accountNum;
-	vc.newAccount = self.newAccount;
-	vc.title = NSLocalizedString(@"IMAP", nil);
-	[self.navigationController pushViewController:vc animated:YES];
-	
-}
+
+//-(IBAction)gmailClicked {
+//	GmailConfigViewController* vc = [[GmailConfigViewController alloc] initWithNibName:@"GmailConfig" bundle:nil];
+//	vc.firstSetup = self.firstSetup;
+//	vc.accountNum = self.accountNum;
+//	vc.newAccount = YES;
+//	vc.title = NSLocalizedString(@"Gmail", nil);
+//	[self.navigationController pushViewController:vc animated:YES];
+//}
+//
+//-(IBAction)rackspaceClicked {
+//	FlexiConfigViewController* vc = [[FlexiConfigViewController alloc] initWithNibName:@"FlexiConfig" bundle:nil];
+//	vc.firstSetup = self.firstSetup;
+//	vc.accountNum = self.accountNum;
+//	vc.newAccount = YES;
+//	vc.title = NSLocalizedString(@"Rackspace", nil);
+//	vc.usernamePromptText = NSLocalizedString(@"Rackspace email address:", nil);
+//	
+//	vc.server = @"secure.emailsrvr.com";
+//	vc.port = 993;
+//	vc.authType = IMAP_AUTH_TYPE_PLAIN;
+//	vc.encryption = CONNECTION_TYPE_TLS;
+//	
+//	[self.navigationController pushViewController:vc animated:YES];
+//}
+//
+//-(IBAction)imapClicked {
+//	ImapConfigViewController* vc = [[ImapConfigViewController alloc] initWithNibName:@"ImapConfig" bundle:nil];
+//	vc.firstSetup = self.firstSetup;
+//	vc.accountNum = self.accountNum;
+//	vc.newAccount = self.newAccount;
+//	vc.title = NSLocalizedString(@"IMAP", nil);
+//	[self.navigationController pushViewController:vc animated:YES];
+//	
+//}
 
 //-(IBAction)buyClick {
 //	StoreViewController* vc = [[StoreViewController alloc] initWithNibName:@"Store" bundle:nil];
@@ -81,9 +118,17 @@ BOOL introShown = NO;
 //	[vc release];
 //}
 
--(void)dismissIntro {
-	[self dismissViewControllerAnimated:YES completion:nil];
+//-(void)dismissIntro {
+//	[self dismissViewControllerAnimated:YES completion:nil];
+//}
+
+- (void)awakeFromNib
+{
+    
+    [super awakeFromNib];
+    
 }
+
 
 -(void)viewDidAppear:(BOOL)animated {
 //	if(introShown) {
@@ -97,6 +142,10 @@ BOOL introShown = NO;
 //	}
 //	
 //	introShown = YES;
+    self.firstSetup = YES;
+    self.accountNum = 0;
+    self.newAccount = YES;
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -130,12 +179,12 @@ BOOL introShown = NO;
 	
 	self.title = NSLocalizedString(@"Account Type", nil);
     
-    ImapConfigViewController* vc = [[ImapConfigViewController alloc] initWithNibName:@"ImapConfig" bundle:nil];
-	vc.firstSetup = self.firstSetup;
-	vc.accountNum = self.accountNum;
-	vc.newAccount = self.newAccount;
-	vc.title = NSLocalizedString(@"IMAP", nil);
-	[self.navigationController pushViewController:vc animated:YES];
+//    ImapConfigViewController* vc = [[ImapConfigViewController alloc] initWithNibName:@"ImapConfig" bundle:nil];
+//	vc.firstSetup = self.firstSetup;
+//	vc.accountNum = self.accountNum;
+//	vc.newAccount = self.newAccount;
+//	vc.title = NSLocalizedString(@"IMAP", nil);
+//	[self.navigationController pushViewController:vc animated:YES];
 }
 
 /*

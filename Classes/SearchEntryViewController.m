@@ -353,8 +353,8 @@ BOOL autoCompleteMode;
 		return;
 	}
 	
-	self.lastSearchString = [currentString copy];
-	self.lastSearchString;	
+	self.lastSearchString = currentString;
+//	self.lastSearchString;	
 	
 	NSString* autocompleteSearchString = [NSString stringWithFormat:@"%@*", currentString];
 	

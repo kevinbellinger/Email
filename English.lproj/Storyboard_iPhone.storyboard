@@ -7,7 +7,7 @@
         <!--Account Type Select View Controller - Account Type-->
         <scene sceneID="hYF-pO-SpQ">
             <objects>
-                <viewController title="Account Type" id="2l4-oe-PUI" customClass="AccountTypeSelectViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AccountTypeSelect" title="Account Type" useStoryboardIdentifierAsRestorationIdentifier="YES" id="2l4-oe-PUI" customClass="AccountTypeSelectViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="wAp-wQ-9s3"/>
                         <viewControllerLayoutGuide type="bottom" id="Bhq-BJ-pUP"/>
@@ -15,15 +15,57 @@
                     <view key="view" contentMode="scaleToFill" id="sIx-EH-CIn">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4IQ-3H-q3b">
+                                <rect key="frame" x="110" y="81" width="73" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Gmail">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="tJ9-rf-ABw" kind="push" identifier="GmailConfig" id="xH1-3J-b02"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mTi-vV-wHw">
+                                <rect key="frame" x="110" y="174" width="80" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Rackspace">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="aBN-br-CNJ" kind="push" identifier="RackspaceConfig" id="So3-oW-z1v"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5dj-1T-EdT">
+                                <rect key="frame" x="110" y="288" width="73" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Imap">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="KgL-Xk-WH8" kind="push" identifier="ImapConfig" id="mYG-J7-UA2"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="S7O-Vi-u9f"/>
-                    <connections>
-                        <segue destination="tJ9-rf-ABw" kind="push" id="P70-ue-fCr"/>
-                        <segue destination="aBN-br-CNJ" kind="push" id="H2H-p8-X2n"/>
-                        <segue destination="KgL-Xk-WH8" kind="push" id="XOB-xk-Jlr"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XDe-PI-SA4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -32,7 +74,7 @@
         <!--Gmail Config View Controller-->
         <scene sceneID="o3U-Xj-ggY">
             <objects>
-                <viewController id="tJ9-rf-ABw" customClass="GmailConfigViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GmailConfig" id="tJ9-rf-ABw" customClass="GmailConfigViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="c0k-zo-5U9"/>
                         <viewControllerLayoutGuide type="bottom" id="4dO-mW-Uq4"/>
@@ -52,7 +94,7 @@
         <!--Home View Controller-->
         <scene sceneID="vcP-5x-7Mt">
             <objects>
-                <viewController storyboardIdentifier="HomeView" id="sGh-J5-umz" customClass="HomeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="sGh-J5-umz" customClass="HomeViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uzS-Vt-Kkl"/>
                         <viewControllerLayoutGuide type="bottom" id="jLi-KT-NFM"/>
@@ -217,7 +259,7 @@
         <!--Flexi Config View Controller-->
         <scene sceneID="GAk-tV-hIe">
             <objects>
-                <viewController id="KgL-Xk-WH8" customClass="FlexiConfigViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FlexiConfig" useStoryboardIdentifierAsRestorationIdentifier="YES" id="KgL-Xk-WH8" customClass="FlexiConfigViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ofQ-3a-FP3"/>
                         <viewControllerLayoutGuide type="bottom" id="Zn3-sF-7oX"/>
@@ -237,7 +279,7 @@
         <!--Imap Config View Controller-->
         <scene sceneID="5UI-Ok-gSW">
             <objects>
-                <viewController id="aBN-br-CNJ" customClass="ImapConfigViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ImapConfig" useStoryboardIdentifierAsRestorationIdentifier="YES" id="aBN-br-CNJ" customClass="ImapConfigViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="P7w-xA-CfP"/>
                         <viewControllerLayoutGuide type="bottom" id="5X3-bk-seJ"/>

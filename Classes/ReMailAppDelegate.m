@@ -19,8 +19,6 @@
 #import	"SearchEmailDBAccessor.h"
 #import "ContactDBAccessor.h"
 #import "UidDBAccessor.h"
-//#import "StoreObserver.h"
-//#import <StoreKit/StoreKit.h>
 
 @implementation ReMailAppDelegate
 
@@ -28,18 +26,18 @@
 @synthesize pushSetupScreen;
 
 
--(void)deactivateAllPurchases {
-	// This is debug code, it should never be called in production
-	[AppSettings setFeatureUnpurchased:@"RM_NOADS"];
-	[AppSettings setFeatureUnpurchased:@"RM_IMAP"];
-	[AppSettings setFeatureUnpurchased:@"RM_RACKSPACE"];
-}
-
--(void)activateAllPurchasedFeatures {
-	[AppSettings setFeaturePurchased:@"RM_NOADS"];
-	[AppSettings setFeaturePurchased:@"RM_IMAP"];
-	[AppSettings setFeaturePurchased:@"RM_RACKSPACE"];
-}
+//-(void)deactivateAllPurchases {
+//	// This is debug code, it should never be called in production
+//	[AppSettings setFeatureUnpurchased:@"RM_NOADS"];
+//	[AppSettings setFeatureUnpurchased:@"RM_IMAP"];
+//	[AppSettings setFeatureUnpurchased:@"RM_RACKSPACE"];
+//}
+//
+//-(void)activateAllPurchasedFeatures {
+//	[AppSettings setFeaturePurchased:@"RM_NOADS"];
+//	[AppSettings setFeaturePurchased:@"RM_IMAP"];
+//	[AppSettings setFeaturePurchased:@"RM_RACKSPACE"];
+//}
 
 //-(void)pingHomeThread {
 //	// ping home to www.ljapps.com - this is for user # tracking only and does not send any
@@ -130,22 +128,28 @@
 	[GlobalDBFunctions deleteAll];
 }
 
--(void)setImapErrorLogPath {
-	NSString* mailimapErrorLogPath = [StringUtil filePathInDocumentsDirectoryForFileName:@"mailimap_error.log"];
-	const char* a = [mailimapErrorLogPath cStringUsingEncoding:NSASCIIStringEncoding];
-	setenv("REMAIL_MAILIMAP_ERROR_LOG_PATH", a, 1);
-	
-	// delete file that might have been left around
-	if ([[NSFileManager defaultManager] fileExistsAtPath:mailimapErrorLogPath]) {
-		[[NSFileManager defaultManager] removeItemAtPath:mailimapErrorLogPath error:NULL];
-	}
-}
+//-(void)setImapErrorLogPath {
+//	NSString* mailimapErrorLogPath = [StringUtil filePathInDocumentsDirectoryForFileName:@"mailimap_error.log"];
+//	const char* a = [mailimapErrorLogPath cStringUsingEncoding:NSASCIIStringEncoding];
+//	setenv("REMAIL_MAILIMAP_ERROR_LOG_PATH", a, 1);
+//	
+//	// delete file that might have been left around
+//	if ([[NSFileManager defaultManager] fileExistsAtPath:mailimapErrorLogPath]) {
+//		[[NSFileManager defaultManager] removeItemAtPath:mailimapErrorLogPath error:NULL];
+//	}
+//}
 
 -(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary*)options {
+    
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        NSLog(@"window :%@",self.window);
+        
+    }
+    
 	[NSThread setThreadPriority:1.0];
 	
 	// set path for log output to send home
-	[self setImapErrorLogPath];
+//	[self setImapErrorLogPath];
 	
 	// handle reset and clearing attachments
 	// (the user can reset all data in iPhone > Settings)
@@ -154,27 +158,15 @@
 	}
 	
 	// we're not selling reMail any more, so we can just activate all purchases
-	[self activateAllPurchasedFeatures];
+//	[self activateAllPurchasedFeatures];
 	
 	BOOL firstSync = [AppSettings firstSync];
 	
     UINavigationController *navController = (UINavigationController *)self.window.rootViewController;
+    NSLog(@"rootviewController : %@",navController);
     
-	if(firstSync) {
-		[AppSettings setDatastoreVersion:1];
-		
-		//Need to set up first account
-		AccountTypeSelectViewController* accountTypeVC = (AccountTypeSelectViewController *)[navController viewControllers][0];
-        
-        accountTypeVC.firstSetup = YES;
-		accountTypeVC.accountNum = 0;
-		accountTypeVC.newAccount = YES;
-		
-//		UINavigationController* navController = [[UINavigationController alloc] initWithRootViewController:accountTypeVC];
-//		[self.window addSubview:navController.view];
-	} else {
-		// already set up - let's go to the home screen
-      	HomeViewController *homeController = [[HomeViewController alloc] initWithNibName:@"HomeView" bundle:nil];
+	if(!firstSync) {
+        HomeViewController *homeController = [[HomeViewController alloc] initWithNibName:@"HomeView" bundle:nil];
 		UINavigationController* navController = [[UINavigationController alloc] initWithRootViewController:homeController];
 		navController.navigationBarHidden = NO;
 		[self.window addSubview:navController.view];
@@ -183,12 +175,13 @@
 			[homeController loadIt];
 			[homeController toolbarRefreshClicked:nil];
 		}
+        
+	} else {
+		// already set up - let's go to the home screen
+      	[AppSettings setDatastoreVersion:1];
 	}
 	
 	[window makeKeyAndVisible];
-	
-	//removed after I cut out store
-	//[[SKPaymentQueue defaultQueue] addTransactionObserver:[StoreObserver getSingleton]];
 	
 	return YES;
 }
