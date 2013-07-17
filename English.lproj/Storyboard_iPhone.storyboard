@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4457.6" systemVersion="13A497d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Bm0-pU-VI5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4471.1" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Bm0-pU-VI5">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3682.6"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3697.3"/>
     </dependencies>
     <scenes>
         <!--Account Type Select View Controller - Account Type-->
         <scene sceneID="hYF-pO-SpQ">
             <objects>
                 <viewController title="Account Type" id="2l4-oe-PUI" customClass="AccountTypeSelectViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="wAp-wQ-9s3"/>
+                        <viewControllerLayoutGuide type="bottom" id="Bhq-BJ-pUP"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="sIx-EH-CIn">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -29,6 +33,10 @@
         <scene sceneID="o3U-Xj-ggY">
             <objects>
                 <viewController id="tJ9-rf-ABw" customClass="GmailConfigViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="c0k-zo-5U9"/>
+                        <viewControllerLayoutGuide type="bottom" id="4dO-mW-Uq4"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="gET-PL-YSO">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -45,21 +53,175 @@
         <scene sceneID="vcP-5x-7Mt">
             <objects>
                 <viewController id="sGh-J5-umz" customClass="HomeViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="uzS-Vt-Kkl"/>
+                        <viewControllerLayoutGuide type="bottom" id="jLi-KT-NFM"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="XcI-2I-z0r">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZA0-Lb-AR2">
+                                <rect key="frame" x="117" y="117" width="73" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Search">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="k9q-JZ-5Jm" kind="push" id="92K-zy-ZMW"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ugg-7a-C61">
+                                <rect key="frame" x="117" y="288" width="73" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Contacts">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="kv2-Hu-Xcd" kind="push" id="I3k-Tv-mFq"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xjz-Ji-i2v">
+                                <rect key="frame" x="117" y="373" width="73" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Settings">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="qqE-Qt-BHW" kind="push" id="Yx5-e8-7Mu"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BAc-mE-Uul">
+                                <rect key="frame" x="117" y="197" width="73" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Folders">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nNJ-me-vpZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="475" y="-1"/>
+            <point key="canvasLocation" x="37" y="163"/>
+        </scene>
+        <!--Usage View Controller-->
+        <scene sceneID="VNo-yF-PvE">
+            <objects>
+                <tableViewController storyboardIdentifier="UsageView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="kv2-Hu-Xcd" customClass="UsageViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="AUS-st-60A">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="G4G-tQ-XFg">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="G4G-tQ-XFg" id="5aI-DB-UV6">
+                                    <rect key="frame" x="0.0" y="0.0" width="322" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="kv2-Hu-Xcd" id="ZPg-WT-B6E"/>
+                            <outlet property="delegate" destination="kv2-Hu-Xcd" id="w1O-oZ-9iS"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="bEg-Aq-hZX"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bh7-u2-5uw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="586" y="314"/>
+        </scene>
+        <!--Settings List View Controller-->
+        <scene sceneID="bp1-rL-GHI">
+            <objects>
+                <tableViewController storyboardIdentifier="SettingsList" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qqE-Qt-BHW" customClass="SettingsListViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="mba-ab-Zac">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="FwN-DR-bp0">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FwN-DR-bp0" id="BXB-ZZ-edr">
+                                    <rect key="frame" x="0.0" y="0.0" width="322" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="qqE-Qt-BHW" id="FWv-Uh-Xgl"/>
+                            <outlet property="delegate" destination="qqE-Qt-BHW" id="phG-dt-BNe"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="UhI-3t-Plf"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mpe-YA-S5n" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="995" y="712"/>
+        </scene>
+        <!--Search Entry View Controller-->
+        <scene sceneID="DoN-3s-M7o">
+            <objects>
+                <tableViewController storyboardIdentifier="SearchEntry" useStoryboardIdentifierAsRestorationIdentifier="YES" id="k9q-JZ-5Jm" customClass="SearchEntryViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="VvM-sO-CWf">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Gcl-76-h15">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Gcl-76-h15" id="oV0-iy-zco">
+                                    <rect key="frame" x="0.0" y="0.0" width="322" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="k9q-JZ-5Jm" id="ctP-pF-ZLe"/>
+                            <outlet property="delegate" destination="k9q-JZ-5Jm" id="ciF-tZ-IAd"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="fH2-wY-wrB"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xsV-dq-lsQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="856" y="-180"/>
         </scene>
         <!--Flexi Config View Controller-->
         <scene sceneID="GAk-tV-hIe">
             <objects>
                 <viewController id="KgL-Xk-WH8" customClass="FlexiConfigViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ofQ-3a-FP3"/>
+                        <viewControllerLayoutGuide type="bottom" id="Zn3-sF-7oX"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="iWo-lm-1Ej">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -70,12 +232,16 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYz-Km-uPm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="917" y="230"/>
+            <point key="canvasLocation" x="1241" y="-526"/>
         </scene>
         <!--Imap Config View Controller-->
         <scene sceneID="5UI-Ok-gSW">
             <objects>
                 <viewController id="aBN-br-CNJ" customClass="ImapConfigViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="P7w-xA-CfP"/>
+                        <viewControllerLayoutGuide type="bottom" id="5X3-bk-seJ"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="b3M-YV-HjB">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -86,7 +252,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bRt-Xi-D6j" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="915" y="-408"/>
+            <point key="canvasLocation" x="1303" y="-1092"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="TLa-mt-fiI">
@@ -105,77 +271,6 @@
             <point key="canvasLocation" x="-10" y="-663"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="AccountTypeSelectViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AccountTypeSelectViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="gmailClicked"/>
-                <relationship kind="action" name="imapClicked"/>
-                <relationship kind="outlet" name="imapButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="imapLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="FlexiConfigViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FlexiConfigViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="backgroundClick"/>
-                <relationship kind="action" name="loginClick"/>
-                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="checkAndSaveButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="passwordField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="passwordPrompt" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="serverMessage" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="usernameField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="usernamePrompt" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="GmailConfigViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GmailConfigViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="backgroundClick"/>
-                <relationship kind="action" name="loginClick"/>
-                <relationship kind="action" name="selectFoldersClicked"/>
-                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="passwordField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="privacyNotice" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="selectFoldersButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="serverMessage" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="usernameField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="HomeViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="accountListClick:"/>
-                <relationship kind="action" name="clientMessageClick"/>
-                <relationship kind="action" name="foldersClick:"/>
-                <relationship kind="action" name="searchClick:"/>
-                <relationship kind="action" name="toolbarRefreshClicked:"/>
-                <relationship kind="action" name="toolbarStatusClicked:"/>
-                <relationship kind="action" name="usageClick:"/>
-                <relationship kind="outlet" name="clientMessageButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="ImapConfigViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ImapConfigViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="backgroundClick"/>
-                <relationship kind="action" name="loginClick"/>
-                <relationship kind="action" name="selectFoldersClicked"/>
-                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="encryptionSelector" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="passwordField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="portField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="selectFolders" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="serverField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="serverMessage" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="usernameField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

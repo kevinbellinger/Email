@@ -4,7 +4,7 @@
 # - git: http://help.github.com/mac-git-installation/
 # - mercurial / hg: http://mercurial.berkwood.com/
 
-
+cd ..
 # pull mailcore - new URL
 git clone git://github.com/mronge/MailCore.git
 cd mailcore
