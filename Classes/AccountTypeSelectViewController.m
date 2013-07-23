@@ -60,22 +60,22 @@ BOOL introShown = NO;
 	[vc release];
 }
 
-//-(IBAction)rackspaceClicked {
-//	FlexiConfigViewController* vc = [[FlexiConfigViewController alloc] initWithNibName:@"FlexiConfig" bundle:nil];
-//	vc.firstSetup = self.firstSetup;
-//	vc.accountNum = self.accountNum;
-//	vc.newAccount = YES;
-//	vc.title = NSLocalizedString(@"Rackspace", nil);
-//	vc.usernamePromptText = NSLocalizedString(@"Rackspace email address:", nil);
-//	
-//	vc.server = @"secure.emailsrvr.com";
-//	vc.port = 993;
-//	vc.authType = IMAP_AUTH_TYPE_PLAIN;
-//	vc.encryption = CONNECTION_TYPE_TLS;
-//	
-//	[self.navigationController pushViewController:vc animated:YES];
-//	[vc release];
-//}
+-(IBAction)rackspaceClicked {
+	FlexiConfigViewController* vc = [[FlexiConfigViewController alloc] initWithNibName:@"FlexiConfig" bundle:nil];
+	vc.firstSetup = self.firstSetup;
+	vc.accountNum = self.accountNum;
+	vc.newAccount = YES;
+	vc.title = NSLocalizedString(@"Rackspace", nil);
+	vc.usernamePromptText = NSLocalizedString(@"Rackspace email address:", nil);
+	
+	vc.server = @"secure.emailsrvr.com";
+	vc.port = 993;
+	vc.authType = IMAP_AUTH_TYPE_PLAIN;
+	vc.encryption = CONNECTION_TYPE_TLS;
+	
+	[self.navigationController pushViewController:vc animated:YES];
+	[vc release];
+}
 
 -(IBAction)imapClicked {
 	ImapConfigViewController* vc = [[ImapConfigViewController alloc] initWithNibName:@"ImapConfig" bundle:nil];
@@ -100,17 +100,6 @@ BOOL introShown = NO;
 }
 
 -(void)viewDidAppear:(BOOL)animated {
-	if(introShown) {
-		return;
-	}
-	if(self.firstSetup) {
-		IntroViewController *introVC = [[IntroViewController alloc] initWithNibName:@"Intro" bundle:nil];
-		introVC.dismissDelegate = self;
-		
-		[self presentViewController:introVC animated:NO completion:nil];
-		[introVC release];
-	}
-	
 	introShown = YES;
 }
 
@@ -146,13 +135,12 @@ BOOL introShown = NO;
 	self.title = NSLocalizedString(@"Account Type", nil);	
 }
 
-/*
+
 // Override to allow orientations other than the default portrait orientation.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
-*/
 
 - (void)didReceiveMemoryWarning {
 	// Releases the view if it doesn't have a superview.

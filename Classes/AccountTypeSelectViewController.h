@@ -41,13 +41,13 @@
 @property (assign) int accountNum;
 
 //@property (nonatomic,retain) UILabel* rackspaceLabel;
-//@property (nonatomic,retain) UIButton* rackspaceButton;
+@property (nonatomic,retain) UIButton* rackspaceButton;
 @property (nonatomic,retain) UILabel* imapLabel;
 @property (nonatomic,retain) UIButton* imapButton;
 //@property (nonatomic,retain) UIButton* buyButton;
 
 -(IBAction)gmailClicked;
-//-(IBAction)rackspaceClicked;
+-(IBAction)rackspaceClicked;
 -(IBAction)imapClicked;
 //-(IBAction)buyClick;
 @end
