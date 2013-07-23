@@ -3,7 +3,7 @@
 //  MyMail
 //
 //  Created by Liangjun Jiang on 7/15/09.
-//  Copyright 2010 Google Inc.
+//  Copyright LJApps Inc.
 //  
 
 //

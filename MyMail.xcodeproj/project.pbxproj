@@ -23,7 +23,6 @@
 		14C4C9540F253DB100BFFF6B /* SearchEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C4C9450F253DB100BFFF6B /* SearchEntryViewController.m */; };
 		14C4C9550F253DB100BFFF6B /* SearchResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C4C9470F253DB100BFFF6B /* SearchResultsViewController.m */; };
 		14CEB02F1010987500025F41 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 14CEB02E1010987500025F41 /* Localizable.strings */; };
-		14CEB03F1010994D00025F41 /* AccountTypeSelect.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14CEB03E1010994D00025F41 /* AccountTypeSelect.xib */; };
 		14CEB0441010997400025F41 /* GmailConfig.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14CEB0431010997400025F41 /* GmailConfig.xib */; };
 		14CEB0471010998400025F41 /* HomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14CEB0461010998400025F41 /* HomeView.xib */; };
 		14CEB04A1010999200025F41 /* ImapConfig.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14CEB0491010999200025F41 /* ImapConfig.xib */; };
@@ -198,6 +197,7 @@
 		A67025ED1243396D003519CB /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 14B0AC8B115484D000944873 /* libssl.a */; };
 		A67025EE1243396D003519CB /* libsasl2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 14019BA010DC26A40000859B /* libsasl2.a */; };
 		A67025EF1243396D003519CB /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 147537361155B73A00E1AA38 /* libcrypto.a */; };
+		D60CF688179E4205002E460B /* AccountTypeSelect.xib in Resources */ = {isa = PBXBuildFile; fileRef = D60CF687179E4205002E460B /* AccountTypeSelect.xib */; };
 		D620E096177F6F0B0046587F /* NSDateFormatter+Safe.m in Sources */ = {isa = PBXBuildFile; fileRef = D620E095177F6F0B0046587F /* NSDateFormatter+Safe.m */; };
 		D620E09A177F72170046587F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D620E099177F72170046587F /* Default-568h@2x.png */; };
 		D664FB3916AEEB0700C7C4DE /* NSString+StrippingHTML.m in Sources */ = {isa = PBXBuildFile; fileRef = D664FB3816AEEB0700C7C4DE /* NSString+StrippingHTML.m */; };
@@ -324,7 +324,6 @@
 		14C4C9460F253DB100BFFF6B /* SearchResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchResultsViewController.h; path = Classes/SearchResultsViewController.h; sourceTree = "<group>"; };
 		14C4C9470F253DB100BFFF6B /* SearchResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchResultsViewController.m; path = Classes/SearchResultsViewController.m; sourceTree = "<group>"; };
 		14CEB02C1010986A00025F41 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
-		14CEB0301010994700025F41 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/AccountTypeSelect.xib; sourceTree = "<group>"; };
 		14CEB0311010994700025F41 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/GmailConfig.xib; sourceTree = "<group>"; };
 		14CEB0321010994700025F41 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/HomeView.xib; sourceTree = "<group>"; };
 		14CEB0331010994700025F41 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/ImapConfig.xib; sourceTree = "<group>"; };
@@ -336,8 +335,6 @@
 		14CEB051101099B300025F41 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/SearchEntryView.xib; sourceTree = "<group>"; };
 		14CEB054101099C300025F41 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/Status.xib; sourceTree = "<group>"; };
 		14CEB056101099D700025F41 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/Localizable.strings; sourceTree = "<group>"; };
-		14D09BC710B22EFE0003F006 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/AccountTypeSelect.xib; sourceTree = "<group>"; };
-		14D09BC810B22F020003F006 /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/AccountTypeSelect.xib; sourceTree = "<group>"; };
 		14D96BF20FF4362C008F3BCC /* CTCoreMessage+ReMail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CTCoreMessage+ReMail.m"; sourceTree = "<group>"; };
 		14D96BF40FF43639008F3BCC /* CTCoreMessage+ReMail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CTCoreMessage+ReMail.h"; sourceTree = "<group>"; };
 		14D96E100FF5B0B4008F3BCC /* IntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IntroViewController.h; path = Classes/IntroViewController.h; sourceTree = "<group>"; };
@@ -555,6 +552,7 @@
 		288765070DF74369002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		2A4358C011C0D8A9009A6A60 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D60CF687179E4205002E460B /* AccountTypeSelect.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AccountTypeSelect.xib; path = Resources/xibs/AccountTypeSelect.xib; sourceTree = "<group>"; };
 		D620E094177F6F0B0046587F /* NSDateFormatter+Safe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDateFormatter+Safe.h"; path = "Classes/NSDateFormatter+Safe.h"; sourceTree = "<group>"; };
 		D620E095177F6F0B0046587F /* NSDateFormatter+Safe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDateFormatter+Safe.m"; path = "Classes/NSDateFormatter+Safe.m"; sourceTree = "<group>"; };
 		D620E099177F72170046587F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -761,7 +759,6 @@
 				14F83D1A113725E50096DE57 /* WebView.xib */,
 				14E5E0A310852DE1007C241E /* About.xib */,
 				146CABFA105D51F6003D2E99 /* ErrorView.xib */,
-				14CEB03E1010994D00025F41 /* AccountTypeSelect.xib */,
 				D6A08F3416A9E38F0074B7C5 /* AccountTypeSelect_iPad.xib */,
 				14CEB0431010997400025F41 /* GmailConfig.xib */,
 				14CEB0461010998400025F41 /* HomeView.xib */,
@@ -772,6 +769,7 @@
 				14CEB04F101099AE00025F41 /* SearchEntryView.xib */,
 				14CEB052101099BA00025F41 /* Status.xib */,
 				D6A08F3816A9E6B50074B7C5 /* Attachment_iPad.xib */,
+				D60CF687179E4205002E460B /* AccountTypeSelect.xib */,
 			);
 			name = Xibs;
 			sourceTree = "<group>";
@@ -833,12 +831,12 @@
 				14F842CA113728830096DE57 /* ErrorViewController.m */,
 				14F842CB113728830096DE57 /* FlexiConfigViewController.h */,
 				14F842CC113728830096DE57 /* FlexiConfigViewController.m */,
+				14F842D1113728830096DE57 /* GmailConfigViewController.h */,
 				14F842D2113728830096DE57 /* GmailConfigViewController.m */,
 				14F842CD113728830096DE57 /* FolderListViewController.h */,
 				14F842CE113728830096DE57 /* FolderListViewController.m */,
 				14F842CF113728830096DE57 /* FolderSelectViewController.h */,
 				14F842D0113728830096DE57 /* FolderSelectViewController.m */,
-				14F842D1113728830096DE57 /* GmailConfigViewController.h */,
 				14F842D3113728830096DE57 /* ImapConfigViewController.h */,
 				14F842D4113728830096DE57 /* ImapConfigViewController.m */,
 				14F842D5113728830096DE57 /* MailItemCell.h */,
@@ -1112,7 +1110,6 @@
 				147BBE790F38CA0200345343 /* Settings.bundle in Resources */,
 				1451CEF80F6984EE007AF1C6 /* dist.plist in Resources */,
 				14CEB02F1010987500025F41 /* Localizable.strings in Resources */,
-				14CEB03F1010994D00025F41 /* AccountTypeSelect.xib in Resources */,
 				14CEB0441010997400025F41 /* GmailConfig.xib in Resources */,
 				14CEB0471010998400025F41 /* HomeView.xib in Resources */,
 				14CEB04A1010999200025F41 /* ImapConfig.xib in Resources */,
@@ -1247,6 +1244,7 @@
 				D6A08F3316A9E0410074B7C5 /* Intro_iPad.xib in Resources */,
 				D6A08F3516A9E3900074B7C5 /* AccountTypeSelect_iPad.xib in Resources */,
 				D6A08F3916A9E6B60074B7C5 /* Attachment_iPad.xib in Resources */,
+				D60CF688179E4205002E460B /* AccountTypeSelect.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1346,16 +1344,6 @@
 				146CAC77105D60FC003D2E99 /* French */,
 			);
 			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		14CEB03E1010994D00025F41 /* AccountTypeSelect.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				14CEB0301010994700025F41 /* English */,
-				14D09BC710B22EFE0003F006 /* German */,
-				14D09BC810B22F020003F006 /* French */,
-			);
-			name = AccountTypeSelect.xib;
 			sourceTree = "<group>";
 		};
 		14CEB0431010997400025F41 /* GmailConfig.xib */ = {

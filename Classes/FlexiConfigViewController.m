@@ -4,7 +4,7 @@
 //  Displays login screen to the user ...
 //
 //  Created by Liangjun Jiang on 1/22/09.
-//  Copyright 2010 Google Inc.
+//  Copyright LJApps Inc.
 //  
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.

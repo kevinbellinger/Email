@@ -22,7 +22,7 @@
 
 @implementation ReMailAppDelegate
 
-//@synthesize window;
+@synthesize window;
 @synthesize pushSetupScreen;
 
 
@@ -141,12 +141,7 @@
 
 -(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary*)options {
     
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        NSLog(@"window :%@",self.window);
-        
-    }
-    
-	[NSThread setThreadPriority:1.0];
+   [NSThread setThreadPriority:1.0];
 	
 	// set path for log output to send home
 //	[self setImapErrorLogPath];
@@ -162,13 +157,8 @@
 	
 	BOOL firstSync = [AppSettings firstSync];
 	
-//    UINavigationController *navController = (UINavigationController *)self.window.rootViewController;
+    UINavigationController *navController = (UINavigationController *)self.window.rootViewController;
    
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Storyboard_iPhone" bundle:nil];
-     UINavigationController *navController = (UINavigationController *)[storyBoard instantiateInitialViewController];
-     NSLog(@"rootviewController : %@",navController);
-    
-    
     
 	if(!firstSync) {
         HomeViewController *homeController = [[HomeViewController alloc] initWithNibName:@"HomeView" bundle:nil];
@@ -184,9 +174,21 @@
 	} else {
 		// already set up - let's go to the home screen
       	[AppSettings setDatastoreVersion:1];
+        
+        AccountTypeSelectViewController* accountTypeVC = nil;
+        
+        //TODO: Handle iPad
+		accountTypeVC = [[AccountTypeSelectViewController alloc] initWithNibName:@"AccountTypeSelect" bundle:nil];
+        
+        accountTypeVC.firstSetup = YES;
+		accountTypeVC.accountNum = 0;
+		accountTypeVC.newAccount = YES;
+		
+        UINavigationController* navController = [[UINavigationController alloc] initWithRootViewController:accountTypeVC];
+        [self.window addSubview:navController.view];
 	}
 	
-//	[window makeKeyAndVisible];
+	[window makeKeyAndVisible];
 	
 	return YES;
 }

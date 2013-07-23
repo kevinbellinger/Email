@@ -3,7 +3,7 @@
 //  NextMail iPhone Application
 //
 //  Created by Liangjun Jiang on 1/16/09.
-//  Copyright 2010 Google Inc.
+//  Copyright LJApps Inc.
 //  
 
 //
@@ -15,7 +15,7 @@
 @class ReMailViewController;
 
 @interface ReMailAppDelegate : UIResponder <UIApplicationDelegate> {
-//    UIWindow *window;
+    UIWindow *window;
 	id pushSetupScreen;
 }
 

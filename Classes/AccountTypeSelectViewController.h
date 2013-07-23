@@ -14,14 +14,6 @@
 	BOOL showIntro;
 	BOOL newAccount;
 	int accountNum;	
-	
-//	IBOutlet UILabel* rackspaceLabel;
-//	IBOutlet UIButton* rackspaceButton;
-
-//    UILabel* imapLabel;
-//	UIButton* imapButton;
-	
-//	IBOutlet UIButton* buyButton;
 }
 
 @property (assign) BOOL firstSetup;
@@ -30,12 +22,12 @@
 
 //@property (nonatomic,retain) UILabel* rackspaceLabel;
 //@property (nonatomic,retain) UIButton* rackspaceButton;
-@property (nonatomic,weak) IBOutlet UILabel* imapLabel;
-@property (nonatomic,weak) IBOutlet UIButton* imapButton;
+//@property (nonatomic,weak) IBOutlet UILabel* imapLabel;
+//@property (nonatomic,weak) IBOutlet UIButton* imapButton;
 //@property (nonatomic,retain) UIButton* buyButton;
 
-//-(IBAction)gmailClicked;
-//-(IBAction)rackspaceClicked;
-//-(IBAction)imapClicked;
+-(IBAction)gmailClicked;
+-(IBAction)rackspaceClicked;
+-(IBAction)imapClicked;
 //-(IBAction)buyClick;
 @end

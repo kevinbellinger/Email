@@ -3,7 +3,7 @@
 //  Displays home screen to user, manages toolbar UI and responds to sync status updates
 //
 //  Created by Liangjun Jiang on 1/22/09.
-//  Copyright 2010 Google Inc.
+//  Copyright LJApps Inc.
 //  
 
 #import <UIKit/UIKit.h>
