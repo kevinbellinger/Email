@@ -22,7 +22,7 @@
 
 @implementation ReMailAppDelegate
 
-@synthesize window;
+//@synthesize window;
 @synthesize pushSetupScreen;
 
 
@@ -162,8 +162,13 @@
 	
 	BOOL firstSync = [AppSettings firstSync];
 	
-    UINavigationController *navController = (UINavigationController *)self.window.rootViewController;
-    NSLog(@"rootviewController : %@",navController);
+//    UINavigationController *navController = (UINavigationController *)self.window.rootViewController;
+   
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Storyboard_iPhone" bundle:nil];
+     UINavigationController *navController = (UINavigationController *)[storyBoard instantiateInitialViewController];
+     NSLog(@"rootviewController : %@",navController);
+    
+    
     
 	if(!firstSync) {
         HomeViewController *homeController = [[HomeViewController alloc] initWithNibName:@"HomeView" bundle:nil];
@@ -181,7 +186,7 @@
       	[AppSettings setDatastoreVersion:1];
 	}
 	
-	[window makeKeyAndVisible];
+//	[window makeKeyAndVisible];
 	
 	return YES;
 }

@@ -150,26 +150,6 @@ BOOL introShown = NO;
 
 -(void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	
-	// This is what pay us not to do :-)
-//	if(![AppSettings featurePurchased:@"RM_RACKSPACE"]) {
-//		[self.rackspaceLabel setHidden:YES];
-//		[self.rackspaceButton setHidden:YES];
-//	} else {
-//		[self.rackspaceLabel setHidden:NO];
-//		[self.rackspaceButton setHidden:NO];
-//	}
-
-	if(![AppSettings featurePurchased:@"RM_IMAP"]) {
-		[self.imapLabel setHidden:YES];
-		[self.imapButton setHidden:YES];
-	} else {
-		[self.imapLabel setHidden:NO];
-		[self.imapButton setHidden:NO];
-		
-//		[self.buyButton setHidden:YES];
-	}
-	
 	[self.navigationController setToolbarHidden:YES animated:animated];
 }
 

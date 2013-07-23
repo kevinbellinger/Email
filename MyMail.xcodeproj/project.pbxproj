@@ -338,7 +338,6 @@
 		14CEB056101099D700025F41 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/Localizable.strings; sourceTree = "<group>"; };
 		14D09BC710B22EFE0003F006 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/AccountTypeSelect.xib; sourceTree = "<group>"; };
 		14D09BC810B22F020003F006 /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/AccountTypeSelect.xib; sourceTree = "<group>"; };
-		14D74A1510AB7DD10019FB1F /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		14D96BF20FF4362C008F3BCC /* CTCoreMessage+ReMail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CTCoreMessage+ReMail.m"; sourceTree = "<group>"; };
 		14D96BF40FF43639008F3BCC /* CTCoreMessage+ReMail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CTCoreMessage+ReMail.h"; sourceTree = "<group>"; };
 		14D96E100FF5B0B4008F3BCC /* IntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IntroViewController.h; path = Classes/IntroViewController.h; sourceTree = "<group>"; };
@@ -992,7 +991,6 @@
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765070DF74369002DB57D /* CoreGraphics.framework */,
 				14E5E17410853B58007C241E /* AddressBook.framework */,
-				14D74A1510AB7DD10019FB1F /* StoreKit.framework */,
 				200437120F5DFFF9007D450A /* SystemConfiguration.framework */,
 				14DF9DAB105E525000A59D6D /* CoreLocation.framework */,
 				142A6C270FF2C8D800BEF19F /* libiconv.2.dylib */,
@@ -1047,6 +1045,11 @@
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
 						DevelopmentTeam = 8ZMZWMEMPT;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};

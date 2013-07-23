@@ -38,11 +38,9 @@
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSRequiresIPhoneOS</key>
-	<false/>
-	<key>UIMainStoryboardFile~ipad</key>
-	<string>Storyboard_iPad</string>
-	<key>UIMainStoryboardFile~iphone</key>
-	<string>Storyboard_iPhone</string>
+	<true/>
+	<key>NSMainNibFile</key>
+	<string>RootWindow</string>
 	<key>UIPrerenderedIcon</key>
 	<string>true</string>
 	<key>UIRequiresPersistentWiFi</key>
